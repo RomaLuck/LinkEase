@@ -1,0 +1,17 @@
+{
+  "name": "romaluck/app",
+  "description": "description",
+  "minimum-stability": "dev",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "roman",
+      "email": "email@example.com"
+    }
+  ],
+  "require": {
+  },
+  "autoload": {
+    "psr-4": {"\\": "./"}
+  }
+}

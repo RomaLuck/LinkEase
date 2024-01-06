@@ -15,7 +15,7 @@
 
         <div class="col-md-3 text-end">
             <a href="/login" type="button" class="btn btn-outline-primary me-2">Login</a>
-            <a type="button" class="btn btn-primary">Sign-up</a>
+            <a href="/register" type="button" class="btn btn-primary">Sign-up</a>
         </div>
     </div>
 </header>

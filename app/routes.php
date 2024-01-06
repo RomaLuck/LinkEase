@@ -25,5 +25,9 @@ $router->addRoute('GET', '/login', function () {
 //    Middleware::resolve('guest');
     require "Http/controllers/session/create.php";
 });
+$router->addRoute('GET', '/register', function () {
+//    Middleware::resolve('guest');
+    require "Http/controllers/registration/create.php";
+});
 
 $router->matchRoute();

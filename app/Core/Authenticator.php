@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use PDO;
+
 class Authenticator
 {
     /**
@@ -9,10 +11,13 @@ class Authenticator
      */
     public function attempt($email, $password): bool
     {
-        $user = App::resolve(Database::class)
-            ->query('SELECT * FROM users WHERE email=:email', ['email' => $email])
-            ->fetch();
-
+        /**
+         * @var PDO $db
+         */
+        $db = App::resolve(Database::class);
+        $user = $db->query('select * from users where email = :email', [
+            'email' => $email
+        ])->fetch();
         if ($user && password_verify($password, $user['password'])) {
             $this->login(['email' => $email]);
 

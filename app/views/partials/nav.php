@@ -10,12 +10,17 @@
             <li><a href="/" class="nav-link px-2 link-dark">Main</a></li>
             <li><a href="/contact" class="nav-link px-2 link-dark">Contact</a></li>
             <li><a href="/about" class="nav-link px-2 link-dark">About</a></li>
-            <li><a href="/profile" class="nav-link px-2 link-dark">Profile</a></li>
         </ul>
 
         <div class="col-md-3 text-end">
-            <a href="/login" type="button" class="btn btn-outline-primary me-2">Login</a>
-            <a href="/register" type="button" class="btn btn-primary">Sign-up</a>
+            <?php if (!array_key_exists('user', $_SESSION)): ?>
+                <a href="/login" type="button" class="btn btn-outline-primary me-2">Login</a>
+                <a href="/register" type="button" class="btn btn-primary">Sign-up</a>
+            <?php endif; ?>
+            <?php if (array_key_exists('user', $_SESSION)): ?>
+                <a href="/profile" class="btn btn-outline-primary me-2">Profile</a>
+                <a href="/logout" type="button" class="btn btn-outline-primary me-2">Log out</a>
+            <?php endif; ?>
         </div>
     </div>
 </header>

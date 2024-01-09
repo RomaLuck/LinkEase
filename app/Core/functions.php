@@ -34,3 +34,10 @@ function authorize($condition, $status = Response::FORBIDDEN): bool
 
     return true;
 }
+
+#[NoReturn]
+function redirect($path): void
+{
+    header('location: ' . $path);
+    exit();
+}

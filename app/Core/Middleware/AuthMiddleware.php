@@ -1,13 +1,13 @@
 <?php
 
-namespace Http\Middleware;
+namespace Core\Middleware;
 
 use Exception;
 
 require_once "Guest.php";
 require_once "Authenticated.php";
 
-class Middleware
+class AuthMiddleware
 {
     public const MAP = [
         'guest' => Guest::class,

@@ -1,10 +1,7 @@
 <?php
 
+use Core\Middleware\AuthMiddleware;
 use Core\Router;
-use Http\Middleware\Middleware;
-
-require_once "Core/Router.php";
-require_once "Http/Middleware/Middleware.php";
 
 $router = new Router();
 
@@ -18,11 +15,11 @@ $router->addRoute('GET', '/contact', function () {
     require "Http/controllers/contact.php";
 });
 $router->addRoute('GET', '/profile', function () {
-    Middleware::resolve('auth');
+    AuthMiddleware::resolve('auth');
     require "Http/controllers/profile.php";
 });
 $router->addRoute('GET', '/login', function () {
-    Middleware::resolve('guest');
+    AuthMiddleware::resolve('guest');
     require "Http/controllers/session/create.php";
 });
 $router->addRoute('GET', '/logout', function () {
@@ -32,7 +29,7 @@ $router->addRoute('POST', '/session', function () {
     require "Http/controllers/session/store.php";
 });
 $router->addRoute('GET', '/register', function () {
-    Middleware::resolve('guest');
+    AuthMiddleware::resolve('guest');
     require "Http/controllers/registration/create.php";
 });
 $router->addRoute('POST', '/register', function () {

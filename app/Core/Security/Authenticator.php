@@ -1,7 +1,9 @@
 <?php
 
-namespace Core;
+namespace Core\Security;
 
+use Core\App;
+use Core\Database;
 use PDO;
 
 class Authenticator

@@ -1,6 +1,6 @@
 <?php
 
-use Core\Authenticator;
+use Core\Security\Authenticator;
 use Core\Validator;
 
 $email = htmlspecialchars($_POST['email']);

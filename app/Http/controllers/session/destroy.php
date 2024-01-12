@@ -1,6 +1,6 @@
 <?php
 
-use Core\Authenticator;
+use Core\Security\Authenticator;
 
 (new Authenticator)->logout();
 

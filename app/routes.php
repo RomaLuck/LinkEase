@@ -36,6 +36,7 @@ $router->addRoute('POST', '/register', function () {
     require "Http/controllers/registration/store.php";
 });
 $router->addRoute('GET', '/connect/:provider', function ($provider) {
+    AuthMiddleware::resolve('guest');
     require "Http/controllers/oauth/create.php";
 });
 $router->addRoute('GET', '/connect/google/check/:query', function ($query) {

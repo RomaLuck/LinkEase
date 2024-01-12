@@ -1,7 +1,7 @@
 <?php
 
 use Core\App;
-use Core\Authenticator;
+use Core\Security\Authenticator;
 use Core\Database;
 use Core\Validator;
 

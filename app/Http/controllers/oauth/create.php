@@ -1,7 +1,7 @@
 <?php
 
-use Core\OAuthAuthenticator;
-use Core\SocialProviderFactory;
+use Core\Security\OAuthAuthenticator;
+use Core\Security\SocialProviderFactory;
 
 $providerName = $_GET['auth'];
 $provider = SocialProviderFactory::getProvider($providerName);

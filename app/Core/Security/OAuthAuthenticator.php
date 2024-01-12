@@ -1,7 +1,9 @@
 <?php
 
-namespace Core;
+namespace Core\Security;
 
+use Core\App;
+use Core\Database;
 use Exception;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\GoogleUser;
@@ -55,10 +57,12 @@ class OAuthAuthenticator
             ])->fetch();
 
             if ($user) {
+                (new Authenticator())->login(['email' => $email]);
+
                 redirect('/');
             }
 
-            $user = $db->query('INSERT INTO users(username, email, password,oauth_id) VALUES(:username, :email, :password, :oauth_id)', [
+            $user = $db->query('INSERT INTO users(username, email, password, oauth_id) VALUES(:username, :email, :password, :oauth_id)', [
                 'username' => $username,
                 'email' => $email,
                 'password' => password_hash($oauthId, PASSWORD_BCRYPT),

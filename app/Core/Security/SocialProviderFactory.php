@@ -1,6 +1,6 @@
 <?php
 
-namespace Core;
+namespace Core\Security;
 
 use InvalidArgumentException;
 use League\OAuth2\Client\Provider\AbstractProvider;

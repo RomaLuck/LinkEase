@@ -35,5 +35,11 @@ $router->addRoute('GET', '/register', function () {
 $router->addRoute('POST', '/register', function () {
     require "Http/controllers/registration/store.php";
 });
+$router->addRoute('GET', '/connect/:provider', function ($provider) {
+    require "Http/controllers/oauth/create.php";
+});
+$router->addRoute('GET', '/connect/google/check/:query', function ($query) {
+    require "Http/controllers/oauth/store.php";
+});
 
 $router->matchRoute();

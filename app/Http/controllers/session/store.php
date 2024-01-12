@@ -21,7 +21,7 @@ if (!empty($errors)) {
     exit();
 }
 
-$signedIn = (new Authenticator())->attempt($email, $password);
+$signedIn = (new Authenticator())->authenticate($email, $password);
 
 if (!$signedIn) {
     throw new Exception('No matching account found for that email address and password.');

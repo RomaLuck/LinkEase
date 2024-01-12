@@ -9,7 +9,7 @@ class Authenticator
     /**
      * @throws \Exception
      */
-    public function attempt($email, $password): bool
+    public function authenticate($email, $password): bool
     {
         /**
          * @var PDO $db

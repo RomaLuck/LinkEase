@@ -2,7 +2,6 @@
 
 namespace integration;
 
-use Core\Router;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
@@ -13,21 +12,19 @@ require "Core/functions.php";
 
 class RouterTest extends TestCase
 {
-    public const MAIN_URL = 'http://localhost:8000';
-    public ?Router $router;
-    public Client $client;
+    private const MAIN_URL = 'http://localhost:8000';
+    private ?Client $client;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->router = new Router();
         $this->client = new Client();
     }
 
     protected function tearDown(): void
     {
         parent::tearDown();
-        $this->router = null;
+        $this->client = null;
     }
 
     /**
@@ -49,7 +46,7 @@ class RouterTest extends TestCase
     {
         $this->expectException(ClientException::class);
 
-        $result = $this->client->get(self::MAIN_URL . '/test')->getStatusCode();
+        $result = $this->client->get(self::MAIN_URL . '/nonExistentRoute')->getStatusCode();
         $this->assertEquals('404', $result);
     }
 

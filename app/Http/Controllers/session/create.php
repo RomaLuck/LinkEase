@@ -1,5 +1,5 @@
 <?php
 
-namespace Http\controllers\session;
+namespace Http\Controllers\session;
 
 view('session/create.view.php');

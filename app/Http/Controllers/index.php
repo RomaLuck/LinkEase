@@ -1,5 +1,5 @@
 <?php
 
-namespace Http\controllers;
+namespace Http\Controllers;
 
 view('index.view.php');

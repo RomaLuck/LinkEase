@@ -16,15 +16,15 @@ if (!Validator::string($password, 6, 255)) {
     $errors['password'] = 'The password must contain at least 6 characters';
 }
 
-if (!empty($errors)) {
-    view('session/create.view.php', ['errors' => $errors]);
-    exit();
-}
-
 $signedIn = (new Authenticator())->authenticate($email, $password);
 
 if (!$signedIn) {
-    throw new Exception('No matching account found for that email address and password.');
+    $errors['signedIn'] = 'No matching account found for that email address and password.';
+}
+
+if (!empty($errors)) {
+    view('session/create.view.php', ['errors' => $errors]);
+    exit();
 }
 
 redirect('/');

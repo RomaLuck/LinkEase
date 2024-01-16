@@ -62,11 +62,10 @@
                     </div>
 
                     <ul class="mt-3">
-                        <?php if (isset($errors['email'])): ?>
-                            <li class="small text-danger"><?= $errors['email'] ?></li>
-                        <?php endif; ?>
-                        <?php if (isset($errors['password'])): ?>
-                            <li class="small text-danger"><?= $errors['password'] ?></li>
+                        <?php if (!empty($errors)): ?>
+                            <?php foreach ($errors as $error): ?>
+                                <li class="small text-danger"><?= $error ?></li>
+                            <?php endforeach; ?>
                         <?php endif; ?>
                     </ul>
 

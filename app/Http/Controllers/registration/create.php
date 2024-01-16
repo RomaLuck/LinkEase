@@ -1,5 +1,5 @@
 <?php
 
-namespace Http\controllers\registration;
+namespace Http\Controllers\registration;
 
 view('registration/create.view.php');

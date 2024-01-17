@@ -10,7 +10,7 @@
                 <form action="/session" method="POST">
                     <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
                         <p class="lead fw-normal mb-0 me-3">Sign in with</p>
-                        <a href="/connect/?auth=google" class="btn btn-primary btn-floating mx-1">
+                        <a href="/connect/oauth?auth=google" class="btn btn-primary btn-floating mx-1">
                             <i class="fab fa-google"></i>
                         </a>
 

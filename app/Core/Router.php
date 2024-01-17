@@ -8,11 +8,11 @@ class Router
 {
     protected array $routes = [];
 
-    public function addRoute(string $method, string $url, mixed $controller): static
+    public function addRoute(string $method, string $path, mixed $controller): static
     {
         $this->routes[] = [
             'method' => $method,
-            'url' => $url,
+            'path' => $path,
             'controller' => $controller,
             'middleware' => null
         ];
@@ -32,17 +32,14 @@ class Router
      */
     public function matchRoute(): void
     {
-        $method = $_SERVER['REQUEST_METHOD'];
-        $url = $_SERVER['REQUEST_URI'];
+        $method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
+        $path = parse_url($_SERVER['REQUEST_URI'])['path'];
+
         foreach ($this->routes as $route) {
-            if ($route['url'] === $url && $route['method'] === $method) {
-                $pattern = preg_replace('/\/:([^\/]+)/', '/(?P<$1>[^/]+)', $route['url']);
-                if (preg_match('#^' . $pattern . '$#', $url, $matches)) {
-                    AuthMiddleware::resolve($route['middleware']);
-                    $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
-                    $route['controller'](...$params);
-                    return;
-                }
+            if ($route['method'] === $method && $route['path'] === $path) {
+                AuthMiddleware::resolve($route['middleware']);
+                call_user_func($route['controller']);
+                return;
             }
         }
         abort(404);

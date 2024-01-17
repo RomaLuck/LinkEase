@@ -14,6 +14,6 @@ class ProfileController extends Controller
             ['email' => $_SESSION['user']['email']]
         )->fetch();
 
-        view('profile.view.php', ['userData' => $userData]);
+        $this->render('profile.view.php', ['userData' => $userData]);
     }
 }

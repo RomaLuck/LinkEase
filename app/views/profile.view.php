@@ -14,7 +14,7 @@
                                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                     <div class="form-outline flex-fill mb-0">
                                         <input type="text" id="form3Example1c" class="form-control" value="<?= $userData['username'] ?>"/>
-                                        <label class="form-label" for="form3Example1c">Your Name</label>
+                                        <label class="form-label small opacity-50" for="form3Example1c">Your Name</label>
                                     </div>
                                 </div>
 
@@ -22,7 +22,7 @@
                                     <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                                     <div class="form-outline flex-fill mb-0">
                                         <input type="email" name="email" id="form3Example3c" class="form-control" value="<?= $userData['email'] ?>"/>
-                                        <label class="form-label" for="form3Example3c">Your Email</label>
+                                        <label class="form-label small opacity-50" for="form3Example3c">Your Email</label>
                                     </div>
                                 </div>
 
@@ -31,7 +31,7 @@
                                     <div class="form-outline flex-fill mb-0">
                                         <input type="password" name="password" id="form3Example4c"
                                                class="form-control"/>
-                                        <label class="form-label" for="form3Example4c">Password</label>
+                                        <label class="form-label small opacity-50" for="form3Example4c">Password</label>
                                     </div>
                                 </div>
 
@@ -39,7 +39,7 @@
                                     <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                                     <div class="form-outline flex-fill mb-0">
                                         <input type="password" id="form3Example4cd" class="form-control"/>
-                                        <label class="form-label" for="form3Example4cd">Repeat your password</label>
+                                        <label class="form-label small opacity-50" for="form3Example4cd">Repeat your password</label>
                                     </div>
                                 </div>
 

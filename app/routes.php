@@ -21,7 +21,7 @@ $router->addRoute('GET', '/contact', new ContactController());
 $router->addRoute('GET', '/profile', new ProfileController())->middleware('auth');
 
 $router->addRoute('GET', '/login', new LoginViewController())->middleware('guest');
-$router->addRoute('GET', '/logout', new AuthSessionDestroyController());
+$router->addRoute('DELETE', '/session', new AuthSessionDestroyController());
 $router->addRoute('POST', '/session', new AuthSessionCreateController());
 
 $router->addRoute('GET', '/register', new RegistrationViewController())->middleware('guest');

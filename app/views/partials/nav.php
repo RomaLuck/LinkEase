@@ -12,14 +12,19 @@
             <li><a href="/about" class="nav-link px-2 link-dark">About</a></li>
         </ul>
 
-        <div class="col-md-3 text-end">
+        <div class="col-md-3 d-flex flex-row-reverse">
             <?php if (!array_key_exists('user', $_SESSION)): ?>
-                <a href="/login" type="button" class="btn btn-outline-primary me-2">Login</a>
                 <a href="/register" type="button" class="btn btn-primary">Sign-up</a>
+                <a href="/login" type="button" class="btn btn-outline-primary me-2">Login</a>
             <?php endif; ?>
             <?php if (array_key_exists('user', $_SESSION)): ?>
+                <div>
+                    <form method="POST" action="/session">
+                        <input type="hidden" name="_method" value="DELETE"/>
+                        <button class="btn btn-outline-primary me-2">Log Out</button>
+                    </form>
+                </div>
                 <a href="/profile" class="btn btn-outline-primary me-2">Profile</a>
-                <a href="/logout" type="button" class="btn btn-outline-primary me-2">Log out</a>
             <?php endif; ?>
         </div>
     </div>

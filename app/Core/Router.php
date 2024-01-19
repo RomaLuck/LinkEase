@@ -38,7 +38,7 @@ class Router
         foreach ($this->routes as $route) {
             if ($route['method'] === $method && $route['path'] === $path) {
                 AuthMiddleware::resolve($route['middleware']);
-                call_user_func($route['controller']);
+                call_user_func($route['controller'], new Container());
                 return;
             }
         }

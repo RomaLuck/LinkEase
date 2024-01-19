@@ -2,19 +2,19 @@
 
 namespace Http\Controllers;
 
-use Core\App;
+use Core\Container;
 use Core\Database;
 use Core\Session;
 
 class ProfileController extends Controller
 {
-    public function __invoke(): void
+    public function __invoke(Container $container): void
     {
         $errors = [];
         $userData = [];
 
         try {
-            $userData = App::resolve(Database::class)->query(
+            $userData = $container->get(Database::class)?->query(
                 'SELECT * FROM users WHERE id = :id',
                 [
                     'id' => Session::get('user')['id']

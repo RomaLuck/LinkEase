@@ -2,28 +2,41 @@
 
 namespace Core;
 
-use Exception;
+use Core\Security\Authenticator;
+use Core\Security\OAuthAuthenticator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\DependencyInjection\Reference;
 
-class Container
+class Container extends ContainerBuilder
 {
-    protected array $bindings = [];
-
-    public function bind($key, $resolver): void
+    public function __construct(ParameterBagInterface $parameterBag = null)
     {
-        $this->bindings[$key] = $resolver;
+        parent::__construct($parameterBag);
+        $this->registerParameters();
+        $this->registerServices();
     }
 
-    /**
-     * @throws Exception
-     */
-    public function resolve($key)
+    private function registerServices(): void
     {
-        if (!array_key_exists($key, $this->bindings)) {
-            throw new Exception("No matching binding found for {$key}");
-        }
+        $this->register(Database::class, Database::class)
+            ->addArgument('%db_url%')
+            ->addArgument('%db_user%')
+            ->addArgument('%db_password%');
 
-        $resolver = $this->bindings[$key];
+        $this->register(Authenticator::class, Authenticator::class)
+            ->addArgument(new Reference(Database::class));
 
-        return $resolver();
+        $this->register(OAuthAuthenticator::class, OAuthAuthenticator::class)
+            ->addArgument('provider')
+            ->addArgument(new Reference(Database::class))
+            ->addArgument(new Reference(Authenticator::class));
+    }
+
+    private function registerParameters(): void
+    {
+        $this->setParameter('db_url', $_ENV['DATABASE_URL']);
+        $this->setParameter('db_user', $_ENV['DB_USER']);
+        $this->setParameter('db_password', $_ENV['DB_PASSWORD']);
     }
 }

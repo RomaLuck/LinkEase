@@ -2,23 +2,21 @@
 
 namespace Core\Security;
 
-use Core\App;
 use Core\Database;
 use Core\Session;
-use PDO;
 
 class Authenticator
 {
+    public function __construct(private Database $database)
+    {
+    }
+
     /**
      * @throws \Exception
      */
     public function authenticate($email, $password): bool
     {
-        /**
-         * @var PDO $db
-         */
-        $db = App::resolve(Database::class);
-        $user = $db->query('select * from users where email = :email', [
+        $user = $this->database->query('select * from users where email = :email', [
             'email' => $email
         ])->fetch();
         if ($user && password_verify($password, $user['password'])) {

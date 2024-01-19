@@ -15,7 +15,8 @@
     "google/apiclient": "^2.15.0",
     "league/oauth2-google": "dev-main",
     "guzzlehttp/guzzle": "7.9.x-dev",
-    "ext-fileinfo": "*"
+    "ext-fileinfo": "*",
+    "symfony/dependency-injection": "7.1.x-dev"
   },
   "autoload": {
     "psr-4": {

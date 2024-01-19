@@ -2,6 +2,7 @@
 
 namespace Http\Controllers\session;
 
+use Core\Container;
 use Core\Security\Authenticator;
 use Core\Validator;
 use Http\Controllers\Controller;
@@ -13,7 +14,7 @@ class AuthSessionCreateController extends Controller
      * @throws \Exception
      */
     #[NoReturn]
-    public function __invoke(): void
+    public function __invoke(Container $container): void
     {
         $email = htmlspecialchars($_POST['email']);
         $password = htmlspecialchars($_POST['password']);
@@ -28,7 +29,7 @@ class AuthSessionCreateController extends Controller
             $errors['password'] = 'The password must contain at least 6 characters';
         }
 
-        $signedIn = (new Authenticator())->authenticate($email, $password);
+        $signedIn = $container->get(Authenticator::class)?->authenticate($email, $password);
         if (!$signedIn) {
             $errors['signedIn'] = 'No matching account found for that email address and password.';
         }

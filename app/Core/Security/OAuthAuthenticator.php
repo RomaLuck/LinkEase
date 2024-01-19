@@ -2,17 +2,19 @@
 
 namespace Core\Security;
 
-use Core\App;
 use Core\Database;
 use Core\Session;
 use Exception;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\GoogleUser;
-use PDO;
 
 class OAuthAuthenticator
 {
-    public function __construct(private AbstractProvider $provider)
+    public function __construct(
+        private AbstractProvider $provider,
+        private Database         $database,
+        private Authenticator    $authenticator
+    )
     {
     }
 
@@ -48,29 +50,25 @@ class OAuthAuthenticator
             $username = $ownerDetails->getName();
             $oauthId = $ownerDetails->getId();
 
-            /**
-             * @var PDO $db
-             */
-            $db = App::resolve(Database::class);
-            $user = $db->query('SELECT * FROM users WHERE email = :email AND oauth_id = :oauthId', [
+            $user = $this->database->query('SELECT * FROM users WHERE email = :email AND oauth_id = :oauthId', [
                 'email' => $email,
                 'oauthId' => $oauthId,
             ])->fetch();
 
             if ($user) {
-                (new Authenticator())->login($user);
+                $this->authenticator->login($user);
 
                 redirect('/');
             }
 
-            $db->query('INSERT INTO users(username, email, password, oauth_id) VALUES(:username, :email, :password, :oauth_id)', [
+            $this->database->query('INSERT INTO users(username, email, password, oauth_id) VALUES(:username, :email, :password, :oauth_id)', [
                 'username' => $username,
                 'email' => $email,
                 'password' => password_hash($oauthId, PASSWORD_BCRYPT),
                 'oauth_id' => $oauthId,
             ]);
 
-            (new Authenticator())->login($user);
+            $this->authenticator->login($user);
 
             redirect('/');
         } catch (Exception $e) {

@@ -9,11 +9,23 @@ class ProfileController extends Controller
 {
     public function __invoke(): void
     {
-        $userData = App::resolve(Database::class)->query(
-            'SELECT * FROM users WHERE email = :email',
-            ['email' => $_SESSION['user']['email']]
-        )->fetch();
+        $errors = [];
+        $userData = [];
 
-        $this->render('profile.view.php', ['userData' => $userData]);
+        try {
+            $userData = App::resolve(Database::class)->query(
+                'SELECT * FROM users WHERE id = :id',
+                [
+                    'id' => $_SESSION['user']['id']
+                ]
+            )->fetch();
+        } catch (\Exception $e) {
+            $errors[] = $e->getMessage();
+        }
+
+        $this->render('profile.view.php', [
+            'userData' => $userData,
+            'errors' => $errors,
+        ]);
     }
 }

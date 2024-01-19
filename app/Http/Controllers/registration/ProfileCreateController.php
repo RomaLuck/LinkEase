@@ -9,7 +9,7 @@ use Core\Validator;
 use Http\Controllers\Controller;
 use JetBrains\PhpStorm\NoReturn;
 
-class RegistrationController extends Controller
+class ProfileCreateController extends Controller
 {
     #[NoReturn]
     public function __invoke(): void
@@ -54,13 +54,13 @@ class RegistrationController extends Controller
             redirect('/');
         }
 
-        $user = $db->query('INSERT INTO users(username, email, password) VALUES(:username, :email, :password)', [
+        $db->query('INSERT INTO users(username, email, password) VALUES(:username, :email, :password)', [
             'username' => $username,
             'email' => $email,
             'password' => password_hash($password, PASSWORD_BCRYPT)
         ]);
 
-        (new Authenticator())->login(['email' => $email]);
+        (new Authenticator())->login($user);
 
         redirect('/');
     }

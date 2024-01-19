@@ -7,7 +7,8 @@ use Http\Controllers\HomeController;
 use Http\Controllers\oauth\ConnectActionController;
 use Http\Controllers\oauth\ConnectionActionCheckController;
 use Http\Controllers\ProfileController;
-use Http\Controllers\registration\RegistrationController;
+use Http\Controllers\ProfileUpdateController;
+use Http\Controllers\registration\ProfileCreateController;
 use Http\Controllers\registration\RegistrationViewController;
 use Http\Controllers\session\LoginViewController;
 use Http\Controllers\session\AuthSessionDestroyController;
@@ -25,7 +26,8 @@ $router->addRoute('DELETE', '/session', new AuthSessionDestroyController());
 $router->addRoute('POST', '/session', new AuthSessionCreateController());
 
 $router->addRoute('GET', '/register', new RegistrationViewController())->middleware('guest');
-$router->addRoute('POST', '/register', new RegistrationController());
+$router->addRoute('POST', '/register', new ProfileCreateController());
+$router->addRoute('UPDATE', '/profile', new ProfileUpdateController());
 
 $router->addRoute('GET', '/connect/oauth', new ConnectActionController())->middleware('guest');
 $router->addRoute('GET', '/connect/oauth/check', new ConnectionActionCheckController());

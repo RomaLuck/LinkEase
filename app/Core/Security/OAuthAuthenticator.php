@@ -57,19 +57,19 @@ class OAuthAuthenticator
             ])->fetch();
 
             if ($user) {
-                (new Authenticator())->login(['email' => $email]);
+                (new Authenticator())->login($user);
 
                 redirect('/');
             }
 
-            $user = $db->query('INSERT INTO users(username, email, password, oauth_id) VALUES(:username, :email, :password, :oauth_id)', [
+            $db->query('INSERT INTO users(username, email, password, oauth_id) VALUES(:username, :email, :password, :oauth_id)', [
                 'username' => $username,
                 'email' => $email,
                 'password' => password_hash($oauthId, PASSWORD_BCRYPT),
                 'oauth_id' => $oauthId,
             ]);
 
-            (new Authenticator())->login(['email' => $email]);
+            (new Authenticator())->login($user);
 
             redirect('/');
         } catch (Exception $e) {

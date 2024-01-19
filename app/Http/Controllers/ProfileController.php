@@ -4,6 +4,7 @@ namespace Http\Controllers;
 
 use Core\App;
 use Core\Database;
+use Core\Session;
 
 class ProfileController extends Controller
 {
@@ -16,7 +17,7 @@ class ProfileController extends Controller
             $userData = App::resolve(Database::class)->query(
                 'SELECT * FROM users WHERE id = :id',
                 [
-                    'id' => $_SESSION['user']['id']
+                    'id' => Session::get('user')['id']
                 ]
             )->fetch();
         } catch (\Exception $e) {

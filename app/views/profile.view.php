@@ -1,4 +1,6 @@
-<?php require "partials/head.php" ?>
+<?php use Core\Session;
+
+require "partials/head.php" ?>
 <?php require "partials/nav.php" ?>
 <div class="container">
     <div class="row d-flex justify-content-center align-items-center">
@@ -62,8 +64,8 @@
                                 </div>
                             </form>
                             <ul class="mt-3">
-                                <?php if (!empty($_SESSION['_flash']['errors'])): ?>
-                                    <?php foreach ($_SESSION['_flash']['errors'] as $error): ?>
+                                <?php if (!empty(Session::get('_flash')['errors'])): ?>
+                                    <?php foreach (Session::get('_flash')['errors'] as $error): ?>
                                         <li class="small text-danger"><?= $error ?></li>
                                     <?php endforeach; ?>
                                 <?php endif; ?>

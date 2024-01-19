@@ -4,6 +4,7 @@ namespace Core\Security;
 
 use Core\App;
 use Core\Database;
+use Core\Session;
 use Exception;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\GoogleUser;
@@ -19,7 +20,7 @@ class OAuthAuthenticator
     {
         if (empty($_GET['code'])) {
             $authUrl = $this->provider->getAuthorizationUrl();
-            $_SESSION['oauth2state'] = $this->provider->getState();
+            Session::put('oauth2state', $this->provider->getState());
             redirect($authUrl);
         }
     }
@@ -30,8 +31,8 @@ class OAuthAuthenticator
             exit('Got error: ' . htmlspecialchars($_GET['error'], ENT_QUOTES, 'UTF-8'));
         }
 
-        if (empty($_GET['state']) || ($_GET['state'] !== $_SESSION['oauth2state'])) {
-            unset($_SESSION['oauth2state']);
+        if (empty($_GET['state']) || ($_GET['state'] !== Session::get('oauth2state'))) {
+            Session::unset('oauth2state');
             exit('Invalid state');
         }
 

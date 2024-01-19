@@ -4,6 +4,7 @@ namespace Core\Security;
 
 use Core\App;
 use Core\Database;
+use Core\Session;
 use PDO;
 
 class Authenticator
@@ -31,7 +32,7 @@ class Authenticator
 
     public function login(array $user): void
     {
-        $_SESSION['user'] = ['id' => $user['id']];
+        Session::put('user', ['id' => $user['id']]);
 
         session_regenerate_id(true);
     }

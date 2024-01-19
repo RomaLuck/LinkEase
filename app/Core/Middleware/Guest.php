@@ -2,11 +2,13 @@
 
 namespace Core\Middleware;
 
+use Core\Session;
+
 class Guest
 {
     public function handle(): void
     {
-        if (array_key_exists('user', $_SESSION)) {
+        if (Session::has('user')) {
             header('location: /');
             exit();
         }

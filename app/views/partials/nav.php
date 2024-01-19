@@ -13,11 +13,13 @@
         </ul>
 
         <div class="col-md-3 d-flex flex-row-reverse">
-            <?php if (!array_key_exists('user', $_SESSION)): ?>
+            <?php use Core\Session;
+
+            if (!Session::has('user')): ?>
                 <a href="/register" type="button" class="btn btn-primary">Sign-up</a>
                 <a href="/login" type="button" class="btn btn-outline-primary me-2">Login</a>
             <?php endif; ?>
-            <?php if (array_key_exists('user', $_SESSION)): ?>
+            <?php if (Session::has('user')): ?>
                 <div>
                     <form method="POST" action="/session">
                         <input type="hidden" name="_method" value="DELETE"/>

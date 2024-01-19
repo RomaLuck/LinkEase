@@ -2,6 +2,7 @@
 
 namespace Http\Controllers;
 
+use Core\Session;
 use JetBrains\PhpStorm\NoReturn;
 
 class Controller
@@ -17,7 +18,7 @@ class Controller
     protected function redirect($path, $attributes = []): void
     {
         foreach ($attributes as $attribute) {
-            $_SESSION['_flash']['errors'] = $attribute;
+            Session::flash('errors', $attribute);
         }
 
         header('location: ' . $path);

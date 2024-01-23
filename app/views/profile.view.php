@@ -11,7 +11,7 @@ require "partials/head.php" ?>
                         <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
                             <form class="mx-1 mx-md-4" action="/profile" method="post" enctype="multipart/form-data">
-                                <input type="hidden" name="_method" value="UPDATE">
+                                <input type="hidden" name="_method" value="PATCH">
 
                                 <div class="d-flex flex-row align-items-center mb-4">
                                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
@@ -55,7 +55,7 @@ require "partials/head.php" ?>
                                 <div class="d-flex flex-row align-items-center mb-4">
                                     <i class="fa-solid fa-image fa-lg me-3 fa-fw"></i>
                                     <div class="form-outline flex-fill mb-0">
-                                        <input type="file" name="file-name" class="form-control">
+                                        <input type="file" name="upfile" class="form-control">
                                     </div>
                                 </div>
 
@@ -64,16 +64,16 @@ require "partials/head.php" ?>
                                 </div>
                             </form>
                             <ul class="mt-3">
-                                <?php if (!empty(Session::get('_flash')['errors'])): ?>
-                                    <?php foreach (Session::get('_flash')['errors'] as $error): ?>
-                                        <li class="small text-danger"><?= $error ?></li>
+                                <?php if (!empty(Session::getFlashes())): ?>
+                                    <?php foreach (Session::getFlashes() as $key => $message): ?>
+                                        <li class="small text-<?= $key ?>"><?= $message ?></li>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
                             </ul>
                         </div>
                         <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
 
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                            <img src="<?= $userData['file_path'] ?? 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp' ?>"
                                  class="img-fluid" alt="Sample image">
 
                         </div>

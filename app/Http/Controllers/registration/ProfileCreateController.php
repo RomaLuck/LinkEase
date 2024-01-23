@@ -59,8 +59,8 @@ class ProfileCreateController extends Controller
             'password' => password_hash($password, PASSWORD_BCRYPT)
         ]);
 
-        $container->get(Authenticator::class)?->login($user);
+        $container->get(Authenticator::class)?->authenticate($email, $password);
 
-        redirect('/');
+        $this->redirect('/', ['success' => 'User has been registered successfully']);
     }
 }

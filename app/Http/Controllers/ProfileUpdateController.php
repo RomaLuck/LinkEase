@@ -2,7 +2,7 @@
 
 namespace Http\Controllers;
 
-use Core\App;
+use Core\Container;
 use Core\Database;
 use Core\FileUploader;
 use Core\Session;
@@ -10,8 +10,13 @@ use Core\Validator;
 
 class ProfileUpdateController extends Controller
 {
-    public function __invoke(): void
+    /**
+     * @throws \Exception
+     */
+    public function __invoke(Container $container): void
     {
+        $db = $container->get(Database::class);
+
         $errors = [];
 
         try {
@@ -19,28 +24,38 @@ class ProfileUpdateController extends Controller
             $username = htmlspecialchars($_POST['username']);
             $password = htmlspecialchars($_POST['password']);
             $matchPassword = htmlspecialchars($_POST['match-password']);
-            $fileName = $_POST['file-name'] ?? '';
+
+
+            $fileName = $_FILES['upfile']['name'] ?? '';
             if ($fileName !== '') {
-                $fileName = FileUploader::upload('public/upload');
+                $fileName = FileUploader::upload('public/uploads');
+
+                $db->query(
+                    'UPDATE users SET file_path = :file_path WHERE id = :id',
+                    [
+                        'file_path' => $fileName,
+                        'id' => Session::get('user')['id'],
+                    ]
+                );
             }
 
             if (!Validator::email($newEmail)) {
-                $errors[] = 'Email is not valid';
+                $errors['danger'] = 'Email is not valid';
             }
 
             if (!Validator::string($username, 2, 255)) {
-                $errors[] = 'The name must contain at least 2 characters';
+                $errors['danger'] = 'The name must contain at least 2 characters';
             }
 
             if (!Validator::string($password, 5, 255) || !Validator::string($matchPassword, 5, 255)) {
-                $errors[] = 'The password must contain at least 6 characters';
+                $errors['danger'] = 'The password must contain at least 6 characters';
             }
 
             if (!Validator::matchPasswords($password, $matchPassword)) {
-                $errors[] = 'The passwords do not match';
+                $errors['danger'] = 'The passwords do not match';
             }
-        } catch (\Exception $e) {
-            $errors[] = $e->getMessage();
+        } catch (\RuntimeException $e) {
+            $errors['danger'] = $e->getMessage();
         }
 
         if (!empty($errors)) {
@@ -49,17 +64,16 @@ class ProfileUpdateController extends Controller
             ]);
         }
 
-        $db = App::resolve(Database::class);
         $db->query(
-            'UPDATE users SET email = :email, username = :username, password = :password, file_path = :file_path WHERE id = :id',
+            'UPDATE users SET email = :email, username = :username, password = :password WHERE id = :id',
             [
                 'email' => $newEmail,
                 'username' => $username,
                 'password' => password_hash($password, PASSWORD_BCRYPT),
-                'file_path' => $fileName ?? '',
                 'id' => Session::get('user')['id'],
             ]
         );
-        $this->redirect('profile');
+
+        $this->redirect('profile', ['success' => 'Profile has been updated successfully']);
     }
 }

@@ -19,6 +19,22 @@ class Session
         return $_SESSION['_flash'][$key] ?? $_SESSION[$key] ?? $default;
     }
 
+    public static function getFlashes(): array
+    {
+        $result = [];
+        foreach ($_SESSION['_flash'] ?? [] as $flashKey => $flash) {
+            if (is_array($flash)) {
+                foreach ($flash as $key => $message) {
+                    $result[$key] = $message;
+                }
+            } else {
+                $result[$flashKey] = $flash;
+            }
+        }
+
+        return $result;
+    }
+
     public static function unset($key): void
     {
         unset($_SESSION[$key]);

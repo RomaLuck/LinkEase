@@ -27,7 +27,7 @@ $router->addRoute('POST', '/session', new AuthSessionCreateController());
 
 $router->addRoute('GET', '/register', new RegistrationViewController())->middleware('guest');
 $router->addRoute('POST', '/register', new ProfileCreateController());
-$router->addRoute('UPDATE', '/profile', new ProfileUpdateController());
+$router->addRoute('PATCH', '/profile', new ProfileUpdateController());
 
 $router->addRoute('GET', '/connect/oauth', new ConnectActionController())->middleware('guest');
 $router->addRoute('GET', '/connect/oauth/check', new ConnectionActionCheckController());

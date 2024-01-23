@@ -15,10 +15,10 @@ class Controller
     }
 
     #[NoReturn]
-    protected function redirect($path, $attributes = []): void
+    protected function redirect($path, $messages = []): void
     {
-        foreach ($attributes as $attribute) {
-            Session::flash('errors', $attribute);
+        foreach ($messages as $messageKey => $message) {
+            Session::flash($messageKey, $message);
         }
 
         header('location: ' . $path);

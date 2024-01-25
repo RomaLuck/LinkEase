@@ -42,6 +42,6 @@ class Router
                 return;
             }
         }
-        abort(404);
+        abort(Response::NOT_FOUND);
     }
 }

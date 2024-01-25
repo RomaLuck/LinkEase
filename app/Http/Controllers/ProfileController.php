@@ -11,7 +11,6 @@ class ProfileController extends Controller
     public function __invoke(Container $container): void
     {
         $errors = [];
-        $userData = [];
 
         try {
             $userData = $container->get(Database::class)?->query(
@@ -25,7 +24,7 @@ class ProfileController extends Controller
         }
 
         $this->render('profile.view.php', [
-            'userData' => $userData,
+            'userData' => $userData ?? [],
             'errors' => $errors,
         ]);
     }

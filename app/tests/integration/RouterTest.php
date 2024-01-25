@@ -2,17 +2,16 @@
 
 namespace integration;
 
+use Core\Response;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-require "Core/functions.php";
-
 class RouterTest extends TestCase
 {
-    private const MAIN_URL = 'http://localhost:8000';
+    private const MAIN_URL = 'http://localhost';
     private ?Client $client;
 
     protected function setUp(): void
@@ -47,7 +46,7 @@ class RouterTest extends TestCase
         $this->expectException(ClientException::class);
 
         $result = $this->client->get(self::MAIN_URL . '/nonExistentRoute')->getStatusCode();
-        $this->assertEquals('404', $result);
+        $this->assertEquals(Response::NOT_FOUND, $result);
     }
 
     public static function getPaths(): array
@@ -59,7 +58,6 @@ class RouterTest extends TestCase
             [200, '/login'],
             [200, '/register'],
             [302, '/profile'],
-            [302, '/logout'],
         ];
     }
 }

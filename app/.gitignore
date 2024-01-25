@@ -1,4 +1,5 @@
 .env
+phpunit.xml
 /.idea/
 /var/
 /node_modules/

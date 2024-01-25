@@ -4,6 +4,7 @@ namespace Core;
 
 use Core\Security\Authenticator;
 use Core\Security\OAuthAuthenticator;
+use League\OAuth2\Client\Provider\AbstractProvider;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\DependencyInjection\Reference;
@@ -28,7 +29,6 @@ class Container extends ContainerBuilder
             ->addArgument(new Reference(Database::class));
 
         $this->register(OAuthAuthenticator::class, OAuthAuthenticator::class)
-            ->addArgument('provider')
             ->addArgument(new Reference(Database::class))
             ->addArgument(new Reference(Authenticator::class));
     }

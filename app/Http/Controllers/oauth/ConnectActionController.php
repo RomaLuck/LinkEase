@@ -6,6 +6,7 @@ use Core\Container;
 use Core\Security\OAuthAuthenticator;
 use Core\Security\SocialProviderFactory;
 use Http\Controllers\Controller;
+use League\OAuth2\Client\Provider\AbstractProvider;
 
 class ConnectActionController extends Controller
 {
@@ -14,10 +15,10 @@ class ConnectActionController extends Controller
      */
     public function __invoke(Container $container): void
     {
-        $providerName = $_GET['auth'];
-        $provider = SocialProviderFactory::getProvider($providerName);
-        $container->set('provider', $provider);
+        $provider = SocialProviderFactory::getProvider($_GET['auth']);
+        /** @var OAuthAuthenticator $authenticator */
         $authenticator = $container->get(OAuthAuthenticator::class);
+        $authenticator->setProvider($provider);
         $authenticator->start();
     }
 }

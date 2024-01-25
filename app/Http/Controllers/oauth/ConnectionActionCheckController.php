@@ -2,16 +2,23 @@
 
 namespace Http\Controllers\oauth;
 
+use Core\Container;
 use Core\Security\OAuthAuthenticator;
 use Core\Security\SocialProviderFactory;
 use Http\Controllers\Controller;
+use League\OAuth2\Client\Provider\AbstractProvider;
 
 class ConnectionActionCheckController extends Controller
 {
-    public function __invoke(): void
+    /**
+     * @throws \Exception
+     */
+    public function __invoke(Container $container): void
     {
         $provider = SocialProviderFactory::getProvider();
-        $authenticator = new OAuthAuthenticator($provider);
+        /** @var OAuthAuthenticator $authenticator */
+        $authenticator = $container->get(OAuthAuthenticator::class);
+        $authenticator->setProvider($provider);
         $authenticator->authenticate();
     }
 }

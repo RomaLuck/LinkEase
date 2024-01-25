@@ -10,12 +10,18 @@ use League\OAuth2\Client\Provider\GoogleUser;
 
 class OAuthAuthenticator
 {
+    private AbstractProvider $provider;
+
     public function __construct(
-        private AbstractProvider $provider,
         private Database         $database,
         private Authenticator    $authenticator
     )
     {
+    }
+
+    public function setProvider(AbstractProvider $provider): void
+    {
+        $this->provider = $provider;
     }
 
     public function start(): void

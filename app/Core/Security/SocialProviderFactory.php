@@ -11,10 +11,10 @@ class SocialProviderFactory
 {
     public static function getProvider(?string $providerName = null): AbstractProvider
     {
-        $oauthParameters = require "config/oauth_config.php";
+        $oauthConfig = new OAuthConfig;
 
         if (!Session::has('provider')) {
-            if ($providerName !== null && array_key_exists($providerName, $oauthParameters)) {
+            if ($providerName !== null && $oauthConfig->getProviderConfig($providerName)) {
                 Session::put('provider', $providerName);
             } else {
                 throw new InvalidArgumentException('Provider not set in session');
@@ -22,7 +22,7 @@ class SocialProviderFactory
         }
 
         return match (Session::get('provider')) {
-            'google' => new Google($oauthParameters['google']),
+            'google' => new Google($oauthConfig->getProviderConfig('google')),
             default => throw new InvalidArgumentException('Invalid provider name'),
         };
     }

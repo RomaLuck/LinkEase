@@ -6,7 +6,6 @@ use Core\Container;
 use Core\Security\OAuthAuthenticator;
 use Core\Security\SocialProviderFactory;
 use Http\Controllers\Controller;
-use League\OAuth2\Client\Provider\AbstractProvider;
 
 class ConnectActionController extends Controller
 {

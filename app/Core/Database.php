@@ -23,4 +23,9 @@ class Database
 
         return $statement;
     }
+
+    public function getConnection(): PDO
+    {
+        return $this->connection;
+    }
 }

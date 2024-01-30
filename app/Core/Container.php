@@ -4,7 +4,6 @@ namespace Core;
 
 use Core\Security\Authenticator;
 use Core\Security\OAuthAuthenticator;
-use League\OAuth2\Client\Provider\AbstractProvider;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\DependencyInjection\Reference;

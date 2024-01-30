@@ -24,6 +24,11 @@ class OAuthAuthenticator
         $this->provider = $provider;
     }
 
+    public function getProvider(): AbstractProvider
+    {
+        return $this->provider;
+    }
+
     public function start(): void
     {
         if (empty($_GET['code'])) {

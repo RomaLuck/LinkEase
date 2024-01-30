@@ -5,7 +5,10 @@ use Core\Session;
 session_start();
 
 require_once "vendor/autoload.php";
-require_once "bootstrap.php";
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 require_once "Core/functions.php";
 require_once "routes.php";
 

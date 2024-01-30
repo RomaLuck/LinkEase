@@ -16,12 +16,15 @@
     "league/oauth2-google": "dev-main",
     "guzzlehttp/guzzle": "7.9.x-dev",
     "ext-fileinfo": "*",
-    "symfony/dependency-injection": "7.1.x-dev"
+    "symfony/dependency-injection": "7.1.x-dev",
+    "nutgram/nutgram": "dev-master",
+    "monolog/monolog": "^3.0@dev"
   },
   "autoload": {
     "psr-4": {
       "Core\\": "Core/",
-      "Http\\": "Http/"
+      "Http\\": "Http/",
+      "Telegram\\": "Telegram/"
     }
   },
   "config": {

@@ -10,9 +10,11 @@ use Http\Controllers\ProfileController;
 use Http\Controllers\ProfileUpdateController;
 use Http\Controllers\registration\ProfileCreateController;
 use Http\Controllers\registration\RegistrationViewController;
-use Http\Controllers\session\LoginViewController;
-use Http\Controllers\session\AuthSessionDestroyController;
 use Http\Controllers\session\AuthSessionCreateController;
+use Http\Controllers\session\AuthSessionDestroyController;
+use Http\Controllers\session\LoginViewController;
+use Http\Controllers\WeatherDataController;
+use Http\Controllers\WeatherViewController;
 
 $router = new Router();
 
@@ -31,5 +33,8 @@ $router->addRoute('PATCH', '/profile', new ProfileUpdateController());
 
 $router->addRoute('GET', '/connect/oauth', new ConnectActionController())->middleware('guest');
 $router->addRoute('GET', '/connect/oauth/check', new ConnectionActionCheckController());
+
+$router->addRoute('GET', '/weather', new WeatherViewController())->middleware('auth');
+$router->addRoute('POST', '/weather', new WeatherDataController())->middleware('auth');
 
 $router->matchRoute();

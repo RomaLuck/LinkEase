@@ -59,7 +59,7 @@ class WeatherApiClient
         return $this->parameters['latitude'];
     }
 
-    public function setLatitude(float $latitude): self
+    public function setLatitude(string $latitude): self
     {
         $this->parameters['latitude'] = $latitude;
 
@@ -71,7 +71,7 @@ class WeatherApiClient
         return $this->parameters['longitude'];
     }
 
-    public function setLongitude(float $longitude): self
+    public function setLongitude(string $longitude): self
     {
         $this->parameters['longitude'] = $longitude;
 

@@ -44,7 +44,7 @@ class WeatherDataHandler
     /**
      * @throws \JsonException
      */
-    public function getDailyWeatherData(string $data)
+    public function getDailyWeatherData()
     {
         return $this->getWeatherData()['daily'] ?? [];
     }

@@ -85,3 +85,5 @@ require "partials/head.php" ?>
         </div>
     </div>
 </div>
+
+<?php require "partials/footer.php";

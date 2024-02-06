@@ -20,13 +20,26 @@
                 <a href="/login" type="button" class="btn btn-outline-primary me-2">Login</a>
             <?php endif; ?>
             <?php if (Session::has('user')): ?>
-                <div>
+                <div class="mx-1">
                     <form method="POST" action="/session">
                         <input type="hidden" name="_method" value="DELETE"/>
-                        <button class="btn btn-outline-primary me-2">Log Out</button>
+                        <button class="btn btn-outline-primary">Log Out</button>
                     </form>
                 </div>
-                <a href="/profile" class="btn btn-outline-primary me-2">Profile</a>
+                <div class="mx-1">
+                    <a href="/profile" class="btn btn-outline-primary">Profile</a>
+                </div>
+                <div class="dropdown mx-1">
+                    <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        Action
+                    </button>
+
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/weather">Weather</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </div>
             <?php endif; ?>
         </div>
     </div>

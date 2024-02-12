@@ -4,14 +4,14 @@ namespace Core;
 
 class WeatherValues
 {
-    const HOURLY_TEMP = 'temperature_2m';
-    const HOURLY_RELATIVE_HUMIDITY = 'relative_humidity_2m';
-    const HOURLY_PRESSURE = 'pressure_msl';
-    const HOURY_CLOUDE_COVER = 'cloud_cover';
-    const HOURY_WIND_SPEED = 'wind_speed_10m';
-    const HOURY_PRECIPITATION = 'precipitation';
-    const HOURY_SNOWFALL = 'snowfall';
-    const HOURY_RAIN = 'rain';
+    const CURRENT_TEMP = 'temperature_2m';
+    const CURRENT_RELATIVE_HUMIDITY = 'relative_humidity_2m';
+    const CURRENT_PRESSURE = 'pressure_msl';
+    const CURRENT_CLOUDE_COVER = 'cloud_cover';
+    const CURRENT_WIND_SPEED = 'wind_speed_10m';
+    const CURRENT_PRECIPITATION = 'precipitation';
+    const CURRENT_SNOWFALL = 'snowfall';
+    const CURRENT_RAIN = 'rain';
     const DAILY_TEMP_MAX = 'temperature_2m_max';
     const DAILY_TEMP_MIN = 'temperature_2m_min';
     const DAILY_PRECIPITATION_SUM = 'precipitation_sum';

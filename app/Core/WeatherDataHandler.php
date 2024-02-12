@@ -22,23 +22,9 @@ class WeatherDataHandler
     /**
      * @throws \JsonException
      */
-    private function getHourlyWeatherData(): array
+    public function getCurrentWeatherData(): array
     {
-        return $this->getWeatherData()['hourly'] ?? [];
-    }
-
-    /**
-     * @throws \JsonException
-     */
-    public function getDataByTime(string $data): array
-    {
-        if (array_key_exists($data, $this->getHourlyWeatherData())) {
-            return array_combine(
-                $this->getHourlyWeatherData()['time'],
-                $this->getHourlyWeatherData()[$data]
-            );
-        }
-        return [];
+        return $this->getWeatherData()['current'] ?? [];
     }
 
     /**

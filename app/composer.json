@@ -18,7 +18,8 @@
     "ext-fileinfo": "*",
     "symfony/dependency-injection": "7.1.x-dev",
     "nutgram/nutgram": "dev-master",
-    "monolog/monolog": "^3.0@dev"
+    "monolog/monolog": "^3.0@dev",
+    "symfony/translation": "7.1.x-dev"
   },
   "autoload": {
     "psr-4": {

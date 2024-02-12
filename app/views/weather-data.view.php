@@ -1,6 +1,6 @@
 <?php require "partials/head.php" ?>
 <?php require "partials/nav.php" ?>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
             <form action="/weather" method="post">
@@ -75,9 +75,9 @@
                             </div>
                         </div>
                         <div class="col-md-5 border rounded m-2 p-2">
-                            <h5 class="text-center p-2">Hourly</h5>
+                            <h5 class="text-center p-2">Current</h5>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="hourly-values[temperature_2m]"
+                                <input class="form-check-input" type="checkbox" name="current-values[temperature_2m]"
                                        value="temperature_2m" id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Temperature
@@ -85,35 +85,35 @@
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox"
-                                       name="hourly-values[relative_humidity_2m]"
+                                       name="current-values[relative_humidity_2m]"
                                        value="relative_humidity_2m" id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Relative Humidity
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="hourly-values[pressure_msl]"
+                                <input class="form-check-input" type="checkbox" name="current-values[pressure_msl]"
                                        value="pressure_msl" id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Pressure
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="hourly-values[cloud_cover]"
+                                <input class="form-check-input" type="checkbox" name="current-values[cloud_cover]"
                                        value="cloud_cover" id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Cloud Cover
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="hourly-values[wind_speed_10m]"
+                                <input class="form-check-input" type="checkbox" name="current-values[wind_speed_10m]"
                                        value="wind_speed_10m" id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Wind Speed
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="hourly-values[precipitation]"
+                                <input class="form-check-input" type="checkbox" name="current-values[precipitation]"
                                        value="precipitation" id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Precipitation
@@ -121,14 +121,14 @@
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="snowfall"
-                                       value="hourly-values[snowfall]"
+                                       value="current-values[snowfall]"
                                        id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Snowfall
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="rain" value="hourly-values[rain]"
+                                <input class="form-check-input" type="checkbox" name="rain" value="current-values[rain]"
                                        id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Rain
@@ -142,7 +142,35 @@
         </div>
         <div class="col-md-6">
             <div class="container">
-                <?php var_dump($weatherData ?? ''); ?>
+                <table class="table">
+                    <?php if (!empty($currentWeatherData)): ?>
+                        <?php $columns = array_keys($currentWeatherData); ?>
+                        <?php foreach ($columns as $columnName): ?>
+                            <tr>
+                                <th><?= $translator->trans($columnName) ?></th>
+                                <th><?= $currentWeatherData[$columnName] ?></th>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </table>
+
+                <table class="table">
+                    <?php if (!empty($dailyWeatherData)): ?>
+                        <?php $columns = array_keys($dailyWeatherData); ?>
+                        <tr>
+                            <?php foreach ($columns as $columnName): ?>
+                                <th><?= $translator->trans($columnName) ?></th>
+                            <?php endforeach; ?>
+                        </tr>
+                        <?php foreach ($dailyWeatherData[array_key_first($dailyWeatherData)] as $key => $value): ?>
+                            <tr>
+                                <?php foreach ($columns as $columnName): ?>
+                                    <td><?= $dailyWeatherData[$columnName][$key] ?? '' ?></td>
+                                <?php endforeach; ?>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </table>
             </div>
         </div>
     </div>

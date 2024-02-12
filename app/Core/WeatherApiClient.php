@@ -26,6 +26,12 @@ class WeatherApiClient
     private string $endDate;
     private array $models = ['auto'];
 
+    public function __construct(float $latitude, float $longitude)
+    {
+        $this->parameters['latitude'] = $latitude;
+        $this->parameters['longitude'] = $longitude;
+    }
+
     /**
      * @throws GuzzleException
      */
@@ -59,23 +65,9 @@ class WeatherApiClient
         return $this->parameters['latitude'];
     }
 
-    public function setLatitude(string $latitude): self
-    {
-        $this->parameters['latitude'] = $latitude;
-
-        return $this;
-    }
-
     public function getLongitude(): float
     {
         return $this->parameters['longitude'];
-    }
-
-    public function setLongitude(string $longitude): self
-    {
-        $this->parameters['longitude'] = $longitude;
-
-        return $this;
     }
 
     public function getElevation(): float

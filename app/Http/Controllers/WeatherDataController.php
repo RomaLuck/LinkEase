@@ -9,17 +9,23 @@ class WeatherDataController extends Controller
 {
     public function __invoke(Container $container): void
     {
-        $weatherData = (new WeatherApiClient())
-            ->setLatitude($_POST['latitude'])
-            ->setLongitude($_POST['longitude'])
+        $weatherApiClient = new WeatherApiClient($_POST['latitude'], $_POST['longitude']);
+
+        $currentWeatherData = $weatherApiClient
+            ->setForecastDays($_POST['forecast-length'])
+            ->setCurrent(array_values($_POST['current-values'] ?? []))
+            ->getWeatherDataHandler()
+            ->getCurrentWeatherData();
+
+        $dailyWeatherData = $weatherApiClient
             ->setForecastDays($_POST['forecast-length'])
             ->setDaily(array_values($_POST['daily-values'] ?? []))
-            ->setHourly(array_values($_POST['hourly-values'] ?? []))
             ->getWeatherDataHandler()
             ->getDailyWeatherData();
 
         $this->render('weather-data.view.php', [
-            'weatherData' => $weatherData
+            'currentWeatherData' => $currentWeatherData,
+            'dailyWeatherData' => $dailyWeatherData,
         ]);
     }
 }

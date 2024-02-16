@@ -45,7 +45,7 @@ class WeatherApiClient
      */
     public function getWeatherResponse(): string
     {
-        $requestUrl = self::REQUEST_URL . '?' . http_build_query($this->getParameters());
+        $requestUrl = $this->getRequestUrl();
 
         return (new Client())->request('GET', $requestUrl)->getBody()->getContents();
     }
@@ -234,6 +234,21 @@ class WeatherApiClient
     public function setModels(array $models): self
     {
         $this->parameters['models'] = $models;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRequestUrl(): string
+    {
+        return self::REQUEST_URL . '?' . http_build_query($this->getParameters());
+    }
+
+    public function setParametersManually($key, $value): self
+    {
+        $this->parameters[$key] = $value;
 
         return $this;
     }

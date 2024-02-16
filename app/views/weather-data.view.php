@@ -10,9 +10,9 @@
                             <h3 class="text-center p-1">City</h3>
                             <div class="input-group">
                                 <input type="text" name="city" class="form-control" placeholder="Input your city"
-                                       id="input-city">
+                                       id="input-city" value="<?= $city ?? '' ?>" required>
                                 <select name="select-city" class="visually-hidden form-select"
-                                        id="select-city" required>
+                                        id="select-city">
                                     <option value="">Choose your city</option>
                                 </select>
 
@@ -21,8 +21,8 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="hidden" name="latitude" id="latitude">
-                        <input type="hidden" name="longitude" id="longitude">
+                        <input type="hidden" name="latitude" id="latitude" value="<?= $latitude ?? '' ?>">
+                        <input type="hidden" name="longitude" id="longitude" value="<?= $longitude ?? '' ?>">
                         <div class="col-md-6">
                             <h3 class="text-center p-1">Forecast length</h3>
                             <select name="forecast-length" id="forecast-length" class="form-select m-2">

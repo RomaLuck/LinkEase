@@ -14,6 +14,7 @@ class WeatherDataController extends Controller
         $latitude = $_POST['latitude'];
         $longitude = $_POST['longitude'];
         $city = $_POST['city'];
+        $time = $_POST['time-execute'];
         $userId = Session::get('user')['id'];
 
         $weatherRawData = (new WeatherApiClient($latitude, $longitude))
@@ -33,7 +34,8 @@ class WeatherDataController extends Controller
         ])->fetch();
 
         if ($userConfiguration) {
-            $db->query('UPDATE user_settings SET city=:city, latitude=:latitude, longitude=:longitude, weather_setting=:weather_setting WHERE user_id=:user_id', [
+            $db->query('UPDATE user_settings SET time_execute=:time_execute, city=:city, latitude=:latitude, longitude=:longitude, weather_setting=:weather_setting WHERE user_id=:user_id', [
+                'time_execute' => $time,
                 'user_id' => $userId,
                 'city' => $city,
                 'latitude' => $latitude,
@@ -41,7 +43,8 @@ class WeatherDataController extends Controller
                 'weather_setting' => $weatherRequestUrl
             ]);
         } else {
-            $db->query('INSERT INTO user_settings(user_id, city, latitude, longitude, weather_setting) VALUES(:user_id, :city,:latitude, :longitude, :weather_setting)', [
+            $db->query('INSERT INTO user_settings(time_execute, user_id, city, latitude, longitude, weather_setting) VALUES(:time_execute, :user_id, :city,:latitude, :longitude, :weather_setting)', [
+                'time_execute' => $time,
                 'user_id' => $userId,
                 'city' => $city,
                 'latitude' => $latitude,

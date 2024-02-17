@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-6">
             <form action="/weather" method="post">
-                <div class="form-control shadow p-3">
+                <div class="form-control my-1 shadow p-3">
                     <div class="row">
                         <div class="col-md-6">
                             <h3 class="text-center p-1">City</h3>
@@ -15,7 +15,6 @@
                                         id="select-city">
                                     <option value="">Choose your city</option>
                                 </select>
-
                                 <div class="input-group-append">
                                     <a class="btn btn-primary" id="find-city-btn">Find</a>
                                 </div>
@@ -35,9 +34,7 @@
 
                 </div>
                 <div class="form-control my-1 p-1 shadow">
-                    <div>
-                        <h3 class="text-center p-1">Values</h3>
-                    </div>
+                    <h3 class="text-center p-1">Values</h3>
                     <div class="row d-flex justify-content-around">
                         <div class="col-md-5 border rounded m-2 p-2">
                             <h5 class="text-center p-2">Daily</h5>
@@ -135,6 +132,14 @@
                                 </label>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="form-control my-1 shadow">
+                    <div class="d-flex justify-content-center p-1">
+                        <span class="p-1 fw-bold">Time execute</span>
+                        <label class="form-label">
+                            <input type="time" class="form-control" name="time-execute" required>
+                        </label>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>

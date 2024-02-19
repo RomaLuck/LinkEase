@@ -1,6 +1,6 @@
 <?php
 
-namespace Core;
+namespace Core\Features\Weather;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;

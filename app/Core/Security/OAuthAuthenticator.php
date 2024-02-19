@@ -13,8 +13,8 @@ class OAuthAuthenticator
     private AbstractProvider $provider;
 
     public function __construct(
-        private Database         $database,
-        private Authenticator    $authenticator
+        private Database      $database,
+        private Authenticator $authenticator
     )
     {
     }
@@ -34,7 +34,7 @@ class OAuthAuthenticator
         if (empty($_GET['code'])) {
             $authUrl = $this->provider->getAuthorizationUrl();
             Session::put('oauth2state', $this->provider->getState());
-            redirect($authUrl);
+            header('Location: ' . $authUrl);
         }
     }
 
@@ -69,7 +69,7 @@ class OAuthAuthenticator
             if ($user) {
                 $this->authenticator->login($user);
 
-                redirect('/');
+                header('Location: ./');
             }
 
             $this->database->query('INSERT INTO users(username, email, password, oauth_id) VALUES(:username, :email, :password, :oauth_id)', [
@@ -81,7 +81,7 @@ class OAuthAuthenticator
 
             $this->authenticator->login($user);
 
-            redirect('/');
+            header('Location: ./');
         } catch (Exception $e) {
             exit('Something went wrong: ' . $e->getMessage());
         }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Http\Controllers\oauth;
+namespace Http\Controllers\profile\oauth;
 
 use Core\Container;
 use Core\Security\OAuthAuthenticator;

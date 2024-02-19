@@ -1,6 +1,6 @@
 <?php
 
-namespace Http\Controllers\session;
+namespace Http\Controllers\profile\session;
 
 use Http\Controllers\Controller;
 

@@ -1,12 +1,13 @@
 <?php
 
-namespace Http\Controllers;
+namespace Http\Controllers\profile;
 
 use Core\Container;
 use Core\Database;
 use Core\FileUploader;
 use Core\Session;
 use Core\Validator;
+use Http\Controllers\Controller;
 
 class ProfileUpdateController extends Controller
 {

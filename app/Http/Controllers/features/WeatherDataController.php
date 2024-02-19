@@ -1,11 +1,12 @@
 <?php
 
-namespace Http\Controllers;
+namespace Http\Controllers\features;
 
 use Core\Container;
 use Core\Database;
+use Core\Features\Weather\WeatherApiClient;
 use Core\Session;
-use Core\WeatherApiClient;
+use Http\Controllers\Controller;
 
 class WeatherDataController extends Controller
 {

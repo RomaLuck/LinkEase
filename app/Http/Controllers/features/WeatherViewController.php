@@ -1,8 +1,9 @@
 <?php
 
-namespace Http\Controllers;
+namespace Http\Controllers\features;
 
 use Core\Container;
+use Http\Controllers\Controller;
 
 class WeatherViewController extends Controller
 {

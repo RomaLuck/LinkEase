@@ -148,11 +148,11 @@
         <div class="col-md-6">
             <div class="container">
                 <table class="table">
-                    <?php if (!empty($currentWeatherData)): ?>
+                    <?php if (isset($currentWeatherData)): ?>
                         <?php $columns = array_keys($currentWeatherData); ?>
                         <?php foreach ($columns as $columnName): ?>
                             <tr>
-                                <th><?= $translator->trans($columnName) ?></th>
+                                <th><?= isset($translator) ? $translator->trans($columnName) : $columnName ?></th>
                                 <th><?= $currentWeatherData[$columnName] ?></th>
                             </tr>
                         <?php endforeach; ?>
@@ -160,11 +160,11 @@
                 </table>
 
                 <table class="table">
-                    <?php if (!empty($dailyWeatherData)): ?>
+                    <?php if (isset($dailyWeatherData)): ?>
                         <?php $columns = array_keys($dailyWeatherData); ?>
                         <tr>
                             <?php foreach ($columns as $columnName): ?>
-                                <th><?= $translator->trans($columnName) ?></th>
+                                <th><?= isset($translator) ? $translator->trans($columnName) : $columnName ?></th>
                             <?php endforeach; ?>
                         </tr>
                         <?php foreach ($dailyWeatherData[array_key_first($dailyWeatherData)] as $key => $value): ?>

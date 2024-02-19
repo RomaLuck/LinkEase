@@ -1,6 +1,6 @@
 <?php
 
-namespace Http\Controllers\registration;
+namespace Http\Controllers\profile\registration;
 
 use Core\Container;
 use Core\Database;
@@ -8,6 +8,7 @@ use Core\Security\Authenticator;
 use Core\Validator;
 use Http\Controllers\Controller;
 use JetBrains\PhpStorm\NoReturn;
+use function Http\Controllers\registration\redirect;
 
 class ProfileCreateController extends Controller
 {
@@ -50,7 +51,7 @@ class ProfileCreateController extends Controller
             'email' => $email
         ])->fetch();
         if ($user) {
-            redirect('/');
+            $this->redirect('/');
         }
 
         $db->query('INSERT INTO users(username, email, password) VALUES(:username, :email, :password)', [

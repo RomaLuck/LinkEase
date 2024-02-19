@@ -20,7 +20,8 @@
     "nutgram/nutgram": "dev-master",
     "monolog/monolog": "^3.0@dev",
     "symfony/translation": "7.1.x-dev",
-    "symfony/console": "7.1.x-dev"
+    "symfony/console": "7.1.x-dev",
+    "symfony/http-foundation": "7.1.x-dev"
   },
   "autoload": {
     "psr-4": {

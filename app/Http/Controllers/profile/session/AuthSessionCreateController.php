@@ -1,12 +1,13 @@
 <?php
 
-namespace Http\Controllers\session;
+namespace Http\Controllers\profile\session;
 
 use Core\Container;
 use Core\Security\Authenticator;
 use Core\Validator;
 use Http\Controllers\Controller;
 use JetBrains\PhpStorm\NoReturn;
+use function Http\Controllers\session\redirect;
 
 class AuthSessionCreateController extends Controller
 {
@@ -39,6 +40,6 @@ class AuthSessionCreateController extends Controller
             exit();
         }
 
-        redirect('/');
+        $this->redirect('/');
     }
 }

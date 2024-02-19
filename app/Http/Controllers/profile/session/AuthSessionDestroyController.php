@@ -1,11 +1,12 @@
 <?php
 
-namespace Http\Controllers\session;
+namespace Http\Controllers\profile\session;
 
 use Core\Container;
 use Core\Security\Authenticator;
 use Http\Controllers\Controller;
 use JetBrains\PhpStorm\NoReturn;
+use function Http\Controllers\session\redirect;
 
 class AuthSessionDestroyController extends Controller
 {
@@ -17,6 +18,6 @@ class AuthSessionDestroyController extends Controller
     {
         $container->get(Authenticator::class)?->logout();
 
-        redirect('/');
+        $this->redirect('/');
     }
 }

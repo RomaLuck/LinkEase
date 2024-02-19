@@ -3,6 +3,7 @@
 namespace Core;
 
 use Core\Middleware\AuthMiddleware;
+use JetBrains\PhpStorm\NoReturn;
 
 class Router
 {
@@ -42,6 +43,15 @@ class Router
                 return;
             }
         }
-        abort(Response::NOT_FOUND);
+        $this->abort(Response::NOT_FOUND);
+    }
+
+    #[NoReturn]
+    public function abort($code): void
+    {
+        http_response_code($code);
+
+        require("views/$code.php");
+        die();
     }
 }

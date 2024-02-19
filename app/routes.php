@@ -3,18 +3,18 @@
 use Core\Router;
 use Http\Controllers\AboutController;
 use Http\Controllers\ContactController;
+use Http\Controllers\features\WeatherDataController;
+use Http\Controllers\features\WeatherViewController;
 use Http\Controllers\HomeController;
-use Http\Controllers\oauth\ConnectActionController;
-use Http\Controllers\oauth\ConnectionActionCheckController;
-use Http\Controllers\ProfileController;
-use Http\Controllers\ProfileUpdateController;
-use Http\Controllers\registration\ProfileCreateController;
-use Http\Controllers\registration\RegistrationViewController;
-use Http\Controllers\session\AuthSessionCreateController;
-use Http\Controllers\session\AuthSessionDestroyController;
-use Http\Controllers\session\LoginViewController;
-use Http\Controllers\WeatherDataController;
-use Http\Controllers\WeatherViewController;
+use Http\Controllers\profile\oauth\ConnectActionController;
+use Http\Controllers\profile\oauth\ConnectionActionCheckController;
+use Http\Controllers\profile\ProfileController;
+use Http\Controllers\profile\ProfileUpdateController;
+use Http\Controllers\profile\registration\ProfileCreateController;
+use Http\Controllers\profile\registration\RegistrationViewController;
+use Http\Controllers\profile\session\AuthSessionCreateController;
+use Http\Controllers\profile\session\AuthSessionDestroyController;
+use Http\Controllers\profile\session\LoginViewController;
 
 $router = new Router();
 

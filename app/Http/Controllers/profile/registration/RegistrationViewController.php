@@ -1,6 +1,6 @@
 <?php
 
-namespace Http\Controllers\registration;
+namespace Http\Controllers\profile\registration;
 
 use Http\Controllers\Controller;
 

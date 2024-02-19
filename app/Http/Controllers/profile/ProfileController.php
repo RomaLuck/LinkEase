@@ -1,10 +1,11 @@
 <?php
 
-namespace Http\Controllers;
+namespace Http\Controllers\profile;
 
 use Core\Container;
 use Core\Database;
 use Core\Session;
+use Http\Controllers\Controller;
 
 class ProfileController extends Controller
 {

@@ -7,6 +7,7 @@ use Core\Security\OAuthAuthenticator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\HttpFoundation\Request;
 
 class Container extends ContainerBuilder
 {
@@ -30,6 +31,8 @@ class Container extends ContainerBuilder
         $this->register(OAuthAuthenticator::class, OAuthAuthenticator::class)
             ->addArgument(new Reference(Database::class))
             ->addArgument(new Reference(Authenticator::class));
+
+        $this->register(Request::class, Request::class);
     }
 
     private function registerParameters(): void

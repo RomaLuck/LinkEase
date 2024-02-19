@@ -6,21 +6,22 @@ use Core\Database;
 use Core\Features\Weather\WeatherApiClient;
 use Core\Session;
 use Http\Controllers\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class WeatherDataController extends Controller
 {
-    public function __invoke(Database $db): void
+    public function __invoke(Database $db, Request $request): void
     {
-        $latitude = $_POST['latitude'];
-        $longitude = $_POST['longitude'];
-        $city = $_POST['city'];
-        $time = $_POST['time-execute'];
+        $latitude = $request->request->get('latitude');
+        $longitude = $request->request->get('longitude');
+        $city = $request->request->get('city');
+        $time = $request->request->get('time-execute');
         $userId = Session::get('user')['id'];
 
         $weatherRawData = (new WeatherApiClient($latitude, $longitude))
-            ->setForecastDays($_POST['forecast-length'])
-            ->setParametersManually('current', array_values($_POST['current-values'] ?? []))
-            ->setParametersManually('daily', array_values($_POST['daily-values'] ?? []));
+            ->setForecastDays($request->request->get('forecast-length'))
+            ->setParametersManually('current', array_values($request->request->all('current-values')))
+            ->setParametersManually('daily', array_values($request->request->all('daily-values')));
 
         $weatherRequestUrl = $weatherRawData->getRequestUrl();
 

@@ -7,21 +7,22 @@ use Core\FileUploader;
 use Core\Session;
 use Core\Validator;
 use Http\Controllers\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProfileUpdateController extends Controller
 {
     /**
      * @throws \Exception
      */
-    public function __invoke(Database $db): void
+    public function __invoke(Database $db, Request $request): void
     {
         $errors = [];
 
         try {
-            $newEmail = htmlspecialchars($_POST['email']);
-            $username = htmlspecialchars($_POST['username']);
-            $password = htmlspecialchars($_POST['password']);
-            $matchPassword = htmlspecialchars($_POST['match-password']);
+            $newEmail = htmlspecialchars($request->request->get('email'));
+            $username = htmlspecialchars($request->request->get('username'));
+            $password = htmlspecialchars($request->request->get('password'));
+            $matchPassword = htmlspecialchars($request->request->get('match-password'));
 
 
             $fileName = $_FILES['upfile']['name'] ?? '';

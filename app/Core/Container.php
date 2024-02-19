@@ -32,7 +32,8 @@ class Container extends ContainerBuilder
             ->addArgument(new Reference(Database::class))
             ->addArgument(new Reference(Authenticator::class));
 
-        $this->register(Request::class, Request::class);
+        $this->register(Request::class, Request::class)
+            ->setFactory([Request::class, 'createFromGlobals']);
     }
 
     private function registerParameters(): void

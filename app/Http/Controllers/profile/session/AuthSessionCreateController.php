@@ -6,6 +6,7 @@ use Core\Security\Authenticator;
 use Core\Validator;
 use Http\Controllers\Controller;
 use JetBrains\PhpStorm\NoReturn;
+use Symfony\Component\HttpFoundation\Request;
 
 class AuthSessionCreateController extends Controller
 {
@@ -13,10 +14,10 @@ class AuthSessionCreateController extends Controller
      * @throws \Exception
      */
     #[NoReturn]
-    public function __invoke(Authenticator $authenticator): void
+    public function __invoke(Authenticator $authenticator, Request $request): void
     {
-        $email = htmlspecialchars($_POST['email']);
-        $password = htmlspecialchars($_POST['password']);
+        $email = htmlspecialchars($request->request->get('email'));
+        $password = htmlspecialchars($request->request->get('password'));
 
         $errors = [];
 

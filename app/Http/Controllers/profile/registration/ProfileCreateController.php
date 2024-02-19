@@ -7,6 +7,7 @@ use Core\Security\Authenticator;
 use Core\Validator;
 use Http\Controllers\Controller;
 use JetBrains\PhpStorm\NoReturn;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProfileCreateController extends Controller
 {
@@ -14,12 +15,12 @@ class ProfileCreateController extends Controller
      * @throws \Exception
      */
     #[NoReturn]
-    public function __invoke(Database $db, Authenticator $authenticator): void
+    public function __invoke(Database $db, Authenticator $authenticator, Request $request): void
     {
-        $email = htmlspecialchars($_POST['email']);
-        $username = htmlspecialchars($_POST['username']);
-        $password = htmlspecialchars($_POST['password']);
-        $matchPassword = htmlspecialchars($_POST['match-password']);
+        $email = htmlspecialchars($request->request->get('email'));
+        $username = htmlspecialchars($request->request->get('username'));
+        $password = htmlspecialchars($request->request->get('password'));
+        $matchPassword = htmlspecialchars($request->request->get('match-password'));
 
         $errors = [];
 

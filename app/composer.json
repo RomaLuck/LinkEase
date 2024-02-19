@@ -37,6 +37,7 @@
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
-    "phpunit/phpunit": "^11.0@dev"
+    "phpunit/phpunit": "^11.0@dev",
+    "symfony/var-dumper": "7.1.x-dev"
   }
 }

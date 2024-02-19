@@ -2,12 +2,10 @@
 
 namespace Http\Controllers\profile\session;
 
-use Core\Container;
 use Core\Security\Authenticator;
 use Core\Validator;
 use Http\Controllers\Controller;
 use JetBrains\PhpStorm\NoReturn;
-use function Http\Controllers\session\redirect;
 
 class AuthSessionCreateController extends Controller
 {
@@ -15,7 +13,7 @@ class AuthSessionCreateController extends Controller
      * @throws \Exception
      */
     #[NoReturn]
-    public function __invoke(Container $container): void
+    public function __invoke(Authenticator $authenticator): void
     {
         $email = htmlspecialchars($_POST['email']);
         $password = htmlspecialchars($_POST['password']);
@@ -30,7 +28,7 @@ class AuthSessionCreateController extends Controller
             $errors['password'] = 'The password must contain at least 6 characters';
         }
 
-        $signedIn = $container->get(Authenticator::class)?->authenticate($email, $password);
+        $signedIn = $authenticator->authenticate($email, $password);
         if (!$signedIn) {
             $errors['signedIn'] = 'No matching account found for that email address and password.';
         }

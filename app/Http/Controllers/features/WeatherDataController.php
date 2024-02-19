@@ -2,7 +2,6 @@
 
 namespace Http\Controllers\features;
 
-use Core\Container;
 use Core\Database;
 use Core\Features\Weather\WeatherApiClient;
 use Core\Session;
@@ -10,7 +9,7 @@ use Http\Controllers\Controller;
 
 class WeatherDataController extends Controller
 {
-    public function __invoke(Container $container): void
+    public function __invoke(Database $db): void
     {
         $latitude = $_POST['latitude'];
         $longitude = $_POST['longitude'];
@@ -24,11 +23,6 @@ class WeatherDataController extends Controller
             ->setParametersManually('daily', array_values($_POST['daily-values'] ?? []));
 
         $weatherRequestUrl = $weatherRawData->getRequestUrl();
-
-        /**
-         * @var Database $db
-         */
-        $db = $container->get(Database::class);
 
         $userConfiguration = $db->query('SELECT * FROM user_settings WHERE user_id=:user_id', [
             'user_id' => $userId,

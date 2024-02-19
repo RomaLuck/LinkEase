@@ -2,7 +2,6 @@
 
 namespace Http\Controllers\profile;
 
-use Core\Container;
 use Core\Database;
 use Core\FileUploader;
 use Core\Session;
@@ -14,10 +13,8 @@ class ProfileUpdateController extends Controller
     /**
      * @throws \Exception
      */
-    public function __invoke(Container $container): void
+    public function __invoke(Database $db): void
     {
-        $db = $container->get(Database::class);
-
         $errors = [];
 
         try {

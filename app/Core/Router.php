@@ -35,15 +35,35 @@ class Router
     {
         $method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
         $path = parse_url($_SERVER['REQUEST_URI'])['path'];
+        $container = new Container();
 
         foreach ($this->routes as $route) {
             if ($route['method'] === $method && $route['path'] === $path) {
                 AuthMiddleware::resolve($route['middleware']);
-                call_user_func($route['controller'], new Container());
+                $controller = new $route['controller']();
+                $parameters = $this->resolveParameters($controller, $container);
+                call_user_func_array($controller, $parameters);
                 return;
             }
         }
         $this->abort(Response::NOT_FOUND);
+    }
+
+    /**
+     * @throws \ReflectionException
+     * @throws \Exception
+     */
+    private function resolveParameters(callable $controller, Container $container): array
+    {
+        $reflection = new \ReflectionMethod($controller, '__invoke');
+        $parameters = $reflection->getParameters();
+        $dependencies = [];
+        foreach ($parameters as $parameter) {
+            $dependenceClass = (string) $parameter->getType();
+            $dependencies[] = $container->get($dependenceClass);
+        }
+
+        return $dependencies;
     }
 
     #[NoReturn]

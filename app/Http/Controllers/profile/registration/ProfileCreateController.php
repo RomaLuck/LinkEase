@@ -2,13 +2,11 @@
 
 namespace Http\Controllers\profile\registration;
 
-use Core\Container;
 use Core\Database;
 use Core\Security\Authenticator;
 use Core\Validator;
 use Http\Controllers\Controller;
 use JetBrains\PhpStorm\NoReturn;
-use function Http\Controllers\registration\redirect;
 
 class ProfileCreateController extends Controller
 {
@@ -16,7 +14,7 @@ class ProfileCreateController extends Controller
      * @throws \Exception
      */
     #[NoReturn]
-    public function __invoke(Container $container): void
+    public function __invoke(Database $db, Authenticator $authenticator): void
     {
         $email = htmlspecialchars($_POST['email']);
         $username = htmlspecialchars($_POST['username']);
@@ -46,7 +44,6 @@ class ProfileCreateController extends Controller
             exit();
         }
 
-        $db = $container->get(Database::class);
         $user = $db?->query('select * from users where email = :email', [
             'email' => $email
         ])->fetch();
@@ -60,7 +57,7 @@ class ProfileCreateController extends Controller
             'password' => password_hash($password, PASSWORD_BCRYPT)
         ]);
 
-        $container->get(Authenticator::class)?->authenticate($email, $password);
+        $authenticator->authenticate($email, $password);
 
         $this->redirect('/', ['success' => 'User has been registered successfully']);
     }

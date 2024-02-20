@@ -5,18 +5,18 @@ namespace Src\Controllers\features;
 use Src\Controllers\Controller;
 use Src\Database;
 use Src\Features\Weather\WeatherApiClient;
-use Src\Session;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class WeatherDataController extends Controller
 {
-    public function __invoke(Database $db, Request $request): void
+    public function __invoke(Database $db, Request $request, Session $session): void
     {
         $latitude = $request->request->get('latitude');
         $longitude = $request->request->get('longitude');
         $city = $request->request->get('city');
         $time = $request->request->get('time-execute');
-        $userId = Session::get('user')['id'];
+        $userId = $session->get('user')['id'];
 
         $weatherRawData = (new WeatherApiClient($latitude, $longitude))
             ->setForecastDays($request->request->get('forecast-length'))

@@ -4,13 +4,13 @@ namespace Src\Controllers\features;
 
 use Src\Controllers\Controller;
 use Src\Database;
-use Src\Session;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class WeatherViewController extends Controller
 {
-    public function __invoke(Database $db): void
+    public function __invoke(Database $db, Session $session): void
     {
-        $userId = Session::get('user')['id'];
+        $userId = $session->get('user')['id'];
 
         $userConfiguration = $db->query('SELECT * FROM user_settings WHERE user_id=:user_id', [
             'user_id' => $userId,

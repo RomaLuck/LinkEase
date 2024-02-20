@@ -4,11 +4,11 @@ namespace Src\Controllers\profile;
 
 use Src\Controllers\Controller;
 use Src\Database;
-use Src\Session;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class ProfileController extends Controller
 {
-    public function __invoke(Database $database): void
+    public function __invoke(Database $database, Session $session): void
     {
         $errors = [];
 
@@ -16,7 +16,7 @@ class ProfileController extends Controller
             $userData = $database->query(
                 'SELECT * FROM users WHERE id = :id',
                 [
-                    'id' => Session::get('user')['id']
+                    'id' => $session->get('user')['id']
                 ]
             )->fetch();
         } catch (\Exception $e) {

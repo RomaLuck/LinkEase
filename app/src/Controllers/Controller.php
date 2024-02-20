@@ -3,7 +3,7 @@
 namespace Src\Controllers;
 
 use JetBrains\PhpStorm\NoReturn;
-use Src\Session;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class Controller
 {
@@ -18,7 +18,7 @@ class Controller
     protected function redirect($path, $messages = []): void
     {
         foreach ($messages as $messageKey => $message) {
-            Session::flash($messageKey, $message);
+            (new Session())->getFlashBag()->add($messageKey, $message);
         }
 
         header('location: ' . $path);

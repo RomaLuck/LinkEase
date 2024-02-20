@@ -5,11 +5,11 @@ namespace integration;
 use Src\Container;
 use Src\Database;
 use Src\Security\Authenticator;
-use Src\Session;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use PDO;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class AuthTest extends TestCase
 {
@@ -25,6 +25,7 @@ class AuthTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        $this->session = new Session();
         $this->client = new Client();
         $this->container = new Container();
         $db = $this->container->get(Database::class);
@@ -54,6 +55,6 @@ class AuthTest extends TestCase
     {
         $signIn = $this->container->get(Authenticator::class)->authenticate(self::EMAIL, self::PASSWORD);
         $this->assertTrue($signIn);
-        $this->assertTrue(Session::has('user'));
+        $this->assertTrue($this->session->has('user'));
     }
 }

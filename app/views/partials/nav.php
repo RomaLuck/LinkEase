@@ -13,13 +13,13 @@
         </ul>
 
         <div class="col-md-3 d-flex flex-row-reverse">
-            <?php use Src\Session;
+            <?php use Symfony\Component\HttpFoundation\Session\Session;
 
-            if (!Session::has('user')): ?>
+            if (!(new Session())->has('user')): ?>
                 <a href="/register" type="button" class="btn btn-primary">Sign-up</a>
                 <a href="/login" type="button" class="btn btn-outline-primary me-2">Login</a>
             <?php endif; ?>
-            <?php if (Session::has('user')): ?>
+            <?php if ((new Session())->has('user')): ?>
                 <div class="mx-1">
                     <form method="POST" action="/session">
                         <input type="hidden" name="_method" value="DELETE"/>

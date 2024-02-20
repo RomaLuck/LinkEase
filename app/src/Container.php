@@ -8,6 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class Container extends ContainerBuilder
 {
@@ -25,12 +26,16 @@ class Container extends ContainerBuilder
             ->addArgument('%db_user%')
             ->addArgument('%db_password%');
 
+        $this->register(Session::class, Session::class);
+
         $this->register(Authenticator::class, Authenticator::class)
-            ->addArgument(new Reference(Database::class));
+            ->addArgument(new Reference(Database::class))
+            ->addArgument(new Reference(Session::class));
 
         $this->register(OAuthAuthenticator::class, OAuthAuthenticator::class)
             ->addArgument(new Reference(Database::class))
-            ->addArgument(new Reference(Authenticator::class));
+            ->addArgument(new Reference(Authenticator::class))
+            ->addArgument(new Reference(Session::class));
 
         $this->register(Request::class, Request::class)
             ->setFactory([Request::class, 'createFromGlobals']);

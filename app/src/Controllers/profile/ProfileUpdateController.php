@@ -5,16 +5,16 @@ namespace Src\Controllers\profile;
 use Src\Controllers\Controller;
 use Src\Database;
 use Src\FileUploader;
-use Src\Session;
 use Src\Validator;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class ProfileUpdateController extends Controller
 {
     /**
      * @throws \Exception
      */
-    public function __invoke(Database $db, Request $request): void
+    public function __invoke(Database $db, Request $request, Session $session): void
     {
         $errors = [];
 
@@ -33,7 +33,7 @@ class ProfileUpdateController extends Controller
                     'UPDATE users SET file_path = :file_path WHERE id = :id',
                     [
                         'file_path' => $fileName,
-                        'id' => Session::get('user')['id'],
+                        'id' => $session->get('user')['id'],
                     ]
                 );
             }
@@ -58,9 +58,7 @@ class ProfileUpdateController extends Controller
         }
 
         if (!empty($errors)) {
-            $this->redirect('profile', [
-                'errors' => $errors,
-            ]);
+            $this->redirect('profile', $errors);
         }
 
         $db->query(
@@ -69,7 +67,7 @@ class ProfileUpdateController extends Controller
                 'email' => $newEmail,
                 'username' => $username,
                 'password' => password_hash($password, PASSWORD_BCRYPT),
-                'id' => Session::get('user')['id'],
+                'id' => $session->get('user')['id'],
             ]
         );
 

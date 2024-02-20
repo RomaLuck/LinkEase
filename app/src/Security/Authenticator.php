@@ -3,11 +3,11 @@
 namespace Src\Security;
 
 use Src\Database;
-use Src\Session;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class Authenticator
 {
-    public function __construct(private Database $database)
+    public function __construct(private Database $database, private Session $session)
     {
     }
 
@@ -30,13 +30,11 @@ class Authenticator
 
     public function login(array $user): void
     {
-        Session::put('user', ['id' => $user['id']]);
-
-        session_regenerate_id(true);
+        $this->session->set('user', ['id' => $user['id']]);
     }
 
     public function logout(): void
     {
-        Session::destroy();
+        $this->session->clear();
     }
 }

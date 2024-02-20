@@ -2,13 +2,14 @@
 
 namespace Src\Middleware;
 
-use Src\Session;
+
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class AuthMiddleware implements AuthMiddlewareInterface
 {
     public function handle(): void
     {
-        if (!Session::has('user')) {
+        if (!(new Session())->has('user')) {
             header('location: /');
             exit();
         }

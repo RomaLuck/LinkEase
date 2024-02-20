@@ -3,10 +3,10 @@
 namespace Src\Security;
 
 use Src\Database;
-use Src\Session;
 use Exception;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\GoogleUser;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class OAuthAuthenticator
 {
@@ -14,7 +14,8 @@ class OAuthAuthenticator
 
     public function __construct(
         private Database      $database,
-        private Authenticator $authenticator
+        private Authenticator $authenticator,
+        private Session       $session
     )
     {
     }
@@ -33,7 +34,7 @@ class OAuthAuthenticator
     {
         if (empty($_GET['code'])) {
             $authUrl = $this->provider->getAuthorizationUrl();
-            Session::put('oauth2state', $this->provider->getState());
+            $this->session->set('oauth2state', $this->provider->getState());
             header('Location: ' . $authUrl);
         }
     }
@@ -44,8 +45,8 @@ class OAuthAuthenticator
             exit('Got error: ' . htmlspecialchars($_GET['error'], ENT_QUOTES, 'UTF-8'));
         }
 
-        if (empty($_GET['state']) || ($_GET['state'] !== Session::get('oauth2state'))) {
-            Session::unset('oauth2state');
+        if (empty($_GET['state']) || ($_GET['state'] !== $this->session->get('oauth2state'))) {
+            $this->session->remove('oauth2state');
             exit('Invalid state');
         }
 

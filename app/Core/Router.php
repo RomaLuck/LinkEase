@@ -2,7 +2,7 @@
 
 namespace Core;
 
-use Core\Middleware\AuthMiddleware;
+use Core\Middleware\AuthMiddlewareDetection;
 use JetBrains\PhpStorm\NoReturn;
 
 class Router
@@ -39,7 +39,10 @@ class Router
 
         foreach ($this->routes as $route) {
             if ($route['method'] === $method && $route['path'] === $path) {
-                AuthMiddleware::resolve($route['middleware']);
+                if ($route['middleware'] !== null) {
+                    $middleware = AuthMiddlewareDetection::from($route['middleware'])->detect();
+                    $middleware->handle();
+                }
                 $controller = new $route['controller']();
                 $parameters = $this->resolveParameters($controller, $container);
                 call_user_func_array($controller, $parameters);
@@ -59,7 +62,7 @@ class Router
         $parameters = $reflection->getParameters();
         $dependencies = [];
         foreach ($parameters as $parameter) {
-            $dependenceClass = (string) $parameter->getType();
+            $dependenceClass = (string)$parameter->getType();
             $dependencies[] = $container->get($dependenceClass);
         }
 

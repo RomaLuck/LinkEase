@@ -2,32 +2,15 @@
 
 namespace Core\Middleware;
 
-use Exception;
+use Core\Session;
 
-require_once "Guest.php";
-require_once "Authenticated.php";
-
-class AuthMiddleware
+class AuthMiddleware implements AuthMiddlewareInterface
 {
-    public const MAP = [
-        'guest' => Guest::class,
-        'auth' => Authenticated::class
-    ];
-
-    /**
-     * @throws Exception
-     */
-    public static function resolve($key): void
+    public function handle(): void
     {
-        if (!$key) {
-            return;
+        if (!Session::has('user')) {
+            header('location: /');
+            exit();
         }
-
-        $middleware = self::MAP[$key] ?? false;
-        if (!$middleware) {
-            throw new Exception("No matching middleware found for key '{$key}'.");
-        }
-
-        (new $middleware)->handle();
     }
 }

@@ -4,11 +4,11 @@ namespace Core\Middleware;
 
 use Core\Session;
 
-class Authenticated
+class GuestMiddleware implements AuthMiddlewareInterface
 {
     public function handle(): void
     {
-        if (!Session::has('user')) {
+        if (Session::has('user')) {
             header('location: /');
             exit();
         }

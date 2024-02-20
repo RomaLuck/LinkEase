@@ -2,7 +2,7 @@
 
 namespace integration;
 
-use Core\Response;
+use Src\Response;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;

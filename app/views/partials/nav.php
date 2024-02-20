@@ -13,7 +13,7 @@
         </ul>
 
         <div class="col-md-3 d-flex flex-row-reverse">
-            <?php use Core\Session;
+            <?php use Src\Session;
 
             if (!Session::has('user')): ?>
                 <a href="/register" type="button" class="btn btn-primary">Sign-up</a>

@@ -1,6 +1,6 @@
 <?php
 
-use Core\LoggerFactory;
+use Src\LoggerFactory;
 use Dotenv\Dotenv;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;

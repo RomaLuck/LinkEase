@@ -2,7 +2,7 @@
 
 namespace unit;
 
-use Core\Validator;
+use Src\Validator;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

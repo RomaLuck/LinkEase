@@ -9,4 +9,4 @@
     <link rel="stylesheet" href="public/assets/style.css">
 </head>
 <body>
-<?php require "config/translations.php"?>
+<?php require "translations/translations.php"?>

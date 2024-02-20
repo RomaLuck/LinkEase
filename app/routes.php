@@ -1,20 +1,20 @@
 <?php
 
-use Core\Router;
-use Http\Controllers\AboutController;
-use Http\Controllers\ContactController;
-use Http\Controllers\features\WeatherDataController;
-use Http\Controllers\features\WeatherViewController;
-use Http\Controllers\HomeController;
-use Http\Controllers\profile\oauth\ConnectActionController;
-use Http\Controllers\profile\oauth\ConnectionActionCheckController;
-use Http\Controllers\profile\ProfileController;
-use Http\Controllers\profile\ProfileUpdateController;
-use Http\Controllers\profile\registration\ProfileCreateController;
-use Http\Controllers\profile\registration\RegistrationViewController;
-use Http\Controllers\profile\session\AuthSessionCreateController;
-use Http\Controllers\profile\session\AuthSessionDestroyController;
-use Http\Controllers\profile\session\LoginViewController;
+use Src\Controllers\AboutController;
+use Src\Controllers\ContactController;
+use Src\Controllers\features\WeatherDataController;
+use Src\Controllers\features\WeatherViewController;
+use Src\Controllers\HomeController;
+use Src\Controllers\profile\oauth\ConnectActionController;
+use Src\Controllers\profile\oauth\ConnectionActionCheckController;
+use Src\Controllers\profile\ProfileController;
+use Src\Controllers\profile\ProfileUpdateController;
+use Src\Controllers\profile\registration\ProfileCreateController;
+use Src\Controllers\profile\registration\RegistrationViewController;
+use Src\Controllers\profile\session\AuthSessionCreateController;
+use Src\Controllers\profile\session\AuthSessionDestroyController;
+use Src\Controllers\profile\session\LoginViewController;
+use Src\Router;
 
 $router = new Router();
 

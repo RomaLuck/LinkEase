@@ -1,6 +1,6 @@
 <?php
 
-use Core\Session;
+use Src\Session;
 
 session_start();
 

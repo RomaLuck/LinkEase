@@ -2,8 +2,8 @@
 
 namespace Telegram\Conversation;
 
-use Core\Container;
-use Core\Database;
+use Src\Container;
+use Src\Database;
 use Psr\SimpleCache\InvalidArgumentException;
 use SergiX44\Nutgram\Conversations\Conversation;
 use SergiX44\Nutgram\Nutgram;

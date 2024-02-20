@@ -2,8 +2,8 @@
 
 namespace unit;
 
-use Core\Container;
-use Core\Database;
+use Src\Container;
+use Src\Database;
 use PHPUnit\Framework\TestCase;
 
 class DatabaseTest extends TestCase

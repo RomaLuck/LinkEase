@@ -2,10 +2,10 @@
 
 namespace integration;
 
-use Core\Container;
-use Core\Database;
-use Core\Security\Authenticator;
-use Core\Session;
+use Src\Container;
+use Src\Database;
+use Src\Security\Authenticator;
+use Src\Session;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use PDO;

@@ -1,4 +1,4 @@
-<?php use Core\Session;
+<?php use Src\Session;
 
 require "partials/head.php" ?>
 <?php require "partials/nav.php" ?>

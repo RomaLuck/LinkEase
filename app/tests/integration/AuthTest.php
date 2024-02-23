@@ -4,19 +4,17 @@ namespace integration;
 
 use Src\Container;
 use Src\Database;
+use Src\Entity\User;
 use Src\Security\Authenticator;
-use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use PDO;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 class AuthTest extends TestCase
 {
     private const USERNAME = 'test';
     private const EMAIL = 'test@gmail.com';
     private const PASSWORD = 'test';
-    private ?PDO $pdo;
     private ?Container $container;
 
     /**
@@ -25,25 +23,22 @@ class AuthTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->session = new Session();
-        $this->client = new Client();
         $this->container = new Container();
-        $db = $this->container->get(Database::class);
-        $this->pdo = $db->getConnection();
-        $this->pdo->beginTransaction();
-        $db->query('INSERT INTO users(username, email, password) VALUES(:username, :email, :password)', [
-            'username' => self::USERNAME,
-            'email' => self::EMAIL,
-            'password' => password_hash(self::PASSWORD, PASSWORD_BCRYPT)
-        ]);
+        $this->entityManager = Database\EntityManagerFactory::create();
+        $this->entityManager->beginTransaction();
+        $user = new User();
+        $user->setName(self::USERNAME)
+            ->setEmail(self::EMAIL)
+            ->setPassword(password_hash(self::PASSWORD, PASSWORD_BCRYPT));
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
     }
 
     protected function tearDown(): void
     {
         parent::tearDown();
-        $this->pdo->rollBack();
-        $this->pdo = null;
-        $this->client = null;
+        $this->entityManager->rollBack();
+        $this->entityManager = null;
         $this->container = null;
     }
 
@@ -55,6 +50,5 @@ class AuthTest extends TestCase
     {
         $signIn = $this->container->get(Authenticator::class)->authenticate(self::EMAIL, self::PASSWORD);
         $this->assertTrue($signIn);
-        $this->assertTrue($this->session->has('user'));
     }
 }

@@ -2,21 +2,37 @@
 
 namespace Src\Controllers\features;
 
+use Doctrine\ORM\EntityManager;
+use GuzzleHttp\Exception\GuzzleException;
 use Src\Controllers\Controller;
-use Src\Database;
+use Src\Entity\User;
+use Src\Entity\UserSettings;
 use Src\Features\Weather\WeatherApiClient;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class WeatherDataController extends Controller
 {
-    public function __invoke(Database $db, Request $request, Session $session): void
+    /**
+     * @throws GuzzleException
+     * @throws \JsonException
+     * @throws \Exception
+     */
+    public function __invoke(EntityManager $entityManager, Request $request, Session $session): void
     {
         $latitude = $request->request->get('latitude');
         $longitude = $request->request->get('longitude');
         $city = $request->request->get('city');
         $time = $request->request->get('time-execute');
         $userId = $session->get('user')['id'];
+
+        $user = $entityManager->getRepository(User::class)->findOneBy([
+            'id' => $userId
+        ]);
+
+        if ($user === null) {
+            $this->redirect('/');
+        }
 
         $weatherRawData = (new WeatherApiClient($latitude, $longitude))
             ->setForecastDays($request->request->get('forecast-length'))
@@ -25,36 +41,26 @@ class WeatherDataController extends Controller
 
         $weatherRequestUrl = $weatherRawData->getRequestUrl();
 
-        $userConfiguration = $db->query('SELECT * FROM user_settings WHERE user_id=:user_id', [
-            'user_id' => $userId,
-        ])->fetch();
+        $userConfiguration = $entityManager
+            ->getRepository(UserSettings::class)
+            ->findOneBy(['user' => $user])
+            ?? new UserSettings();
 
-        if ($userConfiguration) {
-            $db->query('UPDATE user_settings SET time_execute=:time_execute, city=:city, latitude=:latitude, longitude=:longitude, weather_setting=:weather_setting WHERE user_id=:user_id', [
-                'time_execute' => $time,
-                'user_id' => $userId,
-                'city' => $city,
-                'latitude' => $latitude,
-                'longitude' => $longitude,
-                'weather_setting' => $weatherRequestUrl
-            ]);
-        } else {
-            $db->query('INSERT INTO user_settings(time_execute, user_id, city, latitude, longitude, weather_setting) VALUES(:time_execute, :user_id, :city,:latitude, :longitude, :weather_setting)', [
-                'time_execute' => $time,
-                'user_id' => $userId,
-                'city' => $city,
-                'latitude' => $latitude,
-                'longitude' => $longitude,
-                'weather_setting' => $weatherRequestUrl
-            ]);
-        }
+        $userConfiguration->setTime(new \DateTime($time))
+            ->setApiRequestUrl($weatherRequestUrl)
+            ->setUser($user);
+
+        $entityManager->persist($userConfiguration);
+        $entityManager->flush();
+
+        #@todo засетати в кукіси місто і координати
 
         $this->render('weather-data.view.php', [
             'currentWeatherData' => $weatherRawData->getWeatherDataHandler()->getCurrentWeatherData(),
             'dailyWeatherData' => $weatherRawData->getWeatherDataHandler()->getDailyWeatherData(),
-            'city' => $userConfiguration['city'] ?? '',
-            'latitude' => $userConfiguration['latitude'] ?? '',
-            'longitude' => $userConfiguration['longitude'] ?? '',
+//            'city' => $userConfiguration['city'] ?? '',
+//            'latitude' => $userConfiguration['latitude'] ?? '',
+//            'longitude' => $userConfiguration['longitude'] ?? '',
         ]);
     }
 }

@@ -7,6 +7,7 @@ use Src\Database;
 use Psr\SimpleCache\InvalidArgumentException;
 use SergiX44\Nutgram\Conversations\Conversation;
 use SergiX44\Nutgram\Nutgram;
+use Src\Entity\User;
 
 class RegisterConversation extends Conversation
 {
@@ -43,16 +44,13 @@ class RegisterConversation extends Conversation
      */
     public function updateUser(Nutgram $bot): void
     {
-        $db = (new Container())->get(Database::class);
-        $user = $db->query('select * from users where email = :email', [
-            'email' => $this->email
-        ])->fetch();
+        $entityManager = Database\EntityManagerFactory::create();
+        $user = $entityManager->getRepository(User::class)->findOneByEmail($this->email);
 
         if ($user) {
-            $db->query('UPDATE users SET telegram_chat_id = :chat_id WHERE email = :email', [
-                'chat_id' => $bot->chatId(),
-                'email' => $this->email
-            ]);
+            $user->setTelegramChatId($bot->chatId())
+                ->setEmail($this->email);
+
             $bot->sendMessage('User is verified');
         } else {
             $bot->sendMessage('Register in the site please');

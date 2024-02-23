@@ -2,10 +2,11 @@
 
 namespace Src\Security;
 
-use Src\Database;
+use Doctrine\ORM\EntityManager;
 use Exception;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\GoogleUser;
+use Src\Entity\User;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class OAuthAuthenticator
@@ -13,7 +14,7 @@ class OAuthAuthenticator
     private AbstractProvider $provider;
 
     public function __construct(
-        private Database      $database,
+        private EntityManager $entityManager,
         private Authenticator $authenticator,
         private Session       $session
     )
@@ -62,23 +63,18 @@ class OAuthAuthenticator
             $username = $ownerDetails->getName();
             $oauthId = $ownerDetails->getId();
 
-            $user = $this->database->query('SELECT * FROM users WHERE email = :email AND oauth_id = :oauthId', [
+            $user = $this->entityManager->getRepository(User::class)->findOneBy([
                 'email' => $email,
-                'oauthId' => $oauthId,
-            ])->fetch();
+                'oauth_id ' => $oauthId,
+            ]) ?? new User();
 
-            if ($user) {
-                $this->authenticator->login($user);
+            $user->setName($username)
+                ->setEmail($email)
+                ->setPassword(password_hash($oauthId, PASSWORD_BCRYPT))
+                ->setOauthId($oauthId);
 
-                header('Location: ./');
-            }
-
-            $this->database->query('INSERT INTO users(username, email, password, oauth_id) VALUES(:username, :email, :password, :oauth_id)', [
-                'username' => $username,
-                'email' => $email,
-                'password' => password_hash($oauthId, PASSWORD_BCRYPT),
-                'oauth_id' => $oauthId,
-            ]);
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
 
             $this->authenticator->login($user);
 

@@ -2,6 +2,8 @@
 
 namespace Src;
 
+use Doctrine\ORM\EntityManager;
+use Src\Database\EntityManagerFactory;
 use Src\Security\Authenticator;
 use Src\Security\OAuthAuthenticator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -21,19 +23,17 @@ class Container extends ContainerBuilder
 
     private function registerServices(): void
     {
-        $this->register(Database::class, Database::class)
-            ->addArgument('%db_url%')
-            ->addArgument('%db_user%')
-            ->addArgument('%db_password%');
+        $this->register(EntityManager::class, EntityManagerFactory::class)
+            ->setFactory([EntityManagerFactory::class, 'create']);
 
         $this->register(Session::class, Session::class);
 
         $this->register(Authenticator::class, Authenticator::class)
-            ->addArgument(new Reference(Database::class))
+            ->addArgument(new Reference(EntityManager::class))
             ->addArgument(new Reference(Session::class));
 
         $this->register(OAuthAuthenticator::class, OAuthAuthenticator::class)
-            ->addArgument(new Reference(Database::class))
+            ->addArgument(new Reference(EntityManager::class))
             ->addArgument(new Reference(Authenticator::class))
             ->addArgument(new Reference(Session::class));
 
@@ -43,8 +43,5 @@ class Container extends ContainerBuilder
 
     private function registerParameters(): void
     {
-        $this->setParameter('db_url', $_ENV['DATABASE_URL']);
-        $this->setParameter('db_user', $_ENV['DB_USER']);
-        $this->setParameter('db_password', $_ENV['DB_PASSWORD']);
     }
 }

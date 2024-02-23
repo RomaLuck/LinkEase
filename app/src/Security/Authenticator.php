@@ -2,12 +2,13 @@
 
 namespace Src\Security;
 
-use Src\Database;
+use Doctrine\ORM\EntityManager;
+use Src\Entity\User;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class Authenticator
 {
-    public function __construct(private Database $database, private Session $session)
+    public function __construct(private EntityManager $entityManager, private Session $session)
     {
     }
 
@@ -16,11 +17,9 @@ class Authenticator
      */
     public function authenticate($email, $password): bool
     {
-        $user = $this->database->query('select * from users where email = :email', [
-            'email' => $email
-        ])->fetch();
-        if ($user && password_verify($password, $user['password'])) {
-            $this->login(['id' => $user['id']]);
+        $user = $this->entityManager->getRepository(User::class)->findOneByEmail($email);
+        if ($user && password_verify($password, $user->getPassword())) {
+            $this->login(['id' => $user->getId()]);
 
             return true;
         }

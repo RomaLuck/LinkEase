@@ -21,7 +21,10 @@
     "monolog/monolog": "^3.0@dev",
     "symfony/translation": "7.1.x-dev",
     "symfony/console": "7.1.x-dev",
-    "symfony/http-foundation": "7.1.x-dev"
+    "symfony/http-foundation": "7.1.x-dev",
+    "doctrine/orm": "^3",
+    "doctrine/dbal": "^4",
+    "symfony/cache": "^7"
   },
   "autoload": {
     "psr-4": {

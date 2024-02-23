@@ -18,7 +18,7 @@ require "partials/head.php" ?>
                                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
                                             <input type="text" name="username" id="form3Example1c" class="form-control"
-                                                   value="<?= $userData['username'] ?? '' ?>"/>
+                                                   value="<?= $userData->getName() ?? '' ?>"/>
                                             <label class="form-label small opacity-50" for="form3Example1c">Your
                                                 Name</label>
                                         </div>
@@ -28,7 +28,7 @@ require "partials/head.php" ?>
                                         <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
                                             <input type="email" name="email" id="form3Example3c" class="form-control"
-                                                   value="<?= $userData['email'] ?? '' ?>"/>
+                                                   value="<?= $userData->getEmail() ?? '' ?>"/>
                                             <label class="form-label small opacity-50" for="form3Example3c">Your
                                                 Email</label>
                                         </div>
@@ -75,9 +75,9 @@ require "partials/head.php" ?>
                             </div>
                             <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
 
-                                <img src="<?= $userData['file_path'] === ''
+                                <img src="<?= $userData->getImagePath() === null
                                     ? 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp'
-                                    : $userData['file_path'] ?>"
+                                    : $userData->getImagePath() ?>"
                                      class="img-fluid" alt="Sample image">
 
                             </div>

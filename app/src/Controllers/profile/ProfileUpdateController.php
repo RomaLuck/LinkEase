@@ -2,8 +2,9 @@
 
 namespace Src\Controllers\profile;
 
+use Doctrine\ORM\EntityManager;
 use Src\Controllers\Controller;
-use Src\Database;
+use Src\Entity\User;
 use Src\FileUploader;
 use Src\Validator;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,62 +15,52 @@ class ProfileUpdateController extends Controller
     /**
      * @throws \Exception
      */
-    public function __invoke(Database $db, Request $request, Session $session): void
+    public function __invoke(EntityManager $entityManager, Request $request, Session $session): void
     {
         $errors = [];
 
-        try {
-            $newEmail = htmlspecialchars($request->request->get('email'));
-            $username = htmlspecialchars($request->request->get('username'));
-            $password = htmlspecialchars($request->request->get('password'));
-            $matchPassword = htmlspecialchars($request->request->get('match-password'));
+        $newEmail = htmlspecialchars($request->request->get('email'));
+        if (!Validator::email($newEmail)) {
+            $errors['danger'] = 'Email is not valid';
+        }
 
+        $username = htmlspecialchars($request->request->get('username'));
+        if (!Validator::string($username, 2, 255)) {
+            $errors['danger'] = 'The name must contain at least 2 characters';
+        }
 
-            $fileName = $_FILES['upfile']['name'] ?? '';
-            if ($fileName !== '') {
-                $fileName = FileUploader::upload('public/uploads');
+        $password = htmlspecialchars($request->request->get('password'));
+        $matchPassword = htmlspecialchars($request->request->get('match-password'));
+        if (!Validator::string($password, 5, 255) || !Validator::string($matchPassword, 5, 255)) {
+            $errors['danger'] = 'The password must contain at least 6 characters';
+        }
 
-                $db->query(
-                    'UPDATE users SET file_path = :file_path WHERE id = :id',
-                    [
-                        'file_path' => $fileName,
-                        'id' => $session->get('user')['id'],
-                    ]
-                );
-            }
-
-            if (!Validator::email($newEmail)) {
-                $errors['danger'] = 'Email is not valid';
-            }
-
-            if (!Validator::string($username, 2, 255)) {
-                $errors['danger'] = 'The name must contain at least 2 characters';
-            }
-
-            if (!Validator::string($password, 5, 255) || !Validator::string($matchPassword, 5, 255)) {
-                $errors['danger'] = 'The password must contain at least 6 characters';
-            }
-
-            if (!Validator::matchPasswords($password, $matchPassword)) {
-                $errors['danger'] = 'The passwords do not match';
-            }
-        } catch (\RuntimeException $e) {
-            $errors['danger'] = $e->getMessage();
+        if (!Validator::matchPasswords($password, $matchPassword)) {
+            $errors['danger'] = 'The passwords do not match';
         }
 
         if (!empty($errors)) {
             $this->redirect('profile', $errors);
         }
 
-        $db->query(
-            'UPDATE users SET email = :email, username = :username, password = :password WHERE id = :id',
-            [
-                'email' => $newEmail,
-                'username' => $username,
-                'password' => password_hash($password, PASSWORD_BCRYPT),
-                'id' => $session->get('user')['id'],
-            ]
-        );
+        $user = $entityManager->getRepository(User::class)->findOneBy([
+            'id' => $session->get('user')['id']
+        ]);
+
+        if ($user === null) {
+            $this->redirect('/');
+        }
+
+        $user->setEmail($newEmail)
+            ->setName($username)
+            ->setPassword(password_hash($password, PASSWORD_BCRYPT));
+
+        $fileName = $_FILES['upfile']['name'] ?? '';
+        if ($fileName !== '') {
+            $fileName = FileUploader::upload('public/uploads');
+
+            $user->setImagePath($fileName);
+        }
 
         $this->redirect('profile', ['success' => 'Profile has been updated successfully']);
     }

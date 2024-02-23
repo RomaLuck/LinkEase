@@ -2,6 +2,7 @@
 
 namespace unit;
 
+use Doctrine\DBAL\Exception;
 use Src\Container;
 use Src\Database;
 use PHPUnit\Framework\TestCase;
@@ -13,11 +14,13 @@ class DatabaseTest extends TestCase
      */
     public function testConnection(): void
     {
-        $db = (new Container())->get(Database::class);
+        $entityManager = Database\EntityManagerFactory::create();
+
         try {
-            $db->query('SELECT 1');
+            $db = $entityManager->getConnection();
+            $db->executeQuery('SELECT 1');
             $this->assertTrue(true);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->fail("Can not connect to: {$e->getMessage()}");
         }
     }

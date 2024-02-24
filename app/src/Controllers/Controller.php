@@ -2,6 +2,7 @@
 
 namespace Src\Controllers;
 
+use eftec\bladeone\BladeOne;
 use JetBrains\PhpStorm\NoReturn;
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -9,9 +10,13 @@ class Controller
 {
     protected function render($path, $attributes = []): void
     {
-        extract($attributes);
+        $views = __DIR__ . '/../../views';
+        $cache = __DIR__ . '/../../var/cache';
 
-        require "views/$path";
+        $blade = new BladeOne($views, $cache, BladeOne::MODE_AUTO);
+        $blade->pipeEnable = true;
+
+        echo $blade->run($path, $attributes);
     }
 
     #[NoReturn]

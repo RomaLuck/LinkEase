@@ -1,5 +1,5 @@
-<?php require "partials/head.php" ?>
-<?php require "partials/nav.php" ?>
+@extends('layouts.main')
+@section('body')
     <div class="row justify-content-center">
         <div class="col-md-5 border border-1 rounded p-4 shadow">
             <form>
@@ -36,4 +36,4 @@
             </form>
         </div>
     </div>
-<?php require "partials/footer.php" ?>
+@endsection

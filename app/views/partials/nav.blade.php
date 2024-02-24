@@ -1,4 +1,5 @@
 <header class="border-bottom py-3 mb-4">
+    @use(Symfony\Component\HttpFoundation\Session\Session)
     <div class="container-fluid d-flex flex-wrap align-items-center justify-content-center justify-content-md-between">
         <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
             <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
@@ -13,13 +14,11 @@
         </ul>
 
         <div class="col-md-3 d-flex flex-row-reverse">
-            <?php use Symfony\Component\HttpFoundation\Session\Session;
-
-            if (!(new Session())->has('user')): ?>
+            @if (!(new Session())->has('user'))
                 <a href="/register" type="button" class="btn btn-primary">Sign-up</a>
                 <a href="/login" type="button" class="btn btn-outline-primary me-2">Login</a>
-            <?php endif; ?>
-            <?php if ((new Session())->has('user')): ?>
+            @endif
+            @if ((new Session())->has('user'))
                 <div class="mx-1">
                     <form method="POST" action="/session">
                         <input type="hidden" name="_method" value="DELETE"/>
@@ -30,7 +29,8 @@
                     <a href="/profile" class="btn btn-outline-primary">Profile</a>
                 </div>
                 <div class="dropdown mx-1">
-                    <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false">
                         Action
                     </button>
 
@@ -40,7 +40,7 @@
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
                 </div>
-            <?php endif; ?>
+            @endif
         </div>
     </div>
 </header>

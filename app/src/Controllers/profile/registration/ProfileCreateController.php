@@ -45,7 +45,7 @@ class ProfileCreateController extends Controller
         }
 
         if (!empty($errors)) {
-            $this->render('registration/create.view.php', ['errors' => $errors]);
+            $this->render('registration.create', ['errors' => $errors]);
             exit();
         }
 

@@ -55,7 +55,7 @@ class WeatherDataController extends Controller
 
         #@todo засетати в кукіси місто і координати
 
-        $this->render('weather-data.view.php', [
+        $this->render('features.weather-data', [
             'currentWeatherData' => $weatherRawData->getWeatherDataHandler()->getCurrentWeatherData(),
             'dailyWeatherData' => $weatherRawData->getWeatherDataHandler()->getDailyWeatherData(),
 //            'city' => $userConfiguration['city'] ?? '',

@@ -21,7 +21,7 @@ class ProfileController extends Controller
             $errors[] = $e->getMessage();
         }
 
-        $this->render('profile.view.php', [
+        $this->render('profile', [
             'userData' => $userData ?? [],
             'errors' => $errors,
         ]);

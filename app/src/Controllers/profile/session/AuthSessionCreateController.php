@@ -35,7 +35,7 @@ class AuthSessionCreateController extends Controller
         }
 
         if (!empty($errors)) {
-            $this->render('session/create.view.php', ['errors' => $errors]);
+            $this->render('session.create', ['errors' => $errors]);
             exit();
         }
 

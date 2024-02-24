@@ -9,7 +9,7 @@ class WeatherViewController extends Controller
 {
     public function __invoke(Session $session): void
     {
-        $this->render('weather-data.view.php', [
+        $this->render('features.weather-data', [
             'opencagedataKey' => $_ENV['OPENCAGEDATE_KEY'],
         ]);
     }

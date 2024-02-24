@@ -1,7 +1,6 @@
-<?php use Symfony\Component\HttpFoundation\Session\Session;
-
-require "partials/head.php" ?>
-<?php require "partials/nav.php" ?>
+@extends('layouts.main')
+@section('body')
+    @use(Symfony\Component\HttpFoundation\Session\Session)
     <div class="container">
         <div class="row d-flex justify-content-center align-items-center">
             <div class="col-lg-12 col-xl-11">
@@ -18,7 +17,7 @@ require "partials/head.php" ?>
                                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
                                             <input type="text" name="username" id="form3Example1c" class="form-control"
-                                                   value="<?= $userData->getName() ?? '' ?>"/>
+                                                   value="{{$userData->getName()}}"/>
                                             <label class="form-label small opacity-50" for="form3Example1c">Your
                                                 Name</label>
                                         </div>
@@ -28,7 +27,7 @@ require "partials/head.php" ?>
                                         <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
                                             <input type="email" name="email" id="form3Example3c" class="form-control"
-                                                   value="<?= $userData->getEmail() ?? '' ?>"/>
+                                                   value="{{$userData->getEmail()}}"/>
                                             <label class="form-label small opacity-50" for="form3Example3c">Your
                                                 Email</label>
                                         </div>
@@ -66,20 +65,21 @@ require "partials/head.php" ?>
                                     </div>
                                 </form>
                                 <ul class="mt-3">
-                                    <?php foreach ((new Session)->getFlashBag()->all() as $type => $messages): ?>
-                                        <?php foreach ($messages as $message): ?>
-                                            <li class="small text-<?= $type ?>"><?= $message ?></li>
-                                        <?php endforeach; ?>
-                                    <?php endforeach; ?>
+                                    @foreach((new Session)->getFlashBag()->all() as $type => $messages)
+                                        @foreach ($messages as $message)
+                                            <li class="small text-{{$type}}">{{$message}}</li>
+                                        @endforeach
+                                    @endforeach
                                 </ul>
                             </div>
                             <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
 
-                                <img src="<?= $userData->getImagePath() === null
-                                    ? 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp'
-                                    : $userData->getImagePath() ?>"
-                                     class="img-fluid" alt="Sample image">
-
+                                <img src="@if($userData->getImagePath() === null)
+                                    https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp
+                                    @else
+                                    $userData->getImagePath()
+                                    @endif
+                                    " class=" img-fluid" alt="Sample image">
                             </div>
                         </div>
                     </div>
@@ -87,5 +87,4 @@ require "partials/head.php" ?>
             </div>
         </div>
     </div>
-
-<?php require "partials/footer.php";
+@endsection

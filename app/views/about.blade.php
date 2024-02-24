@@ -1,5 +1,5 @@
-<?php require "partials/head.php" ?>
-<?php require "partials/nav.php" ?>
+@extends('layouts.main')
+@section('body')
     <div class="container">
         <div class="row gx-5 p-4">
             <div class="col-md-6 mb-4">
@@ -23,4 +23,4 @@
             </div>
         </div>
     </div>
-<?php require "partials/footer.php" ?>
+@endsection

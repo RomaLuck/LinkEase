@@ -8,6 +8,6 @@ class LoginViewController extends Controller
 {
     public function __invoke(): void
     {
-        $this->render('session/create.view.php');
+        $this->render('session.create');
     }
 }

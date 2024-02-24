@@ -8,6 +8,6 @@ class RegistrationViewController extends Controller
 {
     public function __invoke(): void
     {
-        $this->render('registration/create.view.php');
+        $this->render('registration.create');
     }
 }

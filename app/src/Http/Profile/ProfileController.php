@@ -5,11 +5,12 @@ namespace Src\Http\Profile;
 use Doctrine\ORM\EntityManager;
 use Src\Entity\User;
 use Src\Http\Controller;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class ProfileController extends Controller
 {
-    public function __invoke(EntityManager $entityManager, Session $session): void
+    public function __invoke(EntityManager $entityManager, Session $session): Response
     {
         $errors = [];
 
@@ -21,7 +22,7 @@ class ProfileController extends Controller
             $errors[] = $e->getMessage();
         }
 
-        $this->render('Profile.profile', [
+        return $this->render('Profile.profile', [
             'userData' => $userData ?? [],
             'errors' => $errors,
         ]);

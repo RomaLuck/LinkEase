@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('_layouts.main')
 @section('body')
 <article>
     <div class="d-flex flex-column align-items-center">

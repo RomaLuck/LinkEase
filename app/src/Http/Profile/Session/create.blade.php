@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('_layouts.main')
 @section('body')
     <section class="m-5">
         <div class="container-fluid h-custom p-5">

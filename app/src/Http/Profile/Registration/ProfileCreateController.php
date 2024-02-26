@@ -11,6 +11,7 @@ use Src\Http\Controller;
 use Src\Security\Authenticator;
 use Src\Validator;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProfileCreateController extends Controller
 {
@@ -20,7 +21,7 @@ class ProfileCreateController extends Controller
      * @throws \Exception
      */
     #[NoReturn]
-    public function __invoke(EntityManager $entityManager, Authenticator $authenticator, Request $request): void
+    public function __invoke(EntityManager $entityManager, Authenticator $authenticator, Request $request): Response
     {
         $errors = [];
 
@@ -45,13 +46,12 @@ class ProfileCreateController extends Controller
         }
 
         if (!empty($errors)) {
-            $this->render('Profile.Registration.create', ['errors' => $errors]);
-            exit();
+            return $this->render('Profile.Registration.create', ['errors' => $errors]);
         }
 
         $user = $entityManager->getRepository(User::class)->findOneByEmail($email);
         if ($user) {
-            $this->redirect('/');
+            return $this->redirect('/');
         }
 
         $user = new User();

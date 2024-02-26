@@ -45,7 +45,7 @@ class Router
                 }
                 $controller = new $route['controller']();
                 $parameters = $this->resolveParameters($controller, $container);
-                call_user_func_array($controller, $parameters);
+                call_user_func_array($controller, $parameters)->send();
                 return;
             }
         }

@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('_layouts.main')
 @section('body')
     <div class="container-fluid">
         <div class="row">
@@ -123,16 +123,16 @@
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="snowfall"
-                                           value="current-values[snowfall]"
+                                    <input class="form-check-input" type="checkbox" name="current-values[snowfall]"
+                                           value="snowfall"
                                            id="flexCheckDefault">
                                     <label class="form-check-label" for="flexCheckDefault">
                                         Snowfall
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="rain"
-                                           value="current-values[rain]"
+                                    <input class="form-check-input" type="checkbox" name="current-values[rain]"
+                                           value="rain"
                                            id="flexCheckDefault">
                                     <label class="form-check-label" for="flexCheckDefault">
                                         Rain
@@ -183,7 +183,7 @@
                             @foreach ($dailyWeatherData[array_key_first($dailyWeatherData)] as $key => $value)
                                 <tr>
                                     @foreach (array_keys($dailyWeatherData) as $columnName)
-                                        <td>{{$dailyWeatherData[$columnName][$key]}}></td>
+                                        <td>{{$dailyWeatherData[$columnName][$key]}}</td>
                                     @endforeach
                                 </tr>
                             @endforeach
@@ -193,7 +193,7 @@
             </div>
         </div>
     </div>
-    <script src="public/assets/weather-data.js"></script>
+    <script src="@asset('public/assets/weather-data.js')"></script>
     <script>
         let inputCity = document.getElementById('input-city');
         let selectCity = document.getElementById('select-city');

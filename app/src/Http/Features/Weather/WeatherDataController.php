@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Http\Features;
+namespace Src\Http\Features\Weather;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Exception\ORMException;
@@ -9,7 +9,9 @@ use Src\Entity\User;
 use Src\Entity\UserSettings;
 use Src\Features\Weather\WeatherApiClient;
 use Src\Http\Controller;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class WeatherDataController extends Controller
@@ -19,7 +21,7 @@ class WeatherDataController extends Controller
      * @throws \JsonException
      * @throws \Exception|ORMException
      */
-    public function __invoke(EntityManager $entityManager, Request $request, Session $session): void
+    public function __invoke(EntityManager $entityManager, Request $request, Session $session): Response
     {
         $latitude = $request->request->get('latitude');
         $longitude = $request->request->get('longitude');
@@ -32,7 +34,7 @@ class WeatherDataController extends Controller
         ]);
 
         if ($user === null) {
-            $this->redirect('/');
+            return $this->redirect('/');
         }
 
         $weatherRawData = (new WeatherApiClient($latitude, $longitude))
@@ -54,14 +56,22 @@ class WeatherDataController extends Controller
         $entityManager->persist($userConfiguration);
         $entityManager->flush();
 
-        #@todo засетати в кукіси місто і координати
+        $cityCookie = Cookie::create('city', $city)->withSecure();
+        $latitudeCookie = Cookie::create('latitude', $latitude)->withSecure();
+        $longitudeCookie = Cookie::create('longitude', $longitude)->withSecure();
 
-        $this->render('Features.weather-data', [
+        $response = $this->render('Features.Weather.weather-data', [
             'currentWeatherData' => $weatherRawData->getWeatherDataHandler()->getCurrentWeatherData(),
             'dailyWeatherData' => $weatherRawData->getWeatherDataHandler()->getDailyWeatherData(),
-//            'city' => $userConfiguration['city'] ?? '',
-//            'latitude' => $userConfiguration['latitude'] ?? '',
-//            'longitude' => $userConfiguration['longitude'] ?? '',
+            'city' => $cityCookie->getValue(),
+            'latitude' => $latitudeCookie->getValue(),
+            'longitude' => $longitudeCookie->getValue(),
         ]);
+
+        $response->headers->setCookie($cityCookie);
+        $response->headers->setCookie($latitudeCookie);
+        $response->headers->setCookie($longitudeCookie);
+
+        return $response;
     }
 }

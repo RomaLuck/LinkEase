@@ -5,6 +5,7 @@ namespace Src\Http\Profile\Session;
 use JetBrains\PhpStorm\NoReturn;
 use Src\Http\Controller;
 use Src\Security\Authenticator;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthSessionDestroyController extends Controller
 {
@@ -12,10 +13,10 @@ class AuthSessionDestroyController extends Controller
      * @throws \Exception
      */
     #[NoReturn]
-    public function __invoke(Authenticator $authenticator): void
+    public function __invoke(Authenticator $authenticator): Response
     {
         $authenticator->logout();
 
-        $this->redirect('/');
+        return $this->redirect('/');
     }
 }

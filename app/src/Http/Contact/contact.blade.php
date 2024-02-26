@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('_layouts.main')
 @section('body')
     <div class="row justify-content-center">
         <div class="col-md-5 border border-1 rounded p-4 shadow">

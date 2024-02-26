@@ -17,10 +17,10 @@ class UserSettings
     #[ORM\OneToOne(inversedBy: 'settings')]
     private User $user;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'text')]
     private string $api_request_url;
 
-    #[ORM\Column(type: 'datetime')]
+    #[ORM\Column(type: 'time')]
     private \DateTime $time;
 
     public function getId(): int

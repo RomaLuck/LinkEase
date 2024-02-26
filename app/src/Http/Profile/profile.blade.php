@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('_layouts.main')
 @section('body')
     @use(Symfony\Component\HttpFoundation\Session\Session)
     <div class="container">

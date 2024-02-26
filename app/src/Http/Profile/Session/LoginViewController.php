@@ -3,11 +3,12 @@
 namespace Src\Http\Profile\Session;
 
 use Src\Http\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class LoginViewController extends Controller
 {
-    public function __invoke(): void
+    public function __invoke(): Response
     {
-        $this->render('Profile.Session.create');
+        return $this->render('Profile.Session.create');
     }
 }

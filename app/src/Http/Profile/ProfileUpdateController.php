@@ -9,6 +9,7 @@ use Src\FileUploader;
 use Src\Http\Controller;
 use Src\Validator;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class ProfileUpdateController extends Controller
@@ -17,7 +18,7 @@ class ProfileUpdateController extends Controller
      * @throws \Exception
      */
     #[NoReturn]
-    public function __invoke(EntityManager $entityManager, Request $request, Session $session): void
+    public function __invoke(EntityManager $entityManager, Request $request, Session $session): Response
     {
         $errors = [];
 
@@ -42,7 +43,7 @@ class ProfileUpdateController extends Controller
         }
 
         if (!empty($errors)) {
-            $this->redirect('profile', $errors);
+            return $this->redirect('profile', $errors);
         }
 
         $user = $entityManager->getRepository(User::class)->findOneBy([
@@ -50,7 +51,7 @@ class ProfileUpdateController extends Controller
         ]);
 
         if ($user === null) {
-            $this->redirect('/');
+            return $this->redirect('/');
         }
 
         $user->setEmail($newEmail)
@@ -64,6 +65,6 @@ class ProfileUpdateController extends Controller
             $user->setImagePath($fileName);
         }
 
-        $this->redirect('profile', ['success' => 'Profile has been updated successfully']);
+        return $this->redirect('profile', ['success' => 'Profile has been updated successfully']);
     }
 }

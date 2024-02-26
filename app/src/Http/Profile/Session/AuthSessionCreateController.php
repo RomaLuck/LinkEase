@@ -7,6 +7,7 @@ use Src\Http\Controller;
 use Src\Security\Authenticator;
 use Src\Validator;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthSessionCreateController extends Controller
 {
@@ -14,7 +15,7 @@ class AuthSessionCreateController extends Controller
      * @throws \Exception
      */
     #[NoReturn]
-    public function __invoke(Authenticator $authenticator, Request $request): void
+    public function __invoke(Authenticator $authenticator, Request $request): Response
     {
         $email = htmlspecialchars($request->request->get('email'));
         $password = htmlspecialchars($request->request->get('password'));
@@ -35,10 +36,9 @@ class AuthSessionCreateController extends Controller
         }
 
         if (!empty($errors)) {
-            $this->render('Profile.Session.create', ['errors' => $errors]);
-            exit();
+            return $this->render('Profile.Session.create', ['errors' => $errors]);
         }
 
-        $this->redirect('/');
+        return $this->redirect('/');
     }
 }

@@ -3,11 +3,12 @@
 namespace Src\Http\Contact;
 
 use Src\Http\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class ContactController extends Controller
 {
-    public function __invoke(): void
+    public function __invoke(): Response
     {
-        $this->render('Contact.contact');
+        return $this->render('Contact.contact');
     }
 }

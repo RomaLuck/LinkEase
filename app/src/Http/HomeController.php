@@ -2,10 +2,12 @@
 
 namespace Src\Http;
 
+use Symfony\Component\HttpFoundation\Response;
+
 class HomeController extends Controller
 {
-    public function __invoke(): void
+    public function __invoke(): Response
     {
-        $this->render('index');
+        return $this->render('index');
     }
 }

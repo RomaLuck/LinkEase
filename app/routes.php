@@ -2,8 +2,8 @@
 
 use Src\Http\About\AboutController;
 use Src\Http\Contact\ContactController;
-use Src\Http\Features\WeatherDataController;
-use Src\Http\Features\WeatherViewController;
+use Src\Http\Features\Weather\WeatherDataController;
+use Src\Http\Features\Weather\WeatherViewController;
 use Src\Http\HomeController;
 use Src\Http\Profile\Oauth\ConnectActionController;
 use Src\Http\Profile\Oauth\ConnectionActionCheckController;

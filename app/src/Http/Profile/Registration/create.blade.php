@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('_layouts.main')
 @section('body')
     <section class="vh-100" style="background-color: #eee;">
         <div class="container h-100">

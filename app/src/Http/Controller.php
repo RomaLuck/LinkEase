@@ -4,11 +4,13 @@ namespace Src\Http;
 
 use eftec\bladeone\BladeOne;
 use JetBrains\PhpStorm\NoReturn;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class Controller
 {
-    protected function render($path, $attributes = []): void
+    protected function render($path, $attributes = []): Response
     {
         $views = __DIR__ . '/';
         $cache = __DIR__ . '/../../var/cache';
@@ -16,17 +18,18 @@ class Controller
         $blade = new BladeOne($views, $cache, BladeOne::MODE_AUTO);
         $blade->pipeEnable = true;
 
-        echo $blade->run($path, $attributes);
+        $content = $blade->run($path, $attributes);
+
+        return new Response($content);
     }
 
     #[NoReturn]
-    protected function redirect($path, $messages = []): void
+    protected function redirect($path, $messages = []): Response
     {
         foreach ($messages as $messageKey => $message) {
             (new Session())->getFlashBag()->add($messageKey, $message);
         }
 
-        header('location: ' . $path);
-        exit();
+        return new RedirectResponse($path);
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace Src\Controllers\profile\session;
+namespace Src\Http\Profile\Session;
 
-use Src\Controllers\Controller;
 use JetBrains\PhpStorm\NoReturn;
+use Src\Http\Controller;
 use Src\Security\Authenticator;
 
 class AuthSessionDestroyController extends Controller

@@ -1,11 +1,13 @@
 <?php
 
-namespace Src\Controllers;
+namespace Src\Http\About;
+
+use Src\Http\Controller;
 
 class AboutController extends Controller
 {
     public function __invoke(): void
     {
-        $this->render('about');
+        $this->render('About.about');
     }
 }

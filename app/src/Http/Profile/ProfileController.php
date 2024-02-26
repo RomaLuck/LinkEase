@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Controllers\profile;
+namespace Src\Http\Profile;
 
 use Doctrine\ORM\EntityManager;
-use Src\Controllers\Controller;
 use Src\Entity\User;
+use Src\Http\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class ProfileController extends Controller
@@ -21,7 +21,7 @@ class ProfileController extends Controller
             $errors[] = $e->getMessage();
         }
 
-        $this->render('profile', [
+        $this->render('Profile.profile', [
             'userData' => $userData ?? [],
             'errors' => $errors,
         ]);

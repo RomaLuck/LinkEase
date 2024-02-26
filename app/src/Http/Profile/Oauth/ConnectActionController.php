@@ -1,8 +1,8 @@
 <?php
 
-namespace Src\Controllers\profile\oauth;
+namespace Src\Http\Profile\Oauth;
 
-use Src\Controllers\Controller;
+use Src\Http\Controller;
 use Src\Security\OAuthAuthenticator;
 use Src\Security\SocialProviderFactory;
 use Symfony\Component\HttpFoundation\Session\Session;

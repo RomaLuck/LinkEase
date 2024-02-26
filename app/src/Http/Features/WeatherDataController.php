@@ -1,13 +1,14 @@
 <?php
 
-namespace Src\Controllers\features;
+namespace Src\Http\Features;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Exception\ORMException;
 use GuzzleHttp\Exception\GuzzleException;
-use Src\Controllers\Controller;
 use Src\Entity\User;
 use Src\Entity\UserSettings;
 use Src\Features\Weather\WeatherApiClient;
+use Src\Http\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -16,7 +17,7 @@ class WeatherDataController extends Controller
     /**
      * @throws GuzzleException
      * @throws \JsonException
-     * @throws \Exception
+     * @throws \Exception|ORMException
      */
     public function __invoke(EntityManager $entityManager, Request $request, Session $session): void
     {
@@ -55,7 +56,7 @@ class WeatherDataController extends Controller
 
         #@todo засетати в кукіси місто і координати
 
-        $this->render('features.weather-data', [
+        $this->render('Features.weather-data', [
             'currentWeatherData' => $weatherRawData->getWeatherDataHandler()->getCurrentWeatherData(),
             'dailyWeatherData' => $weatherRawData->getWeatherDataHandler()->getDailyWeatherData(),
 //            'city' => $userConfiguration['city'] ?? '',

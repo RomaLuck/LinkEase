@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Controllers;
+namespace Src\Http;
 
 use eftec\bladeone\BladeOne;
 use JetBrains\PhpStorm\NoReturn;
@@ -10,7 +10,7 @@ class Controller
 {
     protected function render($path, $attributes = []): void
     {
-        $views = __DIR__ . '/../../views';
+        $views = __DIR__ . '/';
         $cache = __DIR__ . '/../../var/cache';
 
         $blade = new BladeOne($views, $cache, BladeOne::MODE_AUTO);

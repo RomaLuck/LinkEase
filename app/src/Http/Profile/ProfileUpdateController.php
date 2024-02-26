@@ -1,11 +1,12 @@
 <?php
 
-namespace Src\Controllers\profile;
+namespace Src\Http\Profile;
 
 use Doctrine\ORM\EntityManager;
-use Src\Controllers\Controller;
+use JetBrains\PhpStorm\NoReturn;
 use Src\Entity\User;
 use Src\FileUploader;
+use Src\Http\Controller;
 use Src\Validator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -15,6 +16,7 @@ class ProfileUpdateController extends Controller
     /**
      * @throws \Exception
      */
+    #[NoReturn]
     public function __invoke(EntityManager $entityManager, Request $request, Session $session): void
     {
         $errors = [];

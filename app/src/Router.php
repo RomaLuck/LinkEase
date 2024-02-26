@@ -74,7 +74,7 @@ class Router
     {
         http_response_code($code);
 
-        require("views/$code.php");
+        require("Http/$code.php");
         die();
     }
 }

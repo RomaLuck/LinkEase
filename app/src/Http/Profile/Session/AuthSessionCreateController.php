@@ -1,9 +1,9 @@
 <?php
 
-namespace Src\Controllers\profile\session;
+namespace Src\Http\Profile\Session;
 
-use Src\Controllers\Controller;
 use JetBrains\PhpStorm\NoReturn;
+use Src\Http\Controller;
 use Src\Security\Authenticator;
 use Src\Validator;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,7 +35,7 @@ class AuthSessionCreateController extends Controller
         }
 
         if (!empty($errors)) {
-            $this->render('session.create', ['errors' => $errors]);
+            $this->render('Profile.Session.create', ['errors' => $errors]);
             exit();
         }
 

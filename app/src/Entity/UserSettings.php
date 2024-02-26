@@ -14,7 +14,7 @@ class UserSettings
     #[ORM\GeneratedValue]
     private int $id;
 
-    #[ORM\OneToOne]
+    #[ORM\OneToOne(inversedBy: 'settings')]
     private User $user;
 
     #[ORM\Column(type: 'string')]

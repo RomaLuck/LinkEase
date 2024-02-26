@@ -1,13 +1,13 @@
 <?php
 
-namespace Src\Controllers\profile\registration;
+namespace Src\Http\Profile\Registration;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
-use Src\Controllers\Controller;
 use JetBrains\PhpStorm\NoReturn;
 use Src\Entity\User;
+use Src\Http\Controller;
 use Src\Security\Authenticator;
 use Src\Validator;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,7 +45,7 @@ class ProfileCreateController extends Controller
         }
 
         if (!empty($errors)) {
-            $this->render('registration.create', ['errors' => $errors]);
+            $this->render('Profile.Registration.create', ['errors' => $errors]);
             exit();
         }
 

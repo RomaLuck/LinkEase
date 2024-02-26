@@ -38,7 +38,7 @@ class User
     #[ORM\Column(type: 'datetime')]
     private DateTime $created_at;
 
-    #[ORM\OneToOne]
+    #[ORM\OneToOne(mappedBy: 'user')]
     private UserSettings $settings;
 
     /**

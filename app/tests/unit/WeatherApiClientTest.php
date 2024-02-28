@@ -5,6 +5,7 @@ namespace unit;
 use GuzzleHttp\Exception\GuzzleException;
 use PHPUnit\Framework\TestCase;
 use Src\Features\Weather\WeatherApiClient;
+use Src\Features\Weather\WeatherRequestParameters;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -12,41 +13,22 @@ use GuzzleHttp\Psr7\Response;
 
 class WeatherApiClientTest extends TestCase
 {
-    private WeatherApiClient $weatherApiClient;
-
-    protected function setUp(): void
-    {
-        $this->weatherApiClient = new WeatherApiClient(50.4501, 30.5234); // Coordinates for Kyiv, Ukraine
-    }
-
     /**
      * @throws GuzzleException
+     * @throws \JsonException
      */
-    public function testGetWeatherDataHandler(): void
-    {
-        $mock = new MockHandler([
-            new Response(200, [], '{"weather": "sunny"}'),
-        ]);
-
-        $handlerStack = HandlerStack::create($mock);
-        $client = new Client(['handler' => $handlerStack]);
-
-        $weatherDataHandler = $this->weatherApiClient->getWeatherDataHandler();
-
-        $this->assertEquals('sunny', $weatherDataHandler->getWeather());
-    }
-
     public function testGetWeatherResponse(): void
     {
         $mock = new MockHandler([
-            new Response(200, [], '{"weather": "sunny"}'),
+            new Response(200, [], '{"current": {"weather":"sunny"}}'),
         ]);
 
         $handlerStack = HandlerStack::create($mock);
         $client = new Client(['handler' => $handlerStack]);
 
-        $response = $this->weatherApiClient->getWeatherResponse($client);
+        $weatherRequestParameters = new WeatherRequestParameters(50.4501, 30.5234);
+        $weatherApiClient = new WeatherApiClient($client, $weatherRequestParameters);
 
-        $this->assertEquals('{"weather": "sunny"}', $response);
+        $this->assertEquals(['weather' => 'sunny'], $weatherApiClient->getWeatherData()->getCurrent());
     }
 }

@@ -4,10 +4,12 @@ namespace Src\Http\Features\Weather;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Exception\ORMException;
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Src\Entity\User;
 use Src\Entity\UserSettings;
 use Src\Features\Weather\WeatherApiClient;
+use Src\Features\Weather\WeatherRequestParameters;
 use Src\Http\Controller;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,12 +39,12 @@ class WeatherDataController extends Controller
             return $this->redirect('/');
         }
 
-        $weatherRawData = (new WeatherApiClient($latitude, $longitude))
+        $requestParameters = (new WeatherRequestParameters($latitude, $longitude))
             ->setForecastDays($request->request->get('forecast-length'))
-            ->setParametersManually('current', array_values($request->request->all('current-values')))
-            ->setParametersManually('daily', array_values($request->request->all('daily-values')));
+            ->setCurrent(array_values($request->request->all('current-values')))
+            ->setDaily(array_values($request->request->all('daily-values')));
 
-        $weatherRequestUrl = $weatherRawData->getRequestUrl();
+        $weatherRequestUrl = $requestParameters->getRequestUrl();
 
         $userConfiguration = $entityManager
             ->getRepository(UserSettings::class)
@@ -60,9 +62,11 @@ class WeatherDataController extends Controller
         $latitudeCookie = Cookie::create('latitude', $latitude)->withSecure();
         $longitudeCookie = Cookie::create('longitude', $longitude)->withSecure();
 
+        $weatherApiClient = new WeatherApiClient(new Client(), $requestParameters);
+
         $response = $this->render('Features.Weather.weather-data', [
-            'currentWeatherData' => $weatherRawData->getWeatherDataHandler()->getCurrentWeatherData(),
-            'dailyWeatherData' => $weatherRawData->getWeatherDataHandler()->getDailyWeatherData(),
+            'currentWeatherData' => $weatherApiClient->getWeatherData()->getCurrent(),
+            'dailyWeatherData' => $weatherApiClient->getWeatherData()->getDaily(),
             'city' => $cityCookie->getValue(),
             'latitude' => $latitudeCookie->getValue(),
             'longitude' => $longitudeCookie->getValue(),

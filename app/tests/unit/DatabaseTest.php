@@ -3,7 +3,6 @@
 namespace unit;
 
 use Doctrine\DBAL\Exception;
-use Src\Container;
 use Src\Database;
 use PHPUnit\Framework\TestCase;
 

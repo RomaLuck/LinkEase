@@ -2,7 +2,6 @@
 
 namespace Telegram\Conversation;
 
-use Src\Container;
 use Src\Database;
 use Psr\SimpleCache\InvalidArgumentException;
 use SergiX44\Nutgram\Conversations\Conversation;
@@ -48,12 +47,14 @@ class RegisterConversation extends Conversation
         $user = $entityManager->getRepository(User::class)->findOneByEmail($this->email);
 
         if ($user) {
-            $user->setTelegramChatId($bot->chatId())
-                ->setEmail($this->email);
+            $user->setTelegramChatId($bot->chatId());
+
+            $entityManager->persist($user);
+            $entityManager->flush();
 
             $bot->sendMessage('User is verified');
         } else {
-            $bot->sendMessage('Register in the site please');
+            $bot->sendMessage('Register on the site please');
         }
         $this->end();
     }

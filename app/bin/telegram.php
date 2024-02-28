@@ -1,17 +1,14 @@
 <?php
 
 use Src\LoggerFactory;
-use Dotenv\Dotenv;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use SergiX44\Nutgram\Configuration;
 use SergiX44\Nutgram\Nutgram;
+use Src\TelegramBot;
 use Telegram\Conversation\RegisterConversation;
 
 require_once __DIR__ . '/../vendor/autoload.php';
-
-$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
-$dotenv->load();
 
 $logger = (new LoggerFactory())->getLogger('telegram_bot');
 
@@ -20,7 +17,7 @@ try {
         logger: $logger,
     );
 
-    $bot = new Nutgram($_ENV['TELEGRAM_BOT_TOKEN'], $config);
+    $bot = new TelegramBot($config);
 
     $bot->onCommand('start', RegisterConversation::class);
 

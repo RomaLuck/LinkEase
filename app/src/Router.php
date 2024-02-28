@@ -77,4 +77,9 @@ class Router
         require("Http/$code.php");
         die();
     }
+
+    public function getRoutes(): array
+    {
+        return $this->routes;
+    }
 }

@@ -2,20 +2,21 @@
 
 namespace integration;
 
-use Src\Container;
-use Src\Database;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Exception\ORMException;
+use Src\Database\EntityManagerFactory;
 use Src\Entity\User;
 use Src\Security\Authenticator;
 use GuzzleHttp\Exception\GuzzleException;
-use PDO;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class AuthTest extends TestCase
 {
     private const USERNAME = 'test';
     private const EMAIL = 'test@gmail.com';
     private const PASSWORD = 'test';
-    private ?Container $container;
+    private ?EntityManager $entityManager;
 
     /**
      * @throws \Exception
@@ -23,32 +24,43 @@ class AuthTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->container = new Container();
-        $this->entityManager = Database\EntityManagerFactory::create();
-        $this->entityManager->beginTransaction();
+        $this->entityManager = EntityManagerFactory::create();
+        if (!$this->entityManager->getConnection()->isTransactionActive()) {
+            $this->entityManager->beginTransaction();
+        }
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+        if ($this->entityManager->getConnection()->isTransactionActive()) {
+            $this->entityManager->rollback();
+        }
+        $this->entityManager = null;
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws \Exception
+     * @throws ORMException
+     */
+    public function testUserAuthenticationSuccess(): void
+    {
         $user = new User();
         $user->setName(self::USERNAME)
             ->setEmail(self::EMAIL)
             ->setPassword(password_hash(self::PASSWORD, PASSWORD_BCRYPT));
         $this->entityManager->persist($user);
         $this->entityManager->flush();
-    }
 
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        $this->entityManager->rollBack();
-        $this->entityManager = null;
-        $this->container = null;
-    }
+        $authenticator = new Authenticator($this->entityManager, new Session());
+        $signIn = $authenticator->authenticate(self::EMAIL, self::PASSWORD);
 
-    /**
-     * @throws GuzzleException
-     * @throws \Exception
-     */
-    public function testUserAuthenticationSuccess(): void
-    {
-        $signIn = $this->container->get(Authenticator::class)->authenticate(self::EMAIL, self::PASSWORD);
         $this->assertTrue($signIn);
+
+        $savedUser = $this->entityManager->getRepository(User::class)->findOneByEmail(self::EMAIL);
+        $this->assertNotNull($savedUser);
+        $this->assertEquals(self::USERNAME, $savedUser->getName());
+        $this->assertEquals(self::EMAIL, $savedUser->getEmail());
     }
 }

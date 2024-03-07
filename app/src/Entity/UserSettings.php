@@ -3,9 +3,10 @@
 namespace Src\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Src\Repository\UserSettingsRepository;
 
 #[ORM\Embeddable]
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: UserSettingsRepository::class)]
 #[ORM\Table(name: 'user_settings')]
 class UserSettings
 {

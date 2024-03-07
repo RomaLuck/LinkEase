@@ -13,4 +13,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserSettingsRepository extends EntityRepository
 {
+    public function findSettingsBetweenTimes(\DateTimeInterface $currentTime, \DateTimeInterface $maxTime)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.time > :time')
+            ->setParameter('time', $currentTime)
+            ->andWhere('u.time < :max_time')
+            ->setParameter('max_time', $maxTime)
+            ->getQuery()
+            ->getResult();
+    }
 }

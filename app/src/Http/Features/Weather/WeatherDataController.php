@@ -8,8 +8,8 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Src\Entity\User;
 use Src\Entity\UserSettings;
-use Src\Features\Weather\WeatherApiClient;
-use Src\Features\Weather\WeatherRequestParameters;
+use Src\Features\Api\Weather\WeatherApiClient;
+use Src\Features\Api\Weather\WeatherRequestParameters;
 use Src\Http\Controller;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,7 +42,8 @@ class WeatherDataController extends Controller
         $requestParameters = (new WeatherRequestParameters($latitude, $longitude))
             ->setForecastDays($request->request->get('forecast-length'))
             ->setCurrent(array_values($request->request->all('current-values')))
-            ->setDaily(array_values($request->request->all('daily-values')));
+            ->setDaily(array_values($request->request->all('daily-values')))
+            ->assemble();
 
         $weatherRequestUrl = $requestParameters->getRequestUrl();
 

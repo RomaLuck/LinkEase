@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Features\Weather;
+namespace Src\Features\Api\Weather;
 
 class WeatherData
 {

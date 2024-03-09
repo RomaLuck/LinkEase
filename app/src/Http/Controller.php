@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class Controller
 {
+    /**
+     * @throws \Exception
+     */
     protected function render($path, $attributes = []): Response
     {
         $views = __DIR__ . '/';

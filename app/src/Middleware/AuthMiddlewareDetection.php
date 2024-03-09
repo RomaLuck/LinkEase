@@ -7,7 +7,6 @@ enum AuthMiddlewareDetection: string
     case GUEST = 'guest';
     case AUTH = 'auth';
 
-
     public function detect(): AuthMiddlewareInterface
     {
         return match ($this) {

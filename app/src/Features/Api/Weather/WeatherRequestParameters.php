@@ -1,11 +1,12 @@
 <?php
 
-namespace Src\Features\Weather;
+namespace Src\Features\Api\Weather;
 
 class WeatherRequestParameters
 {
-    private const REQUEST_URL = 'https://api.open-meteo.com/v1/forecast';
+    private const API_URL = 'https://api.open-meteo.com/v1/forecast';
     private array $parameters = [];
+    private string $requestUrl = '';
     private float $latitude;
     private float $longitude;
     private float $elevation;
@@ -27,6 +28,23 @@ class WeatherRequestParameters
     {
         $this->parameters['latitude'] = $latitude;
         $this->parameters['longitude'] = $longitude;
+    }
+
+    public static function createFromRequestUrl(string $requestUrl): self
+    {
+        $query = parse_url($requestUrl)['query'] ?? '';
+        if ($query === '') {
+            throw new \RuntimeException('Query is empty');
+        }
+
+        parse_str($query, $queryData);
+
+        $self = new self($queryData['latitude'], $queryData['longitude']);
+        foreach ($queryData as $key => $value) {
+            $self->setParametersManually($key, $value);
+        }
+
+        return $self;
     }
 
     public function getParameters(): array
@@ -222,7 +240,21 @@ class WeatherRequestParameters
      */
     public function getRequestUrl(): string
     {
-        return self::REQUEST_URL . '?' . http_build_query($this->getParameters());
+        return $this->requestUrl;
+    }
+
+    public function setRequestUrl(string $url): self
+    {
+        $this->requestUrl = $url;
+
+        return $this;
+    }
+
+    public function assemble(): self
+    {
+        $this->requestUrl = self::API_URL . '?' . http_build_query($this->getParameters());
+
+        return $this;
     }
 
     public function setParametersManually($key, $value): self

@@ -8,8 +8,8 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
-use Src\Features\Weather\WeatherApiClient;
-use Src\Features\Weather\WeatherRequestParameters;
+use Src\Features\Api\Weather\WeatherApiClient;
+use Src\Features\Api\Weather\WeatherRequestParameters;
 
 class WeatherApiClientTest extends TestCase
 {
@@ -27,8 +27,8 @@ class WeatherApiClientTest extends TestCase
         $client = new Client(['handler' => $handlerStack]);
 
         $weatherRequestParameters = new WeatherRequestParameters(50.4501, 30.5234);
-        $weatherApiClient = new WeatherApiClient($client, $weatherRequestParameters);
+        $weatherApiClient = new WeatherApiClient($client, $weatherRequestParameters->getRequestUrl());
 
-        $this->assertEquals(['weather' => 'sunny'], $weatherApiClient->getWeatherData()->getCurrent());
+        $this->assertEquals(['weather' => 'sunny'], $weatherApiClient->getWeatherData()->get('current'));
     }
 }

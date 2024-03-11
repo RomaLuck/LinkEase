@@ -10,7 +10,9 @@ use Src\Entity\User;
 use Src\Entity\UserSettings;
 use Src\Features\Api\Weather\WeatherApiClient;
 use Src\Features\Api\Weather\WeatherRequestParameters;
+use Src\Features\FeatureTypes;
 use Src\Http\Controller;
+use Src\SendDataService\MessageTypes;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,6 +31,7 @@ class WeatherDataController extends Controller
         $longitude = $request->request->get('longitude');
         $city = $request->request->get('city');
         $time = $request->request->get('time-execute');
+        $messageType = $request->request->get('message-type');
         $userId = $session->get('user')['id'];
 
         $user = $entityManager->getRepository(User::class)->findOneBy([
@@ -52,8 +55,10 @@ class WeatherDataController extends Controller
             ->findOneBy(['user' => $user])
             ?? new UserSettings();
 
-        $userConfiguration->setTime(new \DateTime($time))
+        $userConfiguration->setTime($this->convertToUtcTime($time, $user->getTimeZone()))
             ->setApiRequestUrl($weatherRequestUrl)
+            ->setFeatureType(FeatureTypes::WEATHER)
+            ->setMessageType($messageType)
             ->setUser($user);
 
         $entityManager->persist($userConfiguration);
@@ -63,14 +68,15 @@ class WeatherDataController extends Controller
         $latitudeCookie = Cookie::create('latitude', $latitude)->withSecure();
         $longitudeCookie = Cookie::create('longitude', $longitude)->withSecure();
 
-        $weatherApiClient = new WeatherApiClient(new Client(), $requestParameters);
+        $weatherApiClient = new WeatherApiClient(new Client(), $weatherRequestUrl);
 
         $response = $this->render('Features.Weather.weather-data', [
-            'currentWeatherData' => $weatherApiClient->getWeatherData()->getCurrent(),
-            'dailyWeatherData' => $weatherApiClient->getWeatherData()->getDaily(),
+            'currentWeatherData' => $weatherApiClient->getWeatherData()->get('current'),
+            'dailyWeatherData' => $weatherApiClient->getWeatherData()->get('daily'),
             'city' => $cityCookie->getValue(),
             'latitude' => $latitudeCookie->getValue(),
             'longitude' => $longitudeCookie->getValue(),
+            'messageTypes' => MessageTypes::getAll()
         ]);
 
         $response->headers->setCookie($cityCookie);
@@ -78,5 +84,14 @@ class WeatherDataController extends Controller
         $response->headers->setCookie($longitudeCookie);
 
         return $response;
+    }
+
+    private function convertToUtcTime(string $time, string $timeZoneName): \DateTime
+    {
+        $zoneUser = new \DateTimeZone($timeZoneName);
+        $dateTimeUtc = new \DateTime($time, new \DateTimeZone('UTC'));
+        $dateTimeUtc->modify('-' . $zoneUser->getOffset($dateTimeUtc) . ' seconds');
+
+        return $dateTimeUtc;
     }
 }

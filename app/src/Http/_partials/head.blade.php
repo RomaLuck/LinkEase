@@ -9,4 +9,3 @@
     <link rel="stylesheet" href="@asset('public/assets/style.css')">
 </head>
 <body>
-<?php require "translations/translations.php"?>

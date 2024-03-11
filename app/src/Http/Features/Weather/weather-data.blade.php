@@ -1,5 +1,7 @@
+@php use function Symfony\Component\String\u; @endphp
 @extends('_layouts.main')
 @section('body')
+    @php(require "translations/translations.php")
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
@@ -142,11 +144,25 @@
                         </div>
                     </div>
                     <div class="form-control my-1 shadow">
-                        <div class="d-flex justify-content-center p-1">
-                            <span class="p-1 fw-bold">Time execute</span>
-                            <label class="form-label">
-                                <input type="time" class="form-control" name="time-execute" required>
-                            </label>
+                        <div class="d-flex justify-content-between p-1">
+                            <div>
+                                <span class="p-1 fw-bold">Message type</span>
+                                <label class="form-label">
+                                    <select id="cars" class="form-select" name="message-type" required>
+                                        @foreach($messageTypes as $messageType)
+                                            <option value="{{$messageType}}">
+                                                {{u($messageType)->replaceMatches('!_!iu',' ')}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </label>
+                            </div>
+                            <div>
+                                <span class="p-1 fw-bold">Time execute</span>
+                                <label class="form-label">
+                                    <input type="time" class="form-control" name="time-execute" required>
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>

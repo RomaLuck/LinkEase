@@ -18,6 +18,12 @@ class UserSettings
     #[ORM\OneToOne(inversedBy: 'settings')]
     private User $user;
 
+    #[ORM\Column(type: 'string')]
+    private string $message_type;
+
+    #[ORM\Column(type: 'string')]
+    private string $feature_type;
+
     #[ORM\Column(type: 'text')]
     private string $api_request_url;
 
@@ -65,6 +71,28 @@ class UserSettings
     public function setTime(\DateTime $time): self
     {
         $this->time = $time;
+        return $this;
+    }
+
+    public function getMessageType(): string
+    {
+        return $this->message_type;
+    }
+
+    public function setMessageType(string $message_type): self
+    {
+        $this->message_type = $message_type;
+        return $this;
+    }
+
+    public function getFeatureType(): string
+    {
+        return $this->feature_type;
+    }
+
+    public function setFeatureType(string $feature_type): self
+    {
+        $this->feature_type = $feature_type;
         return $this;
     }
 }

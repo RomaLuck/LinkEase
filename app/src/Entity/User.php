@@ -25,6 +25,9 @@ class User
     #[ORM\Column(type: 'string')]
     private string $email;
 
+    #[ORM\Column(type: 'string')]
+    public string $time_zone;
+
     #[ORM\Column(type: 'string', nullable: true)]
     private string|null $oauth_id;
 
@@ -136,7 +139,7 @@ class User
      */
     public function setCreatedAt(): self
     {
-        $this->created_at = new DateTime('now', new \DateTimeZone('Europe/Warsaw'));
+        $this->created_at = new DateTime();
         return $this;
     }
 
@@ -149,5 +152,15 @@ class User
     {
         $this->settings = $settings;
         return $this;
+    }
+
+    public function getTimeZone(): string
+    {
+        return $this->time_zone;
+    }
+
+    public function setTimeZone(string $time_zone): void
+    {
+        $this->time_zone = $time_zone;
     }
 }

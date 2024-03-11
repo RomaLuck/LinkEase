@@ -159,8 +159,9 @@ class User
         return $this->time_zone;
     }
 
-    public function setTimeZone(string $time_zone): void
+    public function setTimeZone(string $time_zone): self
     {
         $this->time_zone = $time_zone;
+        return $this;
     }
 }

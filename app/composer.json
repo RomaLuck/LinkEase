@@ -25,12 +25,12 @@
     "doctrine/orm": "^3",
     "doctrine/dbal": "^4",
     "symfony/cache": "^7",
-    "eftec/bladeone": "dev-master"
+    "eftec/bladeone": "dev-master",
+    "illuminate/collections": "10.x-dev"
   },
   "autoload": {
     "psr-4": {
-      "Src\\": "src/",
-      "Telegram\\": "Telegram/"
+      "Src\\": "src/"
     }
   },
   "config": {

@@ -3,6 +3,7 @@
 namespace Src\Http\Features\Weather;
 
 use Src\Http\Controller;
+use Src\SendDataService\MessageTypes;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,6 +18,7 @@ class WeatherViewController extends Controller
             'city' => $cookie->get('city') ?? '',
             'latitude' => $cookie->get('latitude') ?? '',
             'longitude' => $cookie->get('longitude') ?? '',
+            'messageTypes' => MessageTypes::getAll()
         ]);
     }
 }

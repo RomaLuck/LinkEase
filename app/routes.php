@@ -37,4 +37,4 @@ $router->addRoute('GET', '/connect/oauth/check', new ConnectionActionCheckContro
 $router->addRoute('GET', '/weather', new WeatherViewController())->middleware('auth');
 $router->addRoute('POST', '/weather', new WeatherDataController())->middleware('auth');
 
-$router->matchRoute();
+$router->matchRoute()->send();

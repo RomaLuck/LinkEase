@@ -3,7 +3,8 @@
 namespace Src;
 
 use Src\Middleware\AuthMiddlewareDetection;
-use JetBrains\PhpStorm\NoReturn;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class Router
 {
@@ -31,7 +32,7 @@ class Router
     /**
      * @throws \Exception
      */
-    public function matchRoute(): void
+    public function matchRoute(): Response
     {
         $method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
         $path = parse_url($_SERVER['REQUEST_URI'])['path'];
@@ -45,11 +46,10 @@ class Router
                 }
                 $controller = new $route['controller']();
                 $parameters = $this->resolveParameters($controller, $container);
-                call_user_func_array($controller, $parameters)->send();
-                return;
+                return call_user_func_array($controller, $parameters);
             }
         }
-        $this->abort(Response::NOT_FOUND);
+        return new RedirectResponse('/');
     }
 
     /**
@@ -67,15 +67,6 @@ class Router
         }
 
         return $dependencies;
-    }
-
-    #[NoReturn]
-    public function abort($code): void
-    {
-        http_response_code($code);
-
-        require("Http/$code.php");
-        die();
     }
 
     public function getRoutes(): array

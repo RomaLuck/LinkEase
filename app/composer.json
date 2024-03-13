@@ -26,7 +26,8 @@
     "doctrine/dbal": "^4",
     "symfony/cache": "^7",
     "eftec/bladeone": "dev-master",
-    "illuminate/collections": "10.x-dev"
+    "illuminate/collections": "10.x-dev",
+    "symfony/mailer": "7.1.x-dev"
   },
   "autoload": {
     "psr-4": {

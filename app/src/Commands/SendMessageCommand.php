@@ -38,7 +38,7 @@ class SendMessageCommand extends Command
                 $sendDataProcessor = new AdaptiveMessageSender($userSetting);
                 if ($userSetting->getApiRequestUrl() !== '') {
                     $sendDataProcessor->sendMessage();
-                    $output->writeln('<info>'.'Message has been sent!'.'</info>');
+                    $output->writeln('<info>' . 'Message has been sent!' . '</info>');
                 }
             }
         }

@@ -15,7 +15,7 @@ $logger = (new LoggerFactory())->getLogger('console');
 
 try {
     $application = new Application();
-    $application->add(new SendMessageCommand(new TelegramBot()));
+    $application->add(new SendMessageCommand());
     $application->run();
 } catch (Exception $e) {
     $logger->error($e->getMessage());

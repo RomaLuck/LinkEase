@@ -2,12 +2,11 @@
 
 namespace integration;
 
-use Src\Response;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Response;
 
 class RouterTest extends TestCase
 {
@@ -43,10 +42,10 @@ class RouterTest extends TestCase
      */
     public function testNonExistentRoute(): void
     {
-        $this->expectException(ClientException::class);
-
-        $result = $this->client->get(self::MAIN_URL . '/nonExistentRoute')->getStatusCode();
-        $this->assertEquals(Response::NOT_FOUND, $result);
+        $result = $this->client->get(self::MAIN_URL . '/nonExistentRoute', [
+            'allow_redirects' => false,
+        ])->getStatusCode();
+        $this->assertEquals(Response::HTTP_FOUND, $result);
     }
 
     public static function getPaths(): array

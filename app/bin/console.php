@@ -3,7 +3,6 @@
 use Dotenv\Dotenv;
 use Src\Commands\SendMessageCommand;
 use Src\LoggerFactory;
-use Src\TelegramBot;
 use Symfony\Component\Console\Application;
 
 require_once __DIR__ . '/../vendor/autoload.php';

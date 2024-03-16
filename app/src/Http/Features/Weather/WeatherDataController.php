@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Src\Entity\User;
 use Src\Entity\UserSettings;
-use Src\Features\Api\Weather\WeatherApiClient;
+use Src\Features\Api\Weather\WeatherFeature;
 use Src\Features\Api\Weather\WeatherRequestParameters;
 use Src\Features\FeatureTypes;
 use Src\Http\Controller;
@@ -68,7 +68,7 @@ class WeatherDataController extends Controller
         $latitudeCookie = Cookie::create('latitude', $latitude)->withSecure();
         $longitudeCookie = Cookie::create('longitude', $longitude)->withSecure();
 
-        $weatherApiClient = new WeatherApiClient(new Client(), $weatherRequestUrl);
+        $weatherApiClient = new WeatherFeature(new Client(), $weatherRequestUrl);
 
         $response = $this->render('Features.Weather.weather-data', [
             'currentWeatherData' => $weatherApiClient->getWeatherData()->get('current'),

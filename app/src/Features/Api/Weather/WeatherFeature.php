@@ -5,9 +5,9 @@ namespace Src\Features\Api\Weather;
 use Doctrine\Common\Collections\ArrayCollection;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
-use Src\Features\Api\ApiClientInterface;
+use Src\Features\FeatureInterface;
 
-class WeatherApiClient implements ApiClientInterface
+class WeatherFeature implements FeatureInterface
 {
     public function __construct(private ClientInterface $client, private string $requestUrl)
     {

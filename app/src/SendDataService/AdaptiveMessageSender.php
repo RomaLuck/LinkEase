@@ -3,8 +3,9 @@
 namespace Src\SendDataService;
 
 use GuzzleHttp\Client;
+use Src\Database\EntityManagerFactory;
 use Src\Entity\UserSettings;
-use Src\Features\Api\ApiClientDetectionType;
+use Src\Features\FeatureDetectionType;
 use Src\SendDataService\Detections\SendDataDetectionType;
 
 class AdaptiveMessageSender
@@ -15,11 +16,16 @@ class AdaptiveMessageSender
 
     public function sendMessage(): void
     {
+        $entityManager = EntityManagerFactory::create();
+
         $user = $this->userSettings->getUser();
+
         $messenger = SendDataDetectionType::tryFrom($this->userSettings->getMessageType())?->detect();
-        $apiClient = ApiClientDetectionType::tryFrom($this->userSettings->getFeatureType())
-            ?->getClient(new Client(), $this->userSettings->getApiRequestUrl());
+        $apiClient = FeatureDetectionType::tryFrom($this->userSettings->getFeatureType())
+            ?->detect(new Client(), $this->userSettings->getApiRequestUrl(), $entityManager);
+
         assert($messenger !== null && $apiClient !== null, 'Messenger or data is not set');
+
         $data = $apiClient->getResponseCollection();
         $messenger->send($user, $data);
     }

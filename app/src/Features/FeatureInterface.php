@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Features\Api;
+namespace Src\Features;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
-interface ApiClientInterface
+interface FeatureInterface
 {
     public function getResponseCollection(): ArrayCollection;
 }

@@ -1,6 +1,7 @@
 <?php
 
 use Dotenv\Dotenv;
+use Src\Commands\Fixtures\CollectDataCommand;
 use Src\Commands\SendMessageCommand;
 use Src\LoggerFactory;
 use Symfony\Component\Console\Application;
@@ -15,6 +16,7 @@ $logger = (new LoggerFactory())->getLogger('console');
 try {
     $application = new Application();
     $application->add(new SendMessageCommand());
+    $application->add(new CollectDataCommand());
     $application->run();
 } catch (Exception $e) {
     $logger->error($e->getMessage());

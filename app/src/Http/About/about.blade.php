@@ -4,7 +4,7 @@
         <div class="row gx-5 p-4">
             <div class="col-md-6 mb-4">
                 <div class="bg-image hover-overlay ripple shadow-2-strong rounded-5" data-mdb-ripple-color="light">
-                    <img src="https://mdbcdn.b-cdn.net/img/new/slides/080.webp" class="img-fluid"/>
+                    <img src="@asset('public/pictures/sender.webp')" class="img-fluid"/>
                     <a href="#!">
                         <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
                     </a>

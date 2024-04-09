@@ -3,7 +3,6 @@
 namespace Src\Http;
 
 use eftec\bladeone\BladeOne;
-use JetBrains\PhpStorm\NoReturn;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -26,7 +25,6 @@ class Controller
         return new Response($content);
     }
 
-    #[NoReturn]
     protected function redirect($path, $messages = []): Response
     {
         foreach ($messages as $messageKey => $message) {

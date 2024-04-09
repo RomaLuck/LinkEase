@@ -6,5 +6,5 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 interface FeatureInterface
 {
-    public function getResponseCollection(): ArrayCollection;
+    public function getData(): ArrayCollection;
 }

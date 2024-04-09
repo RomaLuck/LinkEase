@@ -151,7 +151,7 @@
                                     <select id="cars" class="form-select" name="message-type" required>
                                         @foreach($messageTypes as $messageType)
                                             <option value="{{$messageType}}">
-                                                {{u($messageType)->replaceMatches('!_!iu',' ')}}
+                                                {{$messageType}}
                                             </option>
                                         @endforeach
                                     </select>

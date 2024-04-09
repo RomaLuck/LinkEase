@@ -5,7 +5,6 @@ namespace Src\Http\Profile\Registration;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
-use JetBrains\PhpStorm\NoReturn;
 use Src\Entity\User;
 use Src\Http\Controller;
 use Src\Security\Authenticator;
@@ -20,7 +19,6 @@ class ProfileCreateController extends Controller
      * @throws ORMException
      * @throws \Exception
      */
-    #[NoReturn]
     public function __invoke(EntityManager $entityManager, Authenticator $authenticator, Request $request): Response
     {
         $errors = [];
@@ -64,6 +62,6 @@ class ProfileCreateController extends Controller
 
         $authenticator->authenticate($email, $password);
 
-        $this->redirect('/', ['success' => 'User has been registered successfully']);
+        return $this->redirect('/', ['success' => 'User has been registered successfully']);
     }
 }

@@ -3,7 +3,6 @@
 namespace Src\Http\Profile;
 
 use Doctrine\ORM\EntityManager;
-use JetBrains\PhpStorm\NoReturn;
 use Src\Entity\User;
 use Src\FileUploader;
 use Src\Http\Controller;
@@ -17,7 +16,6 @@ class ProfileUpdateController extends Controller
     /**
      * @throws \Exception
      */
-    #[NoReturn]
     public function __invoke(EntityManager $entityManager, Request $request, Session $session): Response
     {
         $errors = [];

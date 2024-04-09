@@ -6,7 +6,10 @@ use GuzzleHttp\Client;
 use Src\Database\EntityManagerFactory;
 use Src\Entity\UserSettings;
 use Src\Features\FeatureDetectionType;
+use Src\Features\FeatureInterface;
 use Src\SendDataService\Detections\SendDataDetectionType;
+use Src\SendDataService\Detections\SendDataInterface;
+use Src\SendDataService\Messages\MessageFactory;
 
 class AdaptiveMessageSender
 {
@@ -16,17 +19,43 @@ class AdaptiveMessageSender
 
     public function sendMessage(): void
     {
-        $entityManager = EntityManagerFactory::create();
-
         $user = $this->userSettings->getUser();
 
-        $messenger = SendDataDetectionType::tryFrom($this->userSettings->getMessageType())?->detect();
-        $apiClient = FeatureDetectionType::tryFrom($this->userSettings->getFeatureType())
-            ?->detect(new Client(), $this->userSettings->getApiRequestUrl(), $entityManager);
+        $messenger = $this->getMessenger();
+        $feature = $this->getFeature();
 
-        assert($messenger !== null && $apiClient !== null, 'Messenger or data is not set');
+        assert($messenger !== null && $feature !== null, 'Messenger or data is not set');
 
-        $data = $apiClient->getResponseCollection();
-        $messenger->send($user, $data);
+        $message = $this->getMessage($feature);
+        $messenger->send($user, $message);
+    }
+
+    /**
+     * @return SendDataInterface|null
+     */
+    public function getMessenger(): ?SendDataInterface
+    {
+        return SendDataDetectionType::tryFrom($this->userSettings->getMessageType())?->detect();
+    }
+
+    /**
+     * @return FeatureInterface|null
+     */
+    public function getFeature(): ?FeatureInterface
+    {
+        return FeatureDetectionType::tryFrom($this->userSettings->getFeatureType())
+            ?->detect(new Client(), $this->userSettings->getApiRequestUrl(), EntityManagerFactory::create());
+    }
+
+    /**
+     * @param FeatureInterface $feature
+     * @return string
+     */
+    public function getMessage(FeatureInterface $feature): string
+    {
+        return (new MessageFactory(
+            $this->userSettings->getFeatureType(),
+            $this->userSettings->getMessageType()
+        ))->getMessage($feature->getData());
     }
 }

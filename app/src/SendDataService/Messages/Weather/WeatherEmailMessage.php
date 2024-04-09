@@ -1,53 +1,47 @@
 <?php
 
-namespace Src\SendDataService\Detections;
+namespace Src\SendDataService\Messages\Weather;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use SergiX44\Nutgram\Telegram\Properties\ParseMode;
-use Src\Entity\User;
-use Src\TelegramBot;
+use Src\SendDataService\Messages\MessageInterface;
 use function Symfony\Component\String\u;
 
-class SendByTelegram implements SendDataInterface
+class WeatherEmailMessage implements MessageInterface
 {
-    public function send(User $user, ArrayCollection $data): void
+    public function getMessage(ArrayCollection $data): string
     {
         $current = $data->get('current');
         $currentUnits = $data->get('current_units');
         $daily = $data->get('daily');
         $dailyUnits = $data->get('daily_units');
+        $message = '';
 
-        $telegramBot = new TelegramBot();
         if (is_array($daily) && $daily !== []) {
             $dayNum = count($daily[array_key_first($daily)]);
             for ($i = 0; $i < $dayNum; $i++) {
-                $dailyMessage = "Daily:\n";
+                $message .= "<h4>Daily:</h4>";
                 foreach ($daily as $item => $value) {
                     if (is_array($value) && array_key_exists($i, $value) && array_key_exists($item, $dailyUnits)) {
                         $name = u($item)->replaceMatches('!\dm!iu', '')->replaceMatches('!_+!iu', ' ')->toString();
-                        $dailyMessage .= $name . " : " . $value[$i] . "(" . $dailyUnits[$item] . "), \n";
+                        $message .= "<p><b>" . $name . "</b> : " . $value[$i] . "(" . $dailyUnits[$item] . "), </p>";
                     }
                 }
-                $telegramBot->sendMessage(
-                    text: rtrim($dailyMessage, ', '),
-                    chat_id: $user->getTelegramChatId(),
-                    parse_mode: ParseMode::MARKDOWN_LEGACY
-                );
             }
         }
         if (is_array($current) && $current !== []) {
-            $currentMessage = "Current:\n";
+            $message .= "<h4>Current:</h4>";
             foreach ($current as $item => $value) {
                 if (array_key_exists($item, $currentUnits)) {
                     $name = u($item)->replaceMatches('!\dm!iu', '')->replaceMatches('!_+!iu', ' ')->toString();
-                    $currentMessage .= $name . " : " . $value . "(" . $currentUnits[$item] . "), \n";
+                    $message .= "<p><b>" . $name . "</b> : " . $value . "(" . $currentUnits[$item] . "), </p>";
                 }
             }
-            $telegramBot->sendMessage(
-                text: rtrim($currentMessage, ', '),
-                chat_id: $user->getTelegramChatId(),
-                parse_mode: ParseMode::MARKDOWN_LEGACY
-            );
         }
+
+        if ($message === '') {
+            throw new \RuntimeException('Message is empty');
+        }
+
+        return $message;
     }
 }

@@ -7,5 +7,5 @@ use Src\Entity\User;
 
 interface SendDataInterface
 {
-    public function send(User $user, ArrayCollection $data): void;
+    public function send(User $user, string $message): void;
 }

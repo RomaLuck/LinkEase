@@ -17,7 +17,7 @@ class WeatherFeature implements FeatureInterface
      * @throws GuzzleException
      * @throws \JsonException
      */
-    public function getResponseCollection(): ArrayCollection
+    public function getData(): ArrayCollection
     {
         return $this->getWeatherData();
     }

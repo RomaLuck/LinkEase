@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\SendDataService\Detections;
+namespace Src\SendDataService\Messengers;
 
 use SergiX44\Nutgram\Telegram\Properties\ParseMode;
 use Src\Entity\User;

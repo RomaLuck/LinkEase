@@ -5,7 +5,7 @@ namespace Src\Features;
 use Doctrine\ORM\EntityManager;
 use GuzzleHttp\ClientInterface;
 use Src\Features\Api\Weather\WeatherFeature;
-use Src\Features\Db\Study\PhpStudyFeature;
+use Src\Features\Db\Study\PHPStudyFeature;
 
 enum FeatureDetectionType: string
 {
@@ -16,7 +16,7 @@ enum FeatureDetectionType: string
     {
         return match ($this) {
             self::WEATHER => new WeatherFeature($client, $requestUrl),
-            self::PHP_STUDY => new PhpStudyFeature($entityManager),
+            self::PHP_STUDY => new PHPStudyFeature($entityManager),
         };
     }
 }

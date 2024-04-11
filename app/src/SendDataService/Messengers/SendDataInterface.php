@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\SendDataService\Detections;
+namespace Src\SendDataService\Messengers;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Src\Entity\User;

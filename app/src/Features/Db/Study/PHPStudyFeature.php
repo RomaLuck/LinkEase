@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityManager;
 use Src\Entity\StudyLibrary;
 use Src\Features\FeatureInterface;
 
-class PhpStudyFeature implements FeatureInterface
+class PHPStudyFeature implements FeatureInterface
 {
     public function __construct(private EntityManager $entityManager)
     {

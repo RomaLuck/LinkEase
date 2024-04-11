@@ -1,8 +1,10 @@
 <?php
 
-namespace Src\SendDataService\Detections;
+namespace Src\SendDataService;
 
-use Src\SendDataService\MessageTypes;
+use Src\SendDataService\Messengers\EmailMessenger;
+use Src\SendDataService\Messengers\SendDataInterface;
+use Src\SendDataService\Messengers\TelegramMessenger;
 
 enum SendDataDetectionType: string
 {

@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Src\Entity\UserSettings;
 use Src\Features\Api\Weather\WeatherFeature;
 use Src\SendDataService\AdaptiveMessageSender;
-use Src\SendDataService\Detections\EmailMessenger;
+use Src\SendDataService\Messengers\EmailMessenger;
 
 class AdaptiveMessageSenderTest extends TestCase
 {

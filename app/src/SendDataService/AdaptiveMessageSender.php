@@ -7,9 +7,8 @@ use Src\Database\EntityManagerFactory;
 use Src\Entity\UserSettings;
 use Src\Features\FeatureDetectionType;
 use Src\Features\FeatureInterface;
-use Src\SendDataService\Detections\SendDataDetectionType;
-use Src\SendDataService\Detections\SendDataInterface;
-use Src\SendDataService\Messages\MessageFactory;
+use Src\Messages\MessageFactory;
+use Src\SendDataService\Messengers\SendDataInterface;
 
 class AdaptiveMessageSender
 {

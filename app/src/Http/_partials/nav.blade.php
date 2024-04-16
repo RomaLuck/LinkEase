@@ -28,18 +28,6 @@
                 <div class="mx-1">
                     <a href="/profile" class="btn btn-outline-primary">Profile</a>
                 </div>
-                <div class="dropdown mx-1">
-                    <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                        Action
-                    </button>
-
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/weather">Weather</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </div>
             @endif
         </div>
     </div>

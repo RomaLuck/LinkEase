@@ -12,7 +12,7 @@ class PHPStudyTelegramMessage implements MessageInterface
 
     public function getMessage(ArrayCollection $data): string
     {
-        $articleKey = random_int(1, $data->count());
+        $articleKey = random_int(1, $data->count() - 1);
         $article = $data->get($articleKey);
 
         $result = $article->getTitle() . "\n";

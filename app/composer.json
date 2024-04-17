@@ -24,7 +24,7 @@
     "symfony/http-foundation": "7.1.x-dev",
     "doctrine/orm": "^3",
     "doctrine/dbal": "^4",
-    "symfony/cache": "^7",
+    "symfony/cache": "7.1.x-dev",
     "eftec/bladeone": "dev-master",
     "illuminate/collections": "10.x-dev",
     "symfony/mailer": "7.1.x-dev"

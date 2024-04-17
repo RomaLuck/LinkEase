@@ -11,6 +11,7 @@ use Src\Http\Profile\Oauth\ConnectActionController;
 use Src\Http\Profile\Oauth\ConnectionActionCheckController;
 use Src\Http\Profile\ProfileController;
 use Src\Http\Profile\ProfileUpdateController;
+use Src\Http\Profile\Registration\EmailConfirmationController;
 use Src\Http\Profile\Registration\ProfileCreateController;
 use Src\Http\Profile\Registration\RegistrationViewController;
 use Src\Http\Profile\Session\AuthSessionCreateController;
@@ -41,5 +42,7 @@ $router->addRoute('POST', '/weather', new WeatherDataController())->middleware('
 
 $router->addRoute('GET', '/study', new StudyViewController())->middleware('auth');
 $router->addRoute('POST', '/study', new StudyDataController())->middleware('auth');
+
+$router->addRoute('GET', '/confirm-email', new EmailConfirmationController());
 
 $router->matchRoute()->send();

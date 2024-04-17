@@ -34,12 +34,17 @@ class User
     #[ORM\Column(type: 'string', nullable: true)]
     private string|null $telegram_chat_id;
 
-
     #[ORM\Column(type: 'string', nullable: true)]
     private string|null $image_path;
 
     #[ORM\Column(type: 'datetime')]
     private DateTime $created_at;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    private string|null $confirmation_token;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $is_email_confirmed;
 
     #[ORM\OneToOne(mappedBy: 'user')]
     private UserSettings $settings;
@@ -162,6 +167,28 @@ class User
     public function setTimeZone(string $time_zone): self
     {
         $this->time_zone = $time_zone;
+        return $this;
+    }
+
+    public function getConfirmationToken(): ?string
+    {
+        return $this->confirmation_token;
+    }
+
+    public function setConfirmationToken(?string $confirmation_token): self
+    {
+        $this->confirmation_token = $confirmation_token;
+        return $this;
+    }
+
+    public function isEmailConfirmed(): bool
+    {
+        return $this->is_email_confirmed;
+    }
+
+    public function setIsEmailConfirmed(bool $is_email_confirmed): self
+    {
+        $this->is_email_confirmed = $is_email_confirmed;
         return $this;
     }
 }

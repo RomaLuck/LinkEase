@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "87498c9043bf4aa64c9eb95dd7b683c2",
+    "content-hash": "06ce97cb358b27d18598f7405713d61b",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -2983,12 +2983,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/cache.git",
-                "reference": "5b31f6bb18d4320d6507ddcff2c9f876fc77c1f5"
+                "reference": "47caa1df013d0f4387c2798a6cc85d73e2d5695c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/cache/zipball/5b31f6bb18d4320d6507ddcff2c9f876fc77c1f5",
-                "reference": "5b31f6bb18d4320d6507ddcff2c9f876fc77c1f5",
+                "url": "https://api.github.com/repos/symfony/cache/zipball/47caa1df013d0f4387c2798a6cc85d73e2d5695c",
+                "reference": "47caa1df013d0f4387c2798a6cc85d73e2d5695c",
                 "shasum": ""
             },
             "require": {
@@ -3072,7 +3072,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-02-15T11:36:43+00:00"
+            "time": "2024-04-17T15:57:56+00:00"
         },
         {
             "name": "symfony/cache-contracts",
@@ -7491,7 +7491,8 @@
         "symfony/mailer": 20,
         "roave/security-advisories": 20,
         "phpunit/phpunit": 20,
-        "symfony/var-dumper": 20
+        "symfony/var-dumper": 20,
+        "phpstan/phpstan": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -61,7 +61,7 @@ class ProfileUpdateController extends Controller
 
         $timezone = $request->request->get('selectedTimezone');
         if ($timezone !== null) {
-            $user->setName(htmlspecialchars($timezone));
+            $user->setTimeZone(htmlspecialchars($timezone));
         }
 
         $fileName = $_FILES['upfile']['name'] ?? '';

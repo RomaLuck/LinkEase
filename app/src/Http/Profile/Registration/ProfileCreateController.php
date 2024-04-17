@@ -7,10 +7,11 @@ use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
 use Src\Entity\User;
 use Src\Http\Controller;
-use Src\Security\Authenticator;
+use Src\MailerFactory;
 use Src\Validator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mime\Email;
 
 class ProfileCreateController extends Controller
 {
@@ -19,8 +20,9 @@ class ProfileCreateController extends Controller
      * @throws ORMException
      * @throws \Exception
      */
-    public function __invoke(EntityManager $entityManager, Authenticator $authenticator, Request $request): Response
+    public function __invoke(EntityManager $entityManager, Request $request): Response
     {
+        $timezone = $request->request->get('selectedTimezone');
         $errors = [];
 
         $email = htmlspecialchars($request->request->get('email'));
@@ -55,13 +57,22 @@ class ProfileCreateController extends Controller
         $user = new User();
         $user->setName($username)
             ->setEmail($email)
-            ->setPassword(password_hash($password, PASSWORD_BCRYPT));
+            ->setTimeZone($timezone)
+            ->setPassword(password_hash($password, PASSWORD_BCRYPT))
+            ->setIsEmailConfirmed(false)
+            ->setConfirmationToken(bin2hex(random_bytes(32)));
 
         $entityManager->persist($user);
         $entityManager->flush();
 
-        $authenticator->authenticate($email, $password);
+        $email = (new Email())
+            ->from('example@example.com')
+            ->to($user->getEmail())
+            ->subject('Email Confirmation')
+            ->html('<p>Please confirm your email by clicking the following link: <a href="http://localhost:8000/confirm-email?token=' . $user->getConfirmationToken() . '">Confirm Email</a></p>');
 
-        return $this->redirect('/', ['success' => 'User has been registered successfully']);
+        MailerFactory::getMailer()->send($email);
+
+        return $this->redirect('/', ['success' => 'Check your mailbox']);
     }
 }

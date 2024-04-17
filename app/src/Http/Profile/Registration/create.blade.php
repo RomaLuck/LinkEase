@@ -19,7 +19,7 @@
                                                 <input type="text" name="username" id="form3Example1c"
                                                        class="form-control"
                                                        required/>
-                                                <label class="form-label" for="form3Example1c">Your Name</label>
+                                                <label class="form-label small opacity-50" for="form3Example1c">Your Name</label>
                                             </div>
                                         </div>
 
@@ -29,7 +29,7 @@
                                                 <input type="email" name="email" id="form3Example3c"
                                                        class="form-control"
                                                        required/>
-                                                <label class="form-label" for="form3Example3c">Your Email</label>
+                                                <label class="form-label small opacity-50" for="form3Example3c">Your Email</label>
                                             </div>
                                         </div>
 
@@ -38,7 +38,7 @@
                                             <div class="form-outline flex-fill mb-0">
                                                 <input type="password" name="password" id="form3Example4c"
                                                        class="form-control" required/>
-                                                <label class="form-label" for="form3Example4c">Password</label>
+                                                <label class="form-label small opacity-50" for="form3Example4c">Password</label>
                                             </div>
                                         </div>
 
@@ -48,12 +48,32 @@
                                                 <input type="password" name="match-password" id="form3Example4cd"
                                                        class="form-control"
                                                        required/>
-                                                <label class="form-label" for="form3Example4cd">Repeat your
+                                                <label class="form-label small opacity-50" for="form3Example4cd">Repeat your
                                                     password</label>
                                             </div>
                                         </div>
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <i class="fa fa-map-marker fa-lg me-3 fa-fw"></i>
+                                            <div class="form-outline flex-fill mb-0">
+                                                <select id="countryId" name="countryId" class="form-control">
+                                                    <option value="">Select country</option>
+                                                    @foreach($countryList as $country)
+                                                        <option value="{{ $country['Code'] }}">{{ $country['Name'] }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <label class="form-label small opacity-50" for="profile">Country</label>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <i class="fa fa-globe fa-lg me-3 fa-fw"></i>
+                                            <div class="form-outline flex-fill mb-0">
+                                                <select id="selectedTimezone" name="selectedTimezone"
+                                                        class="form-control"></select>
+                                                <label class="form-label small opacity-50" for="profile">Time zone</label>
+                                            </div>
+                                        </div>
 
-                                        <div class="form-check d-flex justify-content-center mb-5">
+                                        <div class="form-check d-flex justify-content-center mb-5 mt-3">
                                             <input class="form-check-input me-2" type="checkbox" value=""
                                                    id="form2Example3c"/>
                                             <label class="form-check-label" for="form2Example3">
@@ -89,4 +109,5 @@
             </div>
         </div>
     </section>
+    <script src="@asset('public/js/getCountryAndTimezone.js')"></script>
 @endsection

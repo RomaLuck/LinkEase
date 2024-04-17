@@ -54,6 +54,27 @@
                                     </div>
 
                                     <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fa fa-map-marker fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <select id="countryId" name="countryId" class="form-control">
+                                                <option value="">Select country</option>
+                                                @foreach($countryList as $country)
+                                                    <option value="{{ $country['Code'] }}">{{ $country['Name'] }}</option>
+                                                @endforeach
+                                            </select>
+                                            <label class="form-label small opacity-50" for="profile">Country</label>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fa fa-globe fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <select id="selectedTimezone" name="selectedTimezone"
+                                                    class="form-control"></select>
+                                            <label class="form-label small opacity-50" for="profile">Time zone</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fa-solid fa-image fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
                                             <input type="file" name="upfile" class="form-control">
@@ -87,4 +108,5 @@
             </div>
         </div>
     </div>
+    <script src="@asset('public/js/getCountryAndTimezone.js')"></script>
 @endsection

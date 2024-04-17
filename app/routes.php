@@ -21,28 +21,28 @@ use Src\Router;
 
 $router = new Router();
 
-$router->addRoute('GET', '/', new HomeController());
-$router->addRoute('GET', '/about', new AboutController());
-$router->addRoute('GET', '/contact', new ContactController());
-$router->addRoute('GET', '/profile', new ProfileController())->middleware('auth');
+$router->addRoute('GET', '/', HomeController::class);
+$router->addRoute('GET', '/about', AboutController::class);
+$router->addRoute('GET', '/contact', ContactController::class);
+$router->addRoute('GET', '/profile', ProfileController::class)->middleware('auth');
 
-$router->addRoute('GET', '/login', new LoginViewController())->middleware('guest');
-$router->addRoute('DELETE', '/session', new AuthSessionDestroyController());
-$router->addRoute('POST', '/session', new AuthSessionCreateController());
+$router->addRoute('GET', '/login', LoginViewController::class)->middleware('guest');
+$router->addRoute('DELETE', '/session', AuthSessionDestroyController::class);
+$router->addRoute('POST', '/session', AuthSessionCreateController::class);
 
-$router->addRoute('GET', '/register', new RegistrationViewController())->middleware('guest');
-$router->addRoute('POST', '/register', new ProfileCreateController());
-$router->addRoute('PATCH', '/profile', new ProfileUpdateController());
+$router->addRoute('GET', '/register', RegistrationViewController::class)->middleware('guest');
+$router->addRoute('POST', '/register', ProfileCreateController::class);
+$router->addRoute('PATCH', '/profile', ProfileUpdateController::class);
 
-$router->addRoute('GET', '/connect/oauth', new ConnectActionController())->middleware('guest');
-$router->addRoute('GET', '/connect/oauth/check', new ConnectionActionCheckController());
+$router->addRoute('GET', '/connect/oauth', ConnectActionController::class)->middleware('guest');
+$router->addRoute('GET', '/connect/oauth/check', ConnectionActionCheckController::class);
 
-$router->addRoute('GET', '/weather', new WeatherViewController())->middleware('auth');
-$router->addRoute('POST', '/weather', new WeatherDataController())->middleware('auth');
+$router->addRoute('GET', '/weather', WeatherViewController::class)->middleware('auth');
+$router->addRoute('POST', '/weather', WeatherDataController::class)->middleware('auth');
 
-$router->addRoute('GET', '/study', new StudyViewController())->middleware('auth');
-$router->addRoute('POST', '/study', new StudyDataController())->middleware('auth');
+$router->addRoute('GET', '/study', StudyViewController::class)->middleware('auth');
+$router->addRoute('POST', '/study', StudyDataController::class)->middleware('auth');
 
-$router->addRoute('GET', '/confirm-email', new EmailConfirmationController());
+$router->addRoute('GET', '/confirm-email', EmailConfirmationController::class);
 
 $router->matchRoute()->send();

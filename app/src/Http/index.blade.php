@@ -1,6 +1,14 @@
 @extends('_layouts.main')
 @section('body')
     <div class="container">
+        @foreach($session->getFlashBag()->all() as $type => $messages)
+            @foreach ($messages as $message)
+                <div class="alert alert-{{$type}} alert-dismissible fade show" role="alert">
+                    <div class="text-center">{{$message}}</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endforeach
+        @endforeach
         <div class="row row-cols-3 g-4">
             <div class="col">
                 <div class="card">

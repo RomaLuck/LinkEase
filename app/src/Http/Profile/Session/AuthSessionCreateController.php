@@ -37,6 +37,6 @@ class AuthSessionCreateController extends Controller
             return $this->render('Profile.Session.create', ['errors' => $errors]);
         }
 
-        return $this->redirect('/');
+        return $this->redirect('/', ['success' => 'You logged in successfully']);
     }
 }

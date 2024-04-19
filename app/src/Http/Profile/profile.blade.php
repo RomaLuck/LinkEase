@@ -109,4 +109,12 @@
         </div>
     </div>
     <script src="@asset('public/assets/js/getCountryAndTimezone.js')"></script>
+    <script>
+        let countrySelect = document.getElementById('countryId');
+        let selectedTimezone = document.getElementById("selectedTimezone");
+        let key = "<?php $timezoneApiKey ?>";
+
+        fillTimezone(countrySelect, selectedTimezone, key);
+        getTimeZone(selectedTimezone);
+    </script>
 @endsection

@@ -20,7 +20,8 @@ class RegistrationViewController extends Controller
         }
 
         return $this->render('Profile.Registration.create', [
-            'countryList' => $countryList->get()
+            'countryList' => $countryList->get(),
+            'timezoneApiKey' => $_ENV['TIMEZONE_API_KEY']
         ]);
     }
 }

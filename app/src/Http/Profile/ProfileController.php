@@ -36,6 +36,7 @@ class ProfileController extends Controller
             'countryList' => $countryList->get(),
             'userData' => $userData ?? [],
             'errors' => $errors,
+            'timezoneApiKey' => $_ENV['TIMEZONE_API_KEY']
         ]);
     }
 }

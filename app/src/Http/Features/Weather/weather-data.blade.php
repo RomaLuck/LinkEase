@@ -209,7 +209,7 @@
             </div>
         </div>
     </div>
-    <script src="@asset('public/assets/weather-data.js')"></script>
+    <script src="@asset('public/assets/js/weather-data.js')"></script>
     <script>
         let inputCity = document.getElementById('input-city');
         let selectCity = document.getElementById('select-city');

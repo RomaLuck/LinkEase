@@ -108,5 +108,5 @@
             </div>
         </div>
     </div>
-    <script src="@asset('public/js/getCountryAndTimezone.js')"></script>
+    <script src="@asset('public/assets/js/getCountryAndTimezone.js')"></script>
 @endsection

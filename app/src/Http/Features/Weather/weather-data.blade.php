@@ -209,11 +209,12 @@
             </div>
         </div>
     </div>
+    <div class="visually-hidden" id="opencagedataKey">{{$opencagedataKey}}</div>
     <script src="@asset('public/assets/js/weatherData.js')"></script>
     <script>
         let inputCity = document.getElementById('input-city');
         let selectCity = document.getElementById('select-city');
-        let opencagedataKey = "<?= $opencagedataKey ?? '' ?>";
+        let opencagedataKey = document.getElementById('opencagedataKey').textContent
 
         bindFindCityBtn(inputCity, selectCity, opencagedataKey);
     </script>

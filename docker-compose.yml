@@ -45,6 +45,23 @@ services:
     networks:
       - my_network
 
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: '${CONTAINER_NAME_PREFIX}-rabbitmq'
+    ports:
+      - ${AMQP_PORT}:5672
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=${AMQP_USER}
+      - RABBITMQ_DEFAULT_PASS=${AMQP_PASSWORD}
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    depends_on:
+      - php-apache
+    networks:
+      - my_network
+
 networks:
   my_network:
     driver: bridge

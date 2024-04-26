@@ -8,9 +8,11 @@ RUN echo "ServerName 127.0.0.1" >> /etc/apache2/apache2.conf
 
 #Install Packages
 RUN apt-get -y update && apt-get install -y libicu-dev libzip-dev zip libjpeg-dev libpng-dev libfreetype6-dev cron nano
+RUN apt-get install -y librabbitmq-dev
+RUN pecl install amqp && docker-php-ext-enable amqp
 RUN docker-php-ext-configure intl
 RUN docker-php-ext-configure gd '--with-jpeg' '--with-freetype'
-RUN docker-php-ext-install intl opcache pdo_mysql zip gd
+RUN docker-php-ext-install intl opcache pdo_mysql zip gd sockets
 RUN pecl install xdebug
 RUN a2enmod rewrite
 

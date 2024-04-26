@@ -27,7 +27,8 @@
     "symfony/cache": "7.1.x-dev",
     "eftec/bladeone": "dev-master",
     "illuminate/collections": "10.x-dev",
-    "symfony/mailer": "7.1.x-dev"
+    "symfony/mailer": "7.1.x-dev",
+    "php-amqplib/php-amqplib": "^3.6"
   },
   "autoload": {
     "psr-4": {

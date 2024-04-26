@@ -1,8 +1,9 @@
 <?php
 
 use Dotenv\Dotenv;
+use Src\Commands\ConsumeCommand;
 use Src\Commands\Fixtures\CollectDataCommand;
-use Src\Commands\SendMessageCommand;
+use Src\Commands\SendUserMessageCommand;
 use Src\Commands\TestEmailSendCommand;
 use Src\LoggerFactory;
 use Symfony\Component\Console\Application;
@@ -16,9 +17,10 @@ $logger = (new LoggerFactory())->getLogger('console');
 
 try {
     $application = new Application();
-    $application->add(new SendMessageCommand());
+    $application->add(new SendUserMessageCommand());
     $application->add(new CollectDataCommand());
     $application->add(new TestEmailSendCommand());
+    $application->add(new ConsumeCommand());
     $application->run();
 } catch (Exception $e) {
     $logger->error($e->getMessage());

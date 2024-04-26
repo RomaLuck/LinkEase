@@ -12,7 +12,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(name: 'app:send-message')]
-class SendMessageCommand extends Command
+class SendUserMessageCommand extends Command
 {
     /**
      * @throws GuzzleException

@@ -7,7 +7,8 @@ use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
 use Src\Entity\User;
 use Src\Http\Controller;
-use Src\MailerFactory;
+use Src\Queues\EmailQueueSenderCommand;
+use Src\Queues\MessageQueueManager;
 use Src\Validator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -66,12 +67,12 @@ class ProfileCreateController extends Controller
         $entityManager->flush();
 
         $email = (new Email())
-            ->from('example@example.com')
+            ->from($_ENV['EMAIL_SENDER'])
             ->to($user->getEmail())
             ->subject('Email Confirmation')
             ->html('<p>Please confirm your email by clicking the following link: <a href="http://localhost:8000/confirm-email?token=' . $user->getConfirmationToken() . '">Confirm Email</a></p>');
 
-        MailerFactory::getMailer()->send($email);
+        (new MessageQueueManager())->enqueue(new EmailQueueSenderCommand($email));
 
         return $this->redirect('/', ['success' => 'Check your mailbox']);
     }

@@ -16,7 +16,7 @@ class TestEmailSendCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $email = (new Email())
-            ->from('example@example.com')
+            ->from($_ENV['EMAIL_SENDER'])
             ->to($_ENV['TEST_EMAIL'])
             ->subject('Test email')
             ->text('Test email');

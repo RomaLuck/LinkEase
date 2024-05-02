@@ -1,12 +1,12 @@
 <?php
 
-namespace Src\Messages;
+namespace Src\SendDataService\Messages;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Src\Messages\PHPStudy\PHPStudyEmailMessage;
-use Src\Messages\PHPStudy\PHPStudyTelegramMessage;
-use Src\Messages\Weather\WeatherEmailMessage;
-use Src\Messages\Weather\WeatherTelegramMessage;
+use Src\SendDataService\Messages\PHPStudy\PHPStudyEmailMessage;
+use Src\SendDataService\Messages\PHPStudy\PHPStudyTelegramMessage;
+use Src\SendDataService\Messages\Weather\WeatherEmailMessage;
+use Src\SendDataService\Messages\Weather\WeatherTelegramMessage;
 
 class MessageFactory
 {

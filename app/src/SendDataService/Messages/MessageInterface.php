@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Messages;
+namespace Src\SendDataService\Messages;
 
 use Doctrine\Common\Collections\ArrayCollection;
 

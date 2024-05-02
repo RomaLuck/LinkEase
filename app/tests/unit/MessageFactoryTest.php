@@ -3,8 +3,8 @@
 namespace unit;
 
 use PHPUnit\Framework\TestCase;
-use Src\Messages\MessageFactory;
-use Src\Messages\Weather\WeatherEmailMessage;
+use Src\SendDataService\Messages\MessageFactory;
+use Src\SendDataService\Messages\Weather\WeatherEmailMessage;
 
 class MessageFactoryTest extends TestCase
 {

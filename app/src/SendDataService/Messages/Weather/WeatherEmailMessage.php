@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Messages\Weather;
+namespace Src\SendDataService\Messages\Weather;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Src\Features\FeatureTypes;
-use Src\Messages\MessageInterface;
+use Src\SendDataService\Messages\MessageInterface;
 use Src\SendDataService\MessageTypes;
 use function Symfony\Component\String\u;
 

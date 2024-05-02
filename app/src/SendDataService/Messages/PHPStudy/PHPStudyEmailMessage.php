@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Messages\PHPStudy;
+namespace Src\SendDataService\Messages\PHPStudy;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Src\Features\FeatureTypes;
-use Src\Messages\MessageInterface;
+use Src\SendDataService\Messages\MessageInterface;
 use Src\SendDataService\MessageTypes;
 
 class PHPStudyEmailMessage implements MessageInterface

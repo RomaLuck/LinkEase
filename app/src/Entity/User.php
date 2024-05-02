@@ -4,6 +4,8 @@ namespace Src\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
 use Src\Repository\UserRepository;
 
 #[ORM\Embeddable]
@@ -49,12 +51,27 @@ class User
     #[ORM\OneToOne(mappedBy: 'user')]
     private UserSettings $settings;
 
+    #[ManyToOne(targetEntity: Role::class)]
+    #[JoinColumn(name: 'role_id', referencedColumnName: 'id')]
+    private Role $role;
+
     /**
      * @throws \Exception
      */
     public function __construct()
     {
         $this->setCreatedAt();
+    }
+
+    public function getRole(): Role
+    {
+        return $this->role;
+    }
+
+    public function setRole(Role $role): self
+    {
+        $this->role = $role;
+        return $this;
     }
 
     public function getId(): int

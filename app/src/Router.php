@@ -49,7 +49,7 @@ class Router
                 return call_user_func_array($controller, $parameters);
             }
         }
-        return new RedirectResponse('/');
+        return new RedirectResponse('/404');
     }
 
     /**

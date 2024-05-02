@@ -2,6 +2,9 @@
 
 use Src\Http\About\AboutController;
 use Src\Http\Contact\ContactController;
+use Src\Http\Errors\PageForbiddenController;
+use Src\Http\Errors\PageNotFoundController;
+use Src\Http\Errors\UnauthorizedUserController;
 use Src\Http\Features\Study\StudyDataController;
 use Src\Http\Features\Study\StudyViewController;
 use Src\Http\Features\Weather\WeatherDataController;
@@ -44,5 +47,9 @@ $router->addRoute('GET', '/study', StudyViewController::class)->middleware('auth
 $router->addRoute('POST', '/study', StudyDataController::class)->middleware('auth');
 
 $router->addRoute('GET', '/confirm-email', EmailConfirmationController::class);
+
+$router->addRoute('GET', '/404', PageNotFoundController::class);
+$router->addRoute('GET', '/403', PageForbiddenController::class);
+$router->addRoute('GET', '/401', UnauthorizedUserController::class);
 
 $router->matchRoute()->send();

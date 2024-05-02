@@ -3,8 +3,6 @@
 namespace Src\SendDataService\Messages;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Src\Features\FeatureTypes;
-use Src\SendDataService\MessageTypes;
 
 class PHPStudyMessage implements MessageInterface
 {
@@ -22,15 +20,5 @@ class PHPStudyMessage implements MessageInterface
         $result .= nl2br($article->getBody());
 
         return $result;
-    }
-
-    public function getFeature(): string
-    {
-        return FeatureTypes::PHP_STUDY;
-    }
-
-    public function getMessenger(): string
-    {
-        return MessageTypes::BY_EMAIL;
     }
 }

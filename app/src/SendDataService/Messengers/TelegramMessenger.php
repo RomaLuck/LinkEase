@@ -10,11 +10,11 @@ class TelegramMessenger implements SendDataInterface
 {
     public function send(User $user, string $message): void
     {
-        $clearMessage = $this->prepareMessage($message);
+        $preparedMessage = $this->prepareMessage($message);
 
         $telegramBot = new TelegramBot();
         $telegramBot->sendMessage(
-            text: $clearMessage,
+            text: $preparedMessage,
             chat_id: $user->getTelegramChatId(),
             parse_mode: ParseMode::MARKDOWN_LEGACY
         );

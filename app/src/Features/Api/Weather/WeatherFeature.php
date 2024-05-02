@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Src\Features\FeatureInterface;
+use Src\SendDataService\Messages\WeatherMessage;
 
 class WeatherFeature implements FeatureInterface
 {
@@ -13,13 +14,14 @@ class WeatherFeature implements FeatureInterface
     {
     }
 
+
     /**
      * @throws GuzzleException
      * @throws \JsonException
      */
-    public function getData(): ArrayCollection
+    public function getMessage(): string
     {
-        return $this->getWeatherData();
+        return (new WeatherMessage($this->getWeatherData()))->getMessage();
     }
 
     /**

@@ -1,19 +1,22 @@
 <?php
 
-namespace Src\SendDataService\Messages\PHPStudy;
+namespace Src\SendDataService\Messages;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Src\Features\FeatureTypes;
-use Src\SendDataService\Messages\MessageInterface;
 use Src\SendDataService\MessageTypes;
 
-class PHPStudyEmailMessage implements MessageInterface
+class PHPStudyMessage implements MessageInterface
 {
 
-    public function getMessage(ArrayCollection $data): string
+    public function __construct(private ArrayCollection $data)
     {
-        $articleKey = random_int(1, $data->count() - 1);
-        $article = $data->get($articleKey);
+    }
+
+    public function getMessage(): string
+    {
+        $articleKey = random_int(1, $this->data->count() - 1);
+        $article = $this->data->get($articleKey);
 
         $result = "<h4>$article->getTitle()</h4>";
         $result .= nl2br($article->getBody());

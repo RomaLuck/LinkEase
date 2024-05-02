@@ -7,7 +7,6 @@ use Src\Database\EntityManagerFactory;
 use Src\Entity\UserSettings;
 use Src\Features\FeatureDetectionType;
 use Src\Features\FeatureInterface;
-use Src\SendDataService\Messages\MessageFactory;
 use Src\SendDataService\Messengers\SendDataInterface;
 
 class AdaptiveMessageSender
@@ -25,7 +24,7 @@ class AdaptiveMessageSender
 
         assert($messenger !== null && $feature !== null, 'Messenger or data is not set');
 
-        $message = $this->getMessage($feature);
+        $message = $feature->getMessage();
         $messenger->send($user, $message);
     }
 
@@ -44,17 +43,5 @@ class AdaptiveMessageSender
     {
         return FeatureDetectionType::tryFrom($this->userSettings->getFeatureType())
             ?->detect(new Client(), $this->userSettings->getApiRequestUrl(), EntityManagerFactory::create());
-    }
-
-    /**
-     * @param FeatureInterface $feature
-     * @return string
-     */
-    public function getMessage(FeatureInterface $feature): string
-    {
-        return (new MessageFactory(
-            $this->userSettings->getFeatureType(),
-            $this->userSettings->getMessageType()
-        ))->getMessage($feature->getData());
     }
 }

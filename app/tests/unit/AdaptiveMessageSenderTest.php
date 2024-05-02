@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Src\Entity\UserSettings;
 use Src\Features\Api\Weather\WeatherFeature;
 use Src\SendDataService\AdaptiveMessageSender;
+use Src\SendDataService\Messages\WeatherMessage;
 use Src\SendDataService\Messengers\EmailMessenger;
 
 class AdaptiveMessageSenderTest extends TestCase
@@ -67,12 +68,12 @@ class AdaptiveMessageSenderTest extends TestCase
 
         $feature = $this->getMockBuilder(WeatherFeature::class)
             ->disableOriginalConstructor()
-            ->onlyMethods(['getData'])
+            ->onlyMethods(['getMessage'])
             ->getMock();
-        $feature->method('getData')
-            ->willReturn($data);
+        $feature->method('getMessage')
+            ->willReturn((new WeatherMessage($data))->getMessage());
 
-        $message = $this->sender->getMessage($feature);
+        $message = $feature->getMessage();
         $expects = '<h4>Daily:</h4><p><b>time</b> : 2024-04-09(iso8601), </p><p><b>temperature max</b> : 26.2(°C), </p><p><b>temperature min</b> : 11.2(°C), </p><h4>Current:</h4><p><b>time</b> : 2024-04-09T19:15(iso8601), </p><p><b>interval</b> : 900(seconds), </p><p><b>temperature </b> : 13.4(°C), </p><p><b>relative humidity </b> : 60(%), </p>';
 
         self::assertEquals($expects, $message);

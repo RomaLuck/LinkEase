@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Src\Entity\StudyLibrary;
 use Src\Features\FeatureInterface;
+use Src\SendDataService\Messages\PHPStudyMessage;
 
 class PHPStudyFeature implements FeatureInterface
 {
@@ -13,7 +14,12 @@ class PHPStudyFeature implements FeatureInterface
     {
     }
 
-    public function getData(): ArrayCollection
+    public function getMessage(): string
+    {
+        return (new PHPStudyMessage($this->getDbData()))->getMessage();
+    }
+
+    private function getDbData(): ArrayCollection
     {
         $library = $this->entityManager->getRepository(StudyLibrary::class);
 

@@ -10,7 +10,7 @@ class AuthMiddleware implements AuthMiddlewareInterface
     public function handle(): void
     {
         if (!(new Session())->has('user')) {
-            header('location: /');
+            header('location: /401');
             exit();
         }
     }

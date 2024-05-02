@@ -12,7 +12,7 @@ class Controller
     /**
      * @throws \Exception
      */
-    protected function render($path, $attributes = []): Response
+    protected function render($path, $attributes = [], int $status = 200): Response
     {
         $views = __DIR__ . '/';
         $cache = __DIR__ . '/../../var/cache';
@@ -22,7 +22,7 @@ class Controller
 
         $content = $blade->run($path, $attributes);
 
-        return new Response($content);
+        return new Response($content, $status);
     }
 
     protected function redirect($path, $messages = []): Response

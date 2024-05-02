@@ -50,6 +50,7 @@ class AuthTest extends TestCase
         $user->setName(self::USERNAME)
             ->setEmail(self::EMAIL)
             ->setTimeZone('Europe/Kiev')
+            ->setIsEmailConfirmed(true)
             ->setPassword(password_hash(self::PASSWORD, PASSWORD_BCRYPT));
         $this->entityManager->persist($user);
         $this->entityManager->flush();

@@ -25,7 +25,7 @@ class UserSettings
     private string $feature_type;
 
     #[ORM\Column(type: 'text')]
-    private string $api_request_url;
+    private ?string $api_request_url;
 
     #[ORM\Column(type: 'time')]
     private \DateTime $time;
@@ -52,12 +52,12 @@ class UserSettings
         return $this;
     }
 
-    public function getApiRequestUrl(): string
+    public function getApiRequestUrl(): ?string
     {
         return $this->api_request_url;
     }
 
-    public function setApiRequestUrl(string $api_request_url): self
+    public function setApiRequestUrl(?string $api_request_url): self
     {
         $this->api_request_url = $api_request_url;
         return $this;

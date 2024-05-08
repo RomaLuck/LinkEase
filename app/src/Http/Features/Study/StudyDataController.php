@@ -50,9 +50,7 @@ class StudyDataController extends Controller
         $entityManager->persist($userConfiguration);
         $entityManager->flush();
 
-        $studyData = (new PHPStudyFeature($entityManager))->getData();
-        $articleKey = random_int(1, $studyData->count() - 1);
-        $article = $studyData->get($articleKey);
+        $article = (new PHPStudyFeature($entityManager))->getMessage();
 
         return $this->render('Features.Study.study', [
             'messageTypes' => MessageTypes::getAll(),

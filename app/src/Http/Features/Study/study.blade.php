@@ -39,8 +39,7 @@
         </div>
         <div class="col-md-6">
             @isset($article)
-                <h3>{{$article->getTitle()}}</h3>
-                <div>{!! nl2br($article->getBody()) !!}</div>
+                {!! $article !!}
             @endisset
         </div>
     </div>

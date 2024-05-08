@@ -170,41 +170,9 @@
             </div>
             <div class="col-md-6">
                 <div class="container">
-                    <table class="table">
-                        @isset($currentWeatherData)
-                            @foreach (array_keys($currentWeatherData) as $columnName)
-                                <tr>
-                                    <th>@if(isset($translator))
-                                            {{$translator->trans($columnName)}}
-                                        @else
-                                            {{$columnName}}
-                                        @endif</th>
-                                    <th>{{$currentWeatherData[$columnName]}}</th>
-                                </tr>
-                            @endforeach
-                        @endisset
-                    </table>
-
-                    <table class="table">
-                        @isset($dailyWeatherData)
-                            <tr>
-                                @foreach(array_keys($dailyWeatherData) as $columnName)
-                                    <th>@if(isset($translator))
-                                            {{$translator->trans($columnName)}}
-                                        @else
-                                            {{$columnName}}
-                                        @endif</th>
-                                @endforeach
-                            </tr>
-                            @foreach ($dailyWeatherData[array_key_first($dailyWeatherData)] as $key => $value)
-                                <tr>
-                                    @foreach (array_keys($dailyWeatherData) as $columnName)
-                                        <td>{{$dailyWeatherData[$columnName][$key]}}</td>
-                                    @endforeach
-                                </tr>
-                            @endforeach
-                        @endisset
-                    </table>
+                    @isset($weatherData)
+                        {!! $weatherData !!}
+                    @endisset
                 </div>
             </div>
         </div>

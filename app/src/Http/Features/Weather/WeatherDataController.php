@@ -68,11 +68,10 @@ class WeatherDataController extends Controller
         $latitudeCookie = Cookie::create('latitude', $latitude)->withSecure();
         $longitudeCookie = Cookie::create('longitude', $longitude)->withSecure();
 
-        $weatherApiClient = new WeatherFeature(new Client(), $weatherRequestUrl);
+        $weatherData = (new WeatherFeature(new Client(), $weatherRequestUrl))->getMessage();
 
         $response = $this->render('Features.Weather.weather-data', [
-            'currentWeatherData' => $weatherApiClient->getWeatherData()->get('current'),
-            'dailyWeatherData' => $weatherApiClient->getWeatherData()->get('daily'),
+            'weatherData' => $weatherData,
             'city' => $cityCookie->getValue(),
             'latitude' => $latitudeCookie->getValue(),
             'longitude' => $longitudeCookie->getValue(),

@@ -2,6 +2,7 @@
 
 use Src\Http\About\AboutController;
 use Src\Http\Contact\ContactController;
+use Src\Http\Errors\InternalServerErrorController;
 use Src\Http\Errors\PageForbiddenController;
 use Src\Http\Errors\PageNotFoundController;
 use Src\Http\Errors\UnauthorizedUserController;
@@ -51,5 +52,6 @@ $router->addRoute('GET', '/confirm-email', EmailConfirmationController::class);
 $router->addRoute('GET', '/404', PageNotFoundController::class);
 $router->addRoute('GET', '/403', PageForbiddenController::class);
 $router->addRoute('GET', '/401', UnauthorizedUserController::class);
+$router->addRoute('GET', '/500', InternalServerErrorController::class);
 
 $router->matchRoute()->send();

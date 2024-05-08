@@ -29,9 +29,6 @@ class Router
         return $this;
     }
 
-    /**
-     * @throws \Exception
-     */
     public function matchRoute(): Response
     {
         $method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
@@ -42,10 +39,20 @@ class Router
             if ($route['method'] === $method && $route['path'] === $path) {
                 if ($route['middleware'] !== null) {
                     $middleware = AuthMiddlewareDetection::from($route['middleware'])->detect();
-                    $middleware->handle();
+                    $response = $middleware->handle();
+                    if ($response !== null) {
+                        return $response;
+                    }
                 }
                 $controller = new $route['controller']();
-                $parameters = $this->resolveParameters($controller, $container);
+
+                try {
+                    $parameters = $this->resolveParameters($controller, $container);
+                } catch (\Exception $e) {
+                    ErrorHandler::handle($e);
+                    return new RedirectResponse('/500');
+                }
+
                 return call_user_func_array($controller, $parameters);
             }
         }

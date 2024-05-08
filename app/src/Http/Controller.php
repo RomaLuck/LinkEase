@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Translation\Loader\ArrayLoader;
+use Symfony\Component\Translation\Loader\PhpFileLoader;
 use Symfony\Component\Translation\Translator;
 
 class Controller
@@ -25,10 +26,10 @@ class Controller
         $locale = 'en_GB';
 
         $translator = new Translator($locale);
-        $translator->addLoader('array', new ArrayLoader());
+        $translator->addLoader('array', new PhpFileLoader());
         $translator->addResource(
             'array',
-            require(__DIR__ . '/../../translations/translation.' . $locale . '.php'),
+            __DIR__ . '/../../translations/translation.' . $locale . '.php',
             $locale
         );
 

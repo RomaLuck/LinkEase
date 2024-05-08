@@ -7,22 +7,6 @@ class WeatherRequestParameters
     private const API_URL = 'https://api.open-meteo.com/v1/forecast';
     private array $parameters = [];
     private string $requestUrl = '';
-    private float $latitude;
-    private float $longitude;
-    private float $elevation;
-    private array $hourly;
-    private array $daily;
-    private array $current;
-    private string $temperatureUnit = 'celsius';
-    private string $windSpeedUnit = 'kmh';
-    private string $precipitationUnit = 'mm';
-    private string $timeFormat = 'iso8601';
-    private string $timezone = 'GMT';
-    private int $pastDays = 0;
-    private int $forecastDays = 7;
-    private string $startDate;
-    private string $endDate;
-    private array $models = ['auto'];
 
     public function __construct(float $latitude, float $longitude)
     {
@@ -40,9 +24,7 @@ class WeatherRequestParameters
         parse_str($query, $queryData);
 
         $self = new self($queryData['latitude'], $queryData['longitude']);
-        foreach ($queryData as $key => $value) {
-            $self->setParametersManually($key, $value);
-        }
+        $self->setParameters($queryData);
 
         return $self;
     }
@@ -54,7 +36,9 @@ class WeatherRequestParameters
 
     public function setParameters(array $parameters): void
     {
-        $this->parameters = $parameters;
+        foreach ($parameters as $key => $value) {
+            $this->addParameter($key, $value);
+        }
     }
 
     public function getLatitude(): float
@@ -79,36 +63,36 @@ class WeatherRequestParameters
         return $this;
     }
 
-    public function getHourly(): array
+    public function getHourlyParameters(): array
     {
         return $this->parameters['hourly'];
     }
 
-    public function setHourly(array $hourly): self
+    public function setHourlyParameters(array $hourly): self
     {
         $this->parameters['hourly'] = $hourly;
 
         return $this;
     }
 
-    public function getDaily(): array
+    public function getDailyParameters(): array
     {
         return $this->parameters['daily'];
     }
 
-    public function setDaily(array $daily): self
+    public function setDailyParameters(array $daily): self
     {
         $this->parameters['daily'] = $daily;
 
         return $this;
     }
 
-    public function getCurrent(): array
+    public function getCurrentParameters(): array
     {
         return $this->parameters['current'];
     }
 
-    public function setCurrent(array $current): self
+    public function setCurrentParameters(array $current): self
     {
         $this->parameters['current'] = $current;
 
@@ -192,7 +176,7 @@ class WeatherRequestParameters
         return $this->parameters['forecast_days'];
     }
 
-    public function setForecastDays(int $forecastDays): self
+    public function setForecastDaysLength(int $forecastDays): self
     {
         $this->parameters['forecast_days'] = $forecastDays;
 
@@ -257,10 +241,34 @@ class WeatherRequestParameters
         return $this;
     }
 
-    public function setParametersManually($key, $value): self
+    public function addParameter($key, $value): self
     {
         $this->parameters[$key] = $value;
 
         return $this;
+    }
+
+    public static function getDailyParametersList(): array
+    {
+        return [
+            'temperature_2m_max',
+            'temperature_2m_min',
+            'precipitation_sum',
+            'precipitation_hours',
+            'wind_speed_10m_max',
+        ];
+    }
+
+    public  static function getCurrentParametersList(): array
+    {
+        return [
+            'pressure_msl',
+            'temperature_2m',
+            'relative_humidity_2m',
+            'precipitation',
+            'rain',
+            'cloud_cover',
+            'wind_speed_10m'
+        ];
     }
 }

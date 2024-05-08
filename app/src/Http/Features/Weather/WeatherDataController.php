@@ -43,9 +43,9 @@ class WeatherDataController extends Controller
         }
 
         $requestParameters = (new WeatherRequestParameters($latitude, $longitude))
-            ->setForecastDays($request->request->get('forecast-length'))
-            ->setCurrent(array_values($request->request->all('current-values')))
-            ->setDaily(array_values($request->request->all('daily-values')))
+            ->setForecastDaysLength($request->request->get('forecast-length'))
+            ->setCurrentParameters(array_values($request->request->all('current-values')))
+            ->setDailyParameters(array_values($request->request->all('daily-values')))
             ->assemble();
 
         $weatherRequestUrl = $requestParameters->getRequestUrl();
@@ -75,7 +75,9 @@ class WeatherDataController extends Controller
             'city' => $cityCookie->getValue(),
             'latitude' => $latitudeCookie->getValue(),
             'longitude' => $longitudeCookie->getValue(),
-            'messageTypes' => MessageTypes::getAll()
+            'messageTypes' => MessageTypes::getAll(),
+            'currentWeatherParametersList' => WeatherRequestParameters::getCurrentParametersList(),
+            'dailyWeatherParametersList' => WeatherRequestParameters::getDailyParametersList(),
         ]);
 
         $response->headers->setCookie($cityCookie);

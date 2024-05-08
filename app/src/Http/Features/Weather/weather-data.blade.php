@@ -40,106 +40,39 @@
                         <div class="row d-flex justify-content-around">
                             <div class="col-md-5 border rounded m-2 p-2">
                                 <h5 class="text-center p-2">Daily</h5>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox"
-                                           name="daily-values[temperature_2m_max]"
-                                           value="temperature_2m_max"
-                                           id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Max temperature
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox"
-                                           name="daily-values[temperature_2m_min]"
-                                           value="temperature_2m_min"
-                                           id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Min temperature
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox"
-                                           name="daily-values[precipitation_sum]"
-                                           value="precipitation_sum"
-                                           id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Precipitation Sum
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox"
-                                           name="daily-values[precipitation_hours]"
-                                           value="precipitation_hours"
-                                           id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Precipitation Hours
-                                    </label>
-                                </div>
+                                @foreach($dailyWeatherParametersList as $dailyWeatherParameter)
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="daily-values[{{$dailyWeatherParameter}}]"
+                                               value="{{$dailyWeatherParameter}}"
+                                               id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            @if(isset($translator))
+                                                {{$translator->trans($dailyWeatherParameter)}}
+                                            @else
+                                                {{$dailyWeatherParameter}}
+                                            @endif
+                                        </label>
+                                    </div>
+                                @endforeach
                             </div>
                             <div class="col-md-5 border rounded m-2 p-2">
                                 <h5 class="text-center p-2">Current</h5>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox"
-                                           name="current-values[temperature_2m]"
-                                           value="temperature_2m" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Temperature
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox"
-                                           name="current-values[relative_humidity_2m]"
-                                           value="relative_humidity_2m" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Relative Humidity
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="current-values[pressure_msl]"
-                                           value="pressure_msl" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Pressure
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="current-values[cloud_cover]"
-                                           value="cloud_cover" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Cloud Cover
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox"
-                                           name="current-values[wind_speed_10m]"
-                                           value="wind_speed_10m" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Wind Speed
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="current-values[precipitation]"
-                                           value="precipitation" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Precipitation
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="current-values[snowfall]"
-                                           value="snowfall"
-                                           id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Snowfall
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="current-values[rain]"
-                                           value="rain"
-                                           id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Rain
-                                    </label>
-                                </div>
+                                @foreach($currentWeatherParametersList as $currentWeatherParameter)
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="daily-values[{{$currentWeatherParameter}}]"
+                                               value="{{$currentWeatherParameter}}"
+                                               id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            @if(isset($translator))
+                                                {{$translator->trans($currentWeatherParameter)}}
+                                            @else
+                                                {{$currentWeatherParameter}}
+                                            @endif
+                                        </label>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>

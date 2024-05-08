@@ -2,6 +2,7 @@
 
 namespace Src\Http\Features\Weather;
 
+use Src\Features\Api\Weather\WeatherRequestParameters;
 use Src\Http\Controller;
 use Src\SendDataService\MessageTypes;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +19,9 @@ class WeatherViewController extends Controller
             'city' => $cookie->get('city') ?? '',
             'latitude' => $cookie->get('latitude') ?? '',
             'longitude' => $cookie->get('longitude') ?? '',
-            'messageTypes' => MessageTypes::getAll()
+            'messageTypes' => MessageTypes::getAll(),
+            'currentWeatherParametersList' => WeatherRequestParameters::getCurrentParametersList(),
+            'dailyWeatherParametersList' => WeatherRequestParameters::getDailyParametersList(),
         ]);
     }
 }

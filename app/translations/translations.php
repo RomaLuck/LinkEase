@@ -19,6 +19,7 @@ $translator->addResource('array', [
     'snowfall' => 'Snowfall',
     'rain' => 'Rain',
     'interval' => 'Interval',
+    'wind_speed_10m_max' => 'Wind Speed'
 ], 'en_GB');
 $translator->addResource('array', [
     'temperature_2m' => 'Температура',

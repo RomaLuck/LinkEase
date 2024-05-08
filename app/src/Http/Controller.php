@@ -6,6 +6,8 @@ use eftec\bladeone\BladeOne;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Translation\Loader\ArrayLoader;
+use Symfony\Component\Translation\Translator;
 
 class Controller
 {
@@ -20,6 +22,17 @@ class Controller
         $blade = new BladeOne($views, $cache, BladeOne::MODE_AUTO);
         $blade->pipeEnable = true;
 
+        $locale = 'en_GB';
+
+        $translator = new Translator($locale);
+        $translator->addLoader('array', new ArrayLoader());
+        $translator->addResource(
+            'array',
+            require(__DIR__ . '/../../translations/translation.' . $locale . '.php'),
+            $locale
+        );
+
+        $attributes['translator'] = $translator;
         $content = $blade->run($path, $attributes);
 
         return new Response($content, $status);

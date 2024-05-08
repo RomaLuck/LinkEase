@@ -1,11 +1,6 @@
 <?php
 
-use Symfony\Component\Translation\Loader\ArrayLoader;
-use Symfony\Component\Translation\Translator;
-
-$translator = new Translator('en_GB');
-$translator->addLoader('array', new ArrayLoader());
-$translator->addResource('array', [
+return [
     'temperature_2m_max' => 'Temperature max',
     'temperature_2m_min' => 'Temperature min',
     'precipitation_sum' => 'Precipitation',
@@ -20,7 +15,4 @@ $translator->addResource('array', [
     'rain' => 'Rain',
     'interval' => 'Interval',
     'wind_speed_10m_max' => 'Wind Speed'
-], 'en_GB');
-$translator->addResource('array', [
-    'temperature_2m' => 'Температура',
-], 'uk_UA');
+];

@@ -25,6 +25,9 @@ class Exception
     #[ORM\Column(type: 'integer')]
     private int $line;
 
+    #[ORM\Column(type: 'string')]
+    private string $hash;
+
     public function getId(): int
     {
         return $this->id;
@@ -78,5 +81,15 @@ class Exception
     {
         $this->line = $line;
         return $this;
+    }
+
+    public function getHash(): string
+    {
+        return $this->hash;
+    }
+
+    public function setHash(string $hash): void
+    {
+        $this->hash = $hash;
     }
 }

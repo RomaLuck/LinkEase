@@ -3,18 +3,15 @@
 namespace Src\Http;
 
 use eftec\bladeone\BladeOne;
+use Src\ExceptionHandler;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\Loader\PhpFileLoader;
 use Symfony\Component\Translation\Translator;
 
 class Controller
 {
-    /**
-     * @throws \Exception
-     */
     protected function render($path, $attributes = [], int $status = 200): Response
     {
         $views = __DIR__ . '/';
@@ -32,9 +29,14 @@ class Controller
             __DIR__ . '/../../translations/translation.' . $locale . '.php',
             $locale
         );
-
         $attributes['translator'] = $translator;
-        $content = $blade->run($path, $attributes);
+
+        try {
+            $content = $blade->run($path, $attributes);
+        } catch (\Exception $exception) {
+            ExceptionHandler::handle($exception);
+            $content = $blade->run('Errors.500');
+        }
 
         return new Response($content, $status);
     }

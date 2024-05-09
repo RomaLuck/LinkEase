@@ -49,7 +49,7 @@ class Router
                 try {
                     $parameters = $this->resolveParameters($controller, $container);
                 } catch (\Exception $e) {
-                    ErrorHandler::handle($e);
+                    ExceptionHandler::handle($e);
                     return new RedirectResponse('/500');
                 }
 

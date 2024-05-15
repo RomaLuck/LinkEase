@@ -2,6 +2,7 @@
 
 use Src\Http\About\AboutController;
 use Src\Http\Contact\ContactController;
+use Src\Http\Contact\ContactFormController;
 use Src\Http\Errors\InternalServerErrorController;
 use Src\Http\Errors\PageForbiddenController;
 use Src\Http\Errors\PageNotFoundController;
@@ -16,10 +17,10 @@ use Src\Http\Profile\Oauth\ConnectionActionCheckController;
 use Src\Http\Profile\ProfileController;
 use Src\Http\Profile\ProfileUpdateController;
 use Src\Http\Profile\Registration\EmailConfirmationController;
-use Src\Http\Profile\Registration\ProfileCreateController;
+use Src\Http\Profile\Registration\RegistrationController;
 use Src\Http\Profile\Registration\RegistrationViewController;
-use Src\Http\Profile\Session\AuthSessionCreateController;
-use Src\Http\Profile\Session\AuthSessionDestroyController;
+use Src\Http\Profile\Session\LogInController;
+use Src\Http\Profile\Session\LogOutController;
 use Src\Http\Profile\Session\LoginViewController;
 use Src\Router;
 
@@ -27,15 +28,16 @@ $router = new Router();
 
 $router->addRoute('GET', '/', HomeController::class);
 $router->addRoute('GET', '/about', AboutController::class);
-$router->addRoute('GET', '/contact', ContactController::class);
+$router->addRoute('GET', '/contact', ContactFormController::class);
+$router->addRoute('POST', '/contact', ContactController::class);
 $router->addRoute('GET', '/profile', ProfileController::class)->middleware('auth');
 
 $router->addRoute('GET', '/login', LoginViewController::class)->middleware('guest');
-$router->addRoute('DELETE', '/session', AuthSessionDestroyController::class);
-$router->addRoute('POST', '/session', AuthSessionCreateController::class);
+$router->addRoute('DELETE', '/session', LogOutController::class);
+$router->addRoute('POST', '/session', LogInController::class);
 
 $router->addRoute('GET', '/register', RegistrationViewController::class)->middleware('guest');
-$router->addRoute('POST', '/register', ProfileCreateController::class);
+$router->addRoute('POST', '/register', RegistrationController::class);
 $router->addRoute('PATCH', '/profile', ProfileUpdateController::class);
 
 $router->addRoute('GET', '/connect/oauth', ConnectActionController::class)->middleware('guest');

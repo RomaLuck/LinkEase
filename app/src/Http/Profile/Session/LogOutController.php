@@ -6,7 +6,7 @@ use Src\Http\Controller;
 use Src\Security\Authenticator;
 use Symfony\Component\HttpFoundation\Response;
 
-class AuthSessionDestroyController extends Controller
+class LogOutController extends Controller
 {
     /**
      * @throws \Exception

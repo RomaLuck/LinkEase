@@ -18,7 +18,7 @@ class Authenticator
     public function authenticate($email, $password): bool
     {
         $user = $this->entityManager->getRepository(User::class)->findOneByEmail($email);
-        if ($user && password_verify($password, $user->getPassword())) {
+        if ($user && $user->isEmailConfirmed() && password_verify($password, $user->getPassword())) {
             $this->login(['id' => $user->getId()]);
 
             return true;

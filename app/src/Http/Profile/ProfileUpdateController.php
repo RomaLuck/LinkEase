@@ -7,7 +7,7 @@ use Doctrine\ORM\Exception\ORMException;
 use Src\Entity\User;
 use Src\FileUploader;
 use Src\Http\Controller;
-use Src\Validator;
+use Src\Validation\Validator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;

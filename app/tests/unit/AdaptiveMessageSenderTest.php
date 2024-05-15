@@ -26,6 +26,8 @@ class AdaptiveMessageSenderTest extends TestCase
             ->willReturn('email');
         $this->userSettings->method('getFeatureType')
             ->willReturn('weather');
+        $this->userSettings->method('getApiRequestUrl')
+            ->willReturn('apiRequestUrl');
         $this->sender = new AdaptiveMessageSender($this->userSettings);
     }
 

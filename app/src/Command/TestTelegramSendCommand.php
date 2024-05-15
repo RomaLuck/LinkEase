@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Commands;
+namespace Src\Command;
 
 use SergiX44\Nutgram\Telegram\Properties\ParseMode;
 use Src\TelegramBot;

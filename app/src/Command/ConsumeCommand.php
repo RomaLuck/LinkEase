@@ -1,8 +1,8 @@
 <?php
 
-namespace Src\Commands;
+namespace Src\Command;
 
-use Src\Queues\MessageQueueManager;
+use Src\Queue\MessageQueueManager;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

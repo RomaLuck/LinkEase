@@ -2,7 +2,7 @@
 
 namespace Src\Http\Features\Weather;
 
-use Src\Features\Api\Weather\WeatherRequestParameters;
+use Src\Feature\Api\Weather\WeatherRequestParameters;
 use Src\Http\Controller;
 use Src\SendDataService\MessageTypes;
 use Symfony\Component\HttpFoundation\Request;

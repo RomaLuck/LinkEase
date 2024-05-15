@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
 use Src\Entity\UserSettings;
-use Src\Features\Api\Weather\WeatherFeature;
+use Src\Feature\Api\Weather\WeatherFeature;
 use Src\SendDataService\AdaptiveMessageSender;
 use Src\SendDataService\Messages\WeatherMessage;
 use Src\SendDataService\Messengers\EmailMessenger;

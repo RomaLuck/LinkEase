@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Commands\Fixtures;
+namespace Src\Command\Fixture;
 
 use Src\Database\EntityManagerFactory;
 use Src\Entity\StudyLibrary;
-use Src\Features\Db\Library\PhpQuestions;
+use Src\Feature\Db\Library\PhpQuestions;
 use Src\OpenAi;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;

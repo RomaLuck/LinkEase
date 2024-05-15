@@ -2,7 +2,7 @@
 
 namespace Src\Http\Features\Study;
 
-use Src\Features\FeatureTypes;
+use Src\Feature\FeatureTypes;
 use Src\Http\Controller;
 use Src\SendDataService\MessageTypes;
 use Symfony\Component\HttpFoundation\Response;

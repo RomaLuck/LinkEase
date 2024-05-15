@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Commands;
+namespace Src\Command;
 
 use GuzzleHttp\Exception\GuzzleException;
 use Src\Database\EntityManagerFactory;

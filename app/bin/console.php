@@ -1,11 +1,11 @@
 <?php
 
 use Dotenv\Dotenv;
-use Src\Commands\ConsumeCommand;
-use Src\Commands\Fixtures\CollectDataCommand;
-use Src\Commands\SendUserMessageCommand;
-use Src\Commands\TestEmailSendCommand;
-use Src\Commands\TestTelegramSendCommand;
+use Src\Command\ConsumeCommand;
+use Src\Command\Fixture\CollectDataCommand;
+use Src\Command\SendUserMessageCommand;
+use Src\Command\TestEmailSendCommand;
+use Src\Command\TestTelegramSendCommand;
 use Src\LoggerFactory;
 use Symfony\Component\Console\Application;
 

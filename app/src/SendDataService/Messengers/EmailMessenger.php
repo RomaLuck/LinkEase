@@ -3,8 +3,8 @@
 namespace Src\SendDataService\Messengers;
 
 use Src\Entity\User;
-use Src\Queues\EmailQueueSenderCommand;
-use Src\Queues\MessageQueueManager;
+use Src\Queue\EmailQueueSenderCommand;
+use Src\Queue\MessageQueueManager;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mime\Email;
 

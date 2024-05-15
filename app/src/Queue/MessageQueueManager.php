@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Queues;
+namespace Src\Queue;
 
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;

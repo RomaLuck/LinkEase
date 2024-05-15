@@ -1,11 +1,11 @@
 <?php
 
-namespace Src\Features\Db\Study;
+namespace Src\Feature\Db\Study;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Src\Entity\StudyLibrary;
-use Src\Features\FeatureInterface;
+use Src\Feature\FeatureInterface;
 use Src\SendDataService\Messages\PHPStudyMessage;
 
 class PHPStudyFeature implements FeatureInterface

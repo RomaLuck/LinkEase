@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Queues;
+namespace Src\Queue;
 
 use Src\MailerFactory;
 use Symfony\Component\Mime\Email;

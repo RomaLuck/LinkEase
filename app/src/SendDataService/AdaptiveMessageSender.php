@@ -5,8 +5,8 @@ namespace Src\SendDataService;
 use GuzzleHttp\Client;
 use Src\Database\EntityManagerFactory;
 use Src\Entity\UserSettings;
-use Src\Features\FeatureDetectionType;
-use Src\Features\FeatureInterface;
+use Src\Feature\FeatureDetectionType;
+use Src\Feature\FeatureInterface;
 use Src\SendDataService\Messengers\SendDataInterface;
 
 class AdaptiveMessageSender

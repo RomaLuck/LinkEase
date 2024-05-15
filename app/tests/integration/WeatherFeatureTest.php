@@ -8,8 +8,8 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
-use Src\Features\Api\Weather\WeatherFeature;
-use Src\Features\Api\Weather\WeatherRequestParameters;
+use Src\Feature\Api\Weather\WeatherFeature;
+use Src\Feature\Api\Weather\WeatherRequestParameters;
 
 class WeatherFeatureTest extends TestCase
 {

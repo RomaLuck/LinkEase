@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Queues;
+namespace Src\Queue;
 
 interface QueueSenderCommandInterface
 {

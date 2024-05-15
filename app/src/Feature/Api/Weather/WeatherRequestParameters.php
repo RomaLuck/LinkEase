@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Features\Api\Weather;
+namespace Src\Feature\Api\Weather;
 
 class WeatherRequestParameters
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Src\Features\Api\Weather;
+namespace Src\Feature\Api\Weather;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
-use Src\Features\FeatureInterface;
+use Src\Feature\FeatureInterface;
 use Src\SendDataService\Messages\WeatherMessage;
 
 class WeatherFeature implements FeatureInterface

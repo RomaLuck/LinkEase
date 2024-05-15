@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Features\Db\Library;
+namespace Src\Feature\Db\Library;
 
 class PhpQuestions
 {

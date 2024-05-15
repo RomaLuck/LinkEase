@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Features;
+namespace Src\Feature;
 
 class FeatureTypes
 {

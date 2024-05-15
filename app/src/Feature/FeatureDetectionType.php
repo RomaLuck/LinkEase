@@ -1,11 +1,11 @@
 <?php
 
-namespace Src\Features;
+namespace Src\Feature;
 
 use Doctrine\ORM\EntityManager;
 use GuzzleHttp\ClientInterface;
-use Src\Features\Api\Weather\WeatherFeature;
-use Src\Features\Db\Study\PHPStudyFeature;
+use Src\Feature\Api\Weather\WeatherFeature;
+use Src\Feature\Db\Study\PHPStudyFeature;
 
 enum FeatureDetectionType: string
 {

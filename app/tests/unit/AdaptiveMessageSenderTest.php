@@ -13,7 +13,6 @@ use Src\SendDataService\Messengers\EmailMessenger;
 
 class AdaptiveMessageSenderTest extends TestCase
 {
-    private $userSettings;
     private AdaptiveMessageSender $sender;
 
     /**
@@ -21,14 +20,14 @@ class AdaptiveMessageSenderTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->userSettings = $this->createMock(UserSettings::class);
-        $this->userSettings->method('getMessageType')
+        $userSettings = $this->createMock(UserSettings::class);
+        $userSettings->method('getMessageType')
             ->willReturn('email');
-        $this->userSettings->method('getFeatureType')
+        $userSettings->method('getFeatureType')
             ->willReturn('weather');
-        $this->userSettings->method('getApiRequestUrl')
+        $userSettings->method('getApiRequestUrl')
             ->willReturn('apiRequestUrl');
-        $this->sender = new AdaptiveMessageSender($this->userSettings);
+        $this->sender = new AdaptiveMessageSender($userSettings);
     }
 
     public function testFeature(): void

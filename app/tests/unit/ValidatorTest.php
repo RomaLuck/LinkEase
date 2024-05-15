@@ -2,9 +2,9 @@
 
 namespace unit;
 
-use Src\Validator;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Src\Validation\Validator;
 
 class ValidatorTest extends TestCase
 {

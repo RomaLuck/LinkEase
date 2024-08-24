@@ -1,9 +1,10 @@
-version: "3"
-
 services:
   php-apache:
     container_name: "${CONTAINER_NAME_PREFIX}-apache-php"
     build: ./docker/php-apache
+    user: ${UID}:${GID}
+    environment:
+      XDEBUG_MODE: "${XDEBUG_MODE:-off}"
     volumes:
       - ${PATH_TO_PROJECT}:/var/www/html
     restart: always
@@ -57,8 +58,6 @@ services:
     volumes:
       - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
       - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
-    depends_on:
-      - php-apache
     networks:
       - my_network
 

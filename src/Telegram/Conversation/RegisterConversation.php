@@ -1,6 +1,6 @@
 <?php
 
-namespace Telegram\Conversation;
+namespace Src\Telegram\Conversation;
 
 use Src\Database;
 use Psr\SimpleCache\InvalidArgumentException;

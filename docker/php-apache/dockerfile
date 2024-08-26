@@ -1,8 +1,8 @@
 FROM php:8.2-apache
 
 #INI-Files
-COPY ./opcache.ini "$PHP_INI_DIR/conf.d/docker-php-ext-opcache.ini"
-COPY ./xdebug.ini "$PHP_INI_DIR/conf.d/99-xdebug.ini"
+COPY ./docker/php-apache/opcache.ini "$PHP_INI_DIR/conf.d/docker-php-ext-opcache.ini"
+COPY ./docker/php-apache/xdebug.ini "$PHP_INI_DIR/conf.d/99-xdebug.ini"
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 RUN echo "ServerName 127.0.0.1" >> /etc/apache2/apache2.conf
 
@@ -32,6 +32,6 @@ RUN curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | ba
 
 EXPOSE 8000
 
-COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker/php-apache/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

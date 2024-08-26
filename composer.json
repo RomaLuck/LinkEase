@@ -32,7 +32,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Src\\": "src/"
+      "Src\\": "src/",
+      "eftec\\": "vendor/eftec/"
     }
   },
   "config": {

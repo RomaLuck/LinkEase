@@ -48,16 +48,24 @@ Start docker-compose to start your environment:
 docker-compose up
 ```
 
+Create a folder for caching blade and grant permissions
+```
+docker exec -it linkease-apache-php bash
+
+mkdir var/cache
+chown -R www-data:www-data var/cache
+```
+
 Install Packages
 
 ```
-docker exec webdemo-apache-php composer install
+docker exec linkease-apache-php composer install
 ```
 
 Create schemas
 
 ```
-docker exec webdemo-apache-php bin/doctrine orm:schema-tool:create
+docker exec linkease-apache-php bin/doctrine orm:schema-tool:create
 ```
 
 ## Test
@@ -71,5 +79,5 @@ cp phpunit.xml.dist phpunit.xml
 Run tests
 
 ```
-docker exec webdemo-apache-php vendor/bin/phpunit
+docker exec linkease-apache-php vendor/bin/phpunit
 ```

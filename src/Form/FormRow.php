@@ -32,4 +32,9 @@ class FormRow
     {
         return $this->rules;
     }
+
+    public function addRule(RuleInterface $rule): void
+    {
+        $this->rules[] = $rule;
+    }
 }

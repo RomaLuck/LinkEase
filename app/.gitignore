@@ -1,9 +1,0 @@
-.env
-phpunit.xml
-.phpunit.result.cache
-/.idea/
-/var/
-/node_modules/
-/vendor/
-/public/uploads/
-/logs/
